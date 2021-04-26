@@ -19,12 +19,14 @@ namespace WebApi.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly ILogger<EmployeeController> _logger;
-        private DbAccessor dbAccessor = new DbAccessor("connection string");
+        private IDbAccessor dbAccessor = new DbAccessor("Server = WIN-NA5S2RO1BDR; Database=EmployeesDirectory; Trusted_Connection=True;");
 
         public EmployeeController(ILogger<EmployeeController> logger)
         {
             _logger = logger;
         }
+
+
 
         [HttpGet]
         [Route("get-all-employees")]
@@ -38,6 +40,8 @@ namespace WebApi.Controllers
 
             return new ActionResult<IEnumerable<Employee>>(result);
         }
+
+
 
         [HttpGet]
         [Route("get-employees-by-name")]
@@ -56,6 +60,8 @@ namespace WebApi.Controllers
             return new ActionResult<IEnumerable<Employee>>(result);
         }
 
+
+
         [HttpGet]
         [Route("get-phones")]
         public ActionResult<IEnumerable<Phone>> GetPhonesById(int employeeId)
@@ -70,6 +76,8 @@ namespace WebApi.Controllers
 
             return new ActionResult<IEnumerable<Phone>>(result);
         }
+
+
 
         [HttpPut]
         [Route("add-user")]
@@ -86,7 +94,7 @@ namespace WebApi.Controllers
 
             if (employee.SecondName != null || employee.MiddleName != null || employee.BirthDay != null)
             {
-                dbAccessor.ChangeUser(employeeId, "", "", null, employee.SecondName, employee.MiddleName, employee.BirthDay, out resultCode);
+                dbAccessor.ChangeUser(employeeId, "", null, employee.SecondName, employee.MiddleName, employee.BirthDay, out resultCode);
             }
 
             if (resultCode == StoredProcedureResultCode.InternalError)
@@ -94,6 +102,8 @@ namespace WebApi.Controllers
 
             return new ActionResult<int>(employeeId);
         }
+
+
 
         [HttpPut]
         [Route("add-phone")]
@@ -116,10 +126,5 @@ namespace WebApi.Controllers
 
             return new OkResult();
         }
-
-
-
-
-
     }
 }
