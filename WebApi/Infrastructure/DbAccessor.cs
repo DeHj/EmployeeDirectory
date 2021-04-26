@@ -13,25 +13,31 @@ namespace EmployeeDirectory.Infrastructure
     {
         private string connectionString { get; }
 
+        /*
         private IList<Employee> employees = new List<Employee>();
         private IList<Phone> phones = new List<Phone>();
         public IList<string> ints = new List<string>() { "1", "2", "3" };
+        */
 
         public DbAccessor (string connectionString)
         {
             this.connectionString = connectionString;
         }
 
-        
+        private T DBNullCastToClass<T>(object dbObject) where T : class
+            => dbObject is DBNull ? null : (T)dbObject;
+        private T? DBNullCastToStruct<T>(object dbObject) where T : struct
+            => dbObject is DBNull ? null : (T)dbObject;
+
         private Employee readEmployee(in SqlDataReader sqlDataReader)
         {
             return new Employee
             {
                 Login = (string)sqlDataReader.GetValue(0),
                 FirstName = (string)sqlDataReader.GetValue(1),
-                SecondName = (string)sqlDataReader.GetValue(2),
-                MiddleName = (string)sqlDataReader.GetValue(3),
-                BirthDay = (DateTime)sqlDataReader.GetValue(4),
+                SecondName = DBNullCastToClass<string>(sqlDataReader.GetValue(2)),
+                MiddleName = DBNullCastToClass<string>(sqlDataReader.GetValue(3)),
+                BirthDay = DBNullCastToStruct<DateTime>(sqlDataReader.GetValue(4)),
                 Id = (int)sqlDataReader.GetValue(5)
             };
         }
@@ -74,21 +80,17 @@ namespace EmployeeDirectory.Infrastructure
 
 
         public IEnumerable<Employee> GetAllEmployees(
-            int from,
-            int count,
+            int from, int count,
             out StoredProcedureResultCode resultCode)
         {
-            resultCode = StoredProcedureResultCode.OK;
-            return employees;
-
             try
             {
                 resultCode = StoredProcedureResultCode.OK;
                 return GetCollectionByProcedure(
-                "GetAllEmployees",
+                "get_all_employees",
                 new SqlParameter[] {
-                    new SqlParameter("from", from),
-                    new SqlParameter("page_size", count)
+                    new SqlParameter("@from", from),
+                    new SqlParameter("@page_size", count)
                 },
                 readEmployee
                 );
@@ -99,29 +101,25 @@ namespace EmployeeDirectory.Infrastructure
                 return null;
             }
         }
+
+
 
         public IEnumerable<Employee> GetEmployeesByName(
-            string firstName,
-            string secondName,
-            string middleName,
-            int from,
-            int count,
+            string firstName, string secondName, string middleName,
+            int from, int count,
             out StoredProcedureResultCode resultCode)
         {
-            resultCode = StoredProcedureResultCode.OK;
-            return employees.Where(employee => (employee.FirstName == firstName));
-
             try
             {
                 resultCode = StoredProcedureResultCode.OK;
                 return GetCollectionByProcedure(
-                "GetEmployeesByName",
+                "get_employees_by_name",
                 new SqlParameter[] {
-                    new SqlParameter("first_name", firstName),
-                    new SqlParameter("second_name", secondName),
-                    new SqlParameter("middle_name", middleName),
-                    new SqlParameter("from", from),
-                    new SqlParameter("page_size", count)
+                    new SqlParameter("@first_name", firstName),
+                    new SqlParameter("@second_name", secondName),
+                    new SqlParameter("@middle_name", middleName),
+                    new SqlParameter("@from", from),
+                    new SqlParameter("@page_size", count)
                 },
                 readEmployee
                 );
@@ -132,21 +130,20 @@ namespace EmployeeDirectory.Infrastructure
                 return null;
             }
         }
+
+
 
         public IEnumerable<Phone> GetPhonesById(
             int idEmployee,
             out StoredProcedureResultCode resultCode)
         {
-            resultCode = StoredProcedureResultCode.OK;
-            return phones.Where(phone => (phone.IdEmployee == idEmployee));
-
             try
             {
                 resultCode = StoredProcedureResultCode.OK;
                 return GetCollectionByProcedure(
-                "GetEmployeesByName",
+                "get_phones_by_id",
                 new SqlParameter[] {
-                    new SqlParameter("id employee", idEmployee)
+                    new SqlParameter("id_employee", idEmployee)
                 },
                 readPhone
                 );
@@ -158,34 +155,207 @@ namespace EmployeeDirectory.Infrastructure
             }
         }
 
+
+
         public void AddUser(
-            string login, string hashsum, string firstName, out int userId, out StoredProcedureResultCode resultCode)
+            string login, string hashsum, string firstName,
+            out int userId, out StoredProcedureResultCode resultCode)
         {
-            Random R = new Random();
-            userId = R.Next();
-            employees.Add(new Employee { Login = login, FirstName = firstName, Id = userId });
             resultCode = StoredProcedureResultCode.OK;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("add_user", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                List<SqlParameter> sqlParams = new List<SqlParameter>(5);
+
+                sqlParams.Add(new SqlParameter("@login", login));
+                sqlParams.Add(new SqlParameter("@first_name", firstName));
+                sqlParams.Add(new SqlParameter("@hashsum", hashsum));
+                sqlParams.Add(new SqlParameter
+                {
+                    ParameterName = "@employee_id",
+                    Direction = System.Data.ParameterDirection.Output,
+                    SqlDbType = System.Data.SqlDbType.Int
+                });
+                sqlParams.Add(new SqlParameter
+                {
+                    ParameterName = "@result",
+                    Direction = System.Data.ParameterDirection.Output,
+                    SqlDbType = System.Data.SqlDbType.Int
+                });
+                command.Parameters.AddRange(sqlParams.ToArray());
+
+                command.ExecuteNonQuery();
+
+                userId = 0;
+
+                int result = (int)command.Parameters["@result"].Value;
+                if (result == 0)
+                {
+                    resultCode = StoredProcedureResultCode.OK;
+                    userId = (int)command.Parameters["@employee_id"].Value;
+                }
+                else if (result == 1)
+                    resultCode = StoredProcedureResultCode.AlreadyExist;
+                else
+                    resultCode = StoredProcedureResultCode.InternalError;
+            }
         }
+
+
 
         public void AddPhone(int userId, string phoneNumber, out StoredProcedureResultCode resultCode)
         {
-            phones.Add(new Phone { IdEmployee = userId, PhoneValue = phoneNumber });
             resultCode = StoredProcedureResultCode.OK;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("add_phone", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                List<SqlParameter> sqlParams = new List<SqlParameter>(3);
+
+                sqlParams.Add(new SqlParameter("@employee_id", userId));
+                sqlParams.Add(new SqlParameter("@phone_number", phoneNumber));
+                sqlParams.Add(new SqlParameter
+                {
+                    ParameterName = "@result",
+                    Direction = System.Data.ParameterDirection.Output,
+                    SqlDbType = System.Data.SqlDbType.Int
+                });
+                command.Parameters.AddRange(sqlParams.ToArray());
+
+                command.ExecuteNonQuery();
+
+                int result = (int)command.Parameters["@result"].Value;
+                if (result == 0)
+                    resultCode = StoredProcedureResultCode.OK;
+                else if (result == 1)
+                    resultCode = StoredProcedureResultCode.AlreadyExist;
+                else if (result == 2)
+                    resultCode = StoredProcedureResultCode.NotExist;
+                else
+                    resultCode = StoredProcedureResultCode.InternalError;
+            }
         }
 
-        public void RemoveUser(string userId, out StoredProcedureResultCode resultCode)
+
+
+        public void RemoveUser(int userId, out StoredProcedureResultCode resultCode)
         {
-            throw new NotImplementedException();
+            resultCode = StoredProcedureResultCode.OK;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("delete_user", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                List<SqlParameter> sqlParams = new List<SqlParameter>(2);
+
+                sqlParams.Add(new SqlParameter("@employee_id", userId));
+                sqlParams.Add(new SqlParameter
+                {
+                    ParameterName = "@result",
+                    Direction = System.Data.ParameterDirection.Output,
+                    SqlDbType = System.Data.SqlDbType.Int
+                });
+                command.Parameters.AddRange(sqlParams.ToArray());
+
+                command.ExecuteNonQuery();
+
+                int result = (int)command.Parameters["@result"].Value;
+                if (result == 0)
+                    resultCode = StoredProcedureResultCode.OK;
+                else if (result == 1)
+                    resultCode = StoredProcedureResultCode.NotExist;
+                else
+                    resultCode = StoredProcedureResultCode.InternalError;
+            }
         }
 
-        public void ChangeUser(int userId, string hashsum, string newHashsum, string firstName, string secondName, string middleName, DateTime? birthday, out StoredProcedureResultCode resultCode)
+
+
+        public void ChangeUser(int userId, string newHashsum, string firstName, string secondName, string middleName, DateTime? birthday, out StoredProcedureResultCode resultCode)
         {
-            throw new NotImplementedException();
+            resultCode = StoredProcedureResultCode.OK;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("change_user", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                List<SqlParameter> sqlParams = new List<SqlParameter>(7);
+
+                sqlParams.Add(new SqlParameter("@employee_id", userId));
+                //if (newHashsum != null)
+                    sqlParams.Add(new SqlParameter("@new_hashsum", newHashsum));
+                //if (firstName != null)
+                    sqlParams.Add(new SqlParameter("@first_name", firstName));
+                //if (secondName != null)
+                    sqlParams.Add(new SqlParameter("@second_name", secondName));
+                //if (middleName != null)
+                    sqlParams.Add(new SqlParameter("@middle_name", middleName));
+                //if (birthday != null)
+                    sqlParams.Add(new SqlParameter("@birthday", birthday));
+                sqlParams.Add(new SqlParameter
+                {
+                    ParameterName = "@result",
+                    Direction = System.Data.ParameterDirection.Output,
+                    SqlDbType = System.Data.SqlDbType.Int
+                });
+                command.Parameters.AddRange(sqlParams.ToArray());
+
+                command.ExecuteNonQuery();
+
+                int result = (int)command.Parameters["@result"].Value;
+                if (result == 0)
+                    resultCode = StoredProcedureResultCode.OK;
+                else if (result == 1)
+                    resultCode = StoredProcedureResultCode.NotExist;
+                else
+                    resultCode = StoredProcedureResultCode.InternalError;
+            }
         }
+
+
 
         public void RemovePhone(string phoneNumber, out StoredProcedureResultCode resultCode)
         {
-            throw new NotImplementedException();
+            resultCode = StoredProcedureResultCode.OK;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("delete_phone", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                List<SqlParameter> sqlParams = new List<SqlParameter>(2);
+
+                sqlParams.Add(new SqlParameter("@phone_number", phoneNumber));
+                sqlParams.Add(new SqlParameter
+                {
+                    ParameterName = "@result",
+                    Direction = System.Data.ParameterDirection.Output,
+                    SqlDbType = System.Data.SqlDbType.Int
+                });
+                command.Parameters.AddRange(sqlParams.ToArray());
+
+                command.ExecuteNonQuery();
+
+                int result = (int)command.Parameters["@result"].Value;
+                if (result == 0)
+                    resultCode = StoredProcedureResultCode.OK;
+                else if (result == 1)
+                    resultCode = StoredProcedureResultCode.NotExist;
+                else
+                    resultCode = StoredProcedureResultCode.InternalError;
+            }
         }
     }
 }
