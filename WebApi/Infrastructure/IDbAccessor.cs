@@ -73,7 +73,7 @@ namespace EmployeeDirectory.Infrastructure
         /// <param name="hashsum">Hashsum of the password of the user to delete</param>
         /// <param name="resultCode">Result code of the operation</param>
         void RemoveUser(
-            string userId,
+            int userId,
             out StoredProcedureResultCode resultCode
             );
 
