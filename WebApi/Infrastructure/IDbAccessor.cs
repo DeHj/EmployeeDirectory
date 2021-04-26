@@ -81,7 +81,6 @@ namespace EmployeeDirectory.Infrastructure
         /// Change user data
         /// </summary>
         /// <param name="login">Login of the user</param>
-        /// <param name="hashsum">User password hashsum</param>
         /// <param name="newHashsum">User new password hashsum</param>
         /// <param name="firstName">New user firstname</param>
         /// <param name="secondName">New user secondname</param>
@@ -90,7 +89,6 @@ namespace EmployeeDirectory.Infrastructure
         /// <param name="resultCode">Result code of the operation</param>
         void ChangeUser(
             int userId,
-            string hashsum,
             string newHashsum,
             string firstName,
             string secondName,
