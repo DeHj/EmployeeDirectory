@@ -70,6 +70,24 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Add phone number.
+        /// </summary>
+        public static string addPhoneNumber_Button1 {
+            get {
+                return ResourceManager.GetString("addPhoneNumber_Button1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Add new phone number for employee.
+        /// </summary>
+        public static string addPhoneNumber_TextBlock1 {
+            get {
+                return ResourceManager.GetString("addPhoneNumber_TextBlock1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Delete phone number.
         /// </summary>
         public static string deletePhoneNumber {

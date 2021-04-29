@@ -120,6 +120,12 @@
   <data name="addNewEmployee" xml:space="preserve">
     <value>Add new employee</value>
   </data>
+  <data name="addPhoneNumber_Button1" xml:space="preserve">
+    <value>Add phone number</value>
+  </data>
+  <data name="addPhoneNumber_TextBlock1" xml:space="preserve">
+    <value>Add new phone number for employee</value>
+  </data>
   <data name="deletePhoneNumber" xml:space="preserve">
     <value>Delete phone number</value>
   </data>
