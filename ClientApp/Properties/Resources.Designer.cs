@@ -72,27 +72,27 @@ namespace ClientApp.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Enter the first name (optional).
         /// </summary>
-        public static string promptFirstName {
+        public static string hintFirstName {
             get {
-                return ResourceManager.GetString("promptFirstName", resourceCulture);
+                return ResourceManager.GetString("hintFirstName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Enter the middle name (optional).
         /// </summary>
-        public static string promptMiddleName {
+        public static string hintMiddleName {
             get {
-                return ResourceManager.GetString("promptMiddleName", resourceCulture);
+                return ResourceManager.GetString("hintMiddleName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Enter the second name (optional).
         /// </summary>
-        public static string promptSecondName {
+        public static string hintSecondName {
             get {
-                return ResourceManager.GetString("promptSecondName", resourceCulture);
+                return ResourceManager.GetString("hintSecondName", resourceCulture);
             }
         }
     }
