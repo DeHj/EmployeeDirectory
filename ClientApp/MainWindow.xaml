@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:ClientApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <DockPanel x:Name="mainDockPanel" LastChildFill="True" Margin="10 10 10 10">
+        <StackPanel x:Name="Tabs" DockPanel.Dock="Top" Orientation="Horizontal"/>
 
-    </Grid>
+
+        <Border x:Name="pagePanel"/>
+    </DockPanel>
 </Window>

@@ -20,9 +20,31 @@ namespace ClientApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private int count = 0;
+        private readonly Dictionary<string, Panel> pages = new Dictionary<string, Panel>();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            // Create not closable tabs
+            Tabs.Children.Add(new Elements.Tab("UserList", openUserList));
+            Tabs.Children.Add(new Elements.Tab("AddUser", addUser));
+        }
+
+        private void addUser(object sender, RoutedEventArgs e)
+        {
+
+
+            int tmp = count;
+            RoutedEventHandler handler = (object sender, RoutedEventArgs e) => { Title = $"{tmp}"; };
+
+            Tabs.Children.Add(new Elements.Tab($"tab {count++}", handler, handler));
+        }
+
+        private void openUserList(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
