@@ -20,7 +20,7 @@ namespace ClientApp.Elements
     /// </summary>
     public partial class HintTextBox : Grid
     {
-        public string Prompt { set { promptBlock.Text = value; } }
+        public string Hint { set { promptBlock.Text = value; } }
         public string Text { get { return txtUserEntry.Text; } }
 
         public HintTextBox()
