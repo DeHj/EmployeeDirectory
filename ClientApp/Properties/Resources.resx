@@ -120,13 +120,13 @@
   <data name="findEmployee" xml:space="preserve">
     <value>Find an employee</value>
   </data>
-  <data name="hintFirstName" xml:space="preserve">
+  <data name="hintFirstNameOptional" xml:space="preserve">
     <value>Enter the first name (optional)</value>
   </data>
-  <data name="hintMiddleName" xml:space="preserve">
+  <data name="hintMiddleNameOptional" xml:space="preserve">
     <value>Enter the middle name (optional)</value>
   </data>
-  <data name="hintSecondName" xml:space="preserve">
+  <data name="hintSecondNameOptional" xml:space="preserve">
     <value>Enter the second name (optional)</value>
   </data>
 </root>
