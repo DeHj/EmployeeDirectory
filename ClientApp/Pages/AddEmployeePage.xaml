@@ -10,8 +10,17 @@
       Width="300"
       Height="400">
     <Border DockPanel.Dock="Top" BorderThickness="1">
-        <StackPanel Margin="10 10 10 10">
-        </StackPanel>
+        <DockPanel Margin="10 10 10 10">
+            <e:HintTextBox x:Name="login" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintLogin}" Optional="False"/>
+            <e:HintTextBox x:Name="firstName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintFirstNameOptional}" Optional="False"/>
+            <e:HintTextBox x:Name="secondName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintSecondNameOptional}" Optional="True"/>
+            <e:HintTextBox x:Name="middleName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintMiddleNameOptional}" Optional="True"/>
+            <DatePicker x:Name="birthday" DockPanel.Dock="Top"/>
+            <Button x:Name="addEmployee"
+                    DockPanel.Dock="Bottom" 
+                    Click="addEmployee_Click" 
+                    Content="{x:Static res:Resources.addNewEmployee}"/>
+        </DockPanel>
     </Border>
 
     <DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
@@ -19,7 +28,7 @@
         <Button x:Name="NextPage" HorizontalAlignment="Right" Width="20">&gt;</Button>
     </DockPanel>
 
-    <StackPanel x:Name="Employees">
+    <Grid>
         
-    </StackPanel>
+    </Grid>
 </DockPanel>

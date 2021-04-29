@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="addNewEmployee" xml:space="preserve">
+    <value>Add new employee</value>
+  </data>
   <data name="findEmployee" xml:space="preserve">
     <value>Find an employee</value>
   </data>
+  <data name="hintFirstName" xml:space="preserve">
+    <value>Enter the first name</value>
+  </data>
   <data name="hintFirstNameOptional" xml:space="preserve">
     <value>Enter the first name (optional)</value>
+  </data>
+  <data name="hintLogin" xml:space="preserve">
+    <value>Enter the login</value>
   </data>
   <data name="hintMiddleNameOptional" xml:space="preserve">
     <value>Enter the middle name (optional)</value>

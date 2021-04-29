@@ -61,6 +61,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Add new employee.
+        /// </summary>
+        public static string addNewEmployee {
+            get {
+                return ResourceManager.GetString("addNewEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Find an employee.
         /// </summary>
         public static string findEmployee {
@@ -70,11 +79,29 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Enter the first name.
+        /// </summary>
+        public static string hintFirstName {
+            get {
+                return ResourceManager.GetString("hintFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Enter the first name (optional).
         /// </summary>
         public static string hintFirstNameOptional {
             get {
                 return ResourceManager.GetString("hintFirstNameOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Enter the login.
+        /// </summary>
+        public static string hintLogin {
+            get {
+                return ResourceManager.GetString("hintLogin", resourceCulture);
             }
         }
         
