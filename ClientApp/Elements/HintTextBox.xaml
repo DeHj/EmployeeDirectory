@@ -8,7 +8,7 @@
     </Grid.RowDefinitions>
 
     <Grid Grid.Row="0" Background="{StaticResource brushWatermarkBackground}" Style="{StaticResource EntryFieldStyle}" >
-        <TextBlock x:Name="promptBlock" Margin="5,2" Text="This prompt dissappears as you type..." Foreground="{StaticResource brushWatermarkForeground}" />
+        <TextBlock x:Name="promptBlock" Margin="5,2" Foreground="{StaticResource brushWatermarkForeground}" />
         <TextBox Name="txtUserEntry" Background="Transparent" BorderBrush="{StaticResource brushWatermarkBorder}" KeyUp="txtUserEntry_KeyUp" />
     </Grid>
 </Grid>

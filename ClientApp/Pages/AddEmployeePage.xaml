@@ -6,9 +6,7 @@
       xmlns:e="clr-namespace:ClientApp.Elements"
       xmlns:res="clr-namespace:ClientApp.Properties"     
       xmlns:local="clr-namespace:ClientApp.Pages"
-      mc:Ignorable="d"
-      Width="300"
-      Height="400">
+      mc:Ignorable="d">
     <Border DockPanel.Dock="Top" BorderThickness="1">
         <DockPanel Margin="10 10 10 10">
             <e:HintTextBox x:Name="login" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintLogin}" Optional="False"/>
@@ -24,8 +22,8 @@
     </Border>
 
     <DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
-        <Button x:Name="PrevPage" HorizontalAlignment="Left" Width="20">&lt;</Button>
-        <Button x:Name="NextPage" HorizontalAlignment="Right" Width="20">&gt;</Button>
+        <Button x:Name="prevPage" HorizontalAlignment="Left" Width="20">&lt;</Button>
+        <Button x:Name="nextPage" HorizontalAlignment="Right" Width="20">&gt;</Button>
     </DockPanel>
 
     <Grid>

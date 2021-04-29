@@ -24,9 +24,9 @@ namespace ClientApp.Elements
         {
             InitializeComponent();
 
-            Name.Text = $"{firstName} {secondName ?? ""} {middleName ?? ""}".Replace("  ", " ");
-            Login.Text = login;
-            if (birthday != null) Birthday.Text = birthday?.GetDateTimeFormats('D').First();
+            nameText.Text = $"{firstName} {secondName ?? ""} {middleName ?? ""}".Replace("  ", " ");
+            loginText.Text = login;
+            if (birthday != null) birthdayText.Text = birthday?.GetDateTimeFormats('D').First();
         }
     }
 }

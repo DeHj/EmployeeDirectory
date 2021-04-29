@@ -15,8 +15,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" x:Name="Name" FontSize="18"/>
-        <TextBlock Grid.Row="1" x:Name="Login" FontSize="14"/>
-        <TextBlock Grid.Row="2" x:Name="Birthday" FontSize="14"/>
+        <TextBlock Grid.Row="0" x:Name="nameText" FontSize="18"/>
+        <TextBlock Grid.Row="1" x:Name="loginText" FontSize="14"/>
+        <TextBlock Grid.Row="2" x:Name="birthdayText" FontSize="14"/>
     </Grid>
 </Grid>
