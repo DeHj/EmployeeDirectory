@@ -1,0 +1,15 @@
+﻿<DockPanel x:Class="ClientApp.Elements.Tab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClientApp.Elements"
+             mc:Ignorable="d" 
+             d:DesignHeight="20" 
+             d:MinWidth="100"
+             LastChildFill="True"
+             MouseEnter="Tab_MouseEnter"
+             MouseLeave="Tab_MouseLeave">
+    <Button x:Name="closeTab" DockPanel.Dock="Right" Width="15" Height="15"></Button>
+    <Button x:Name="openTab" HorizontalContentAlignment="Left">tabName</Button>
+</DockPanel>
