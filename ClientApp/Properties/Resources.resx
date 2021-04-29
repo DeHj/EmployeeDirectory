@@ -120,6 +120,12 @@
   <data name="addNewEmployee" xml:space="preserve">
     <value>Add new employee</value>
   </data>
+  <data name="deletePhoneNumber" xml:space="preserve">
+    <value>Delete phone number</value>
+  </data>
+  <data name="employeePhonesList" xml:space="preserve">
+    <value>Employee phones number list:</value>
+  </data>
   <data name="findEmployee" xml:space="preserve">
     <value>Find an employee</value>
   </data>

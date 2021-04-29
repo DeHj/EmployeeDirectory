@@ -70,6 +70,24 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete phone number.
+        /// </summary>
+        public static string deletePhoneNumber {
+            get {
+                return ResourceManager.GetString("deletePhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Employee phones number list:.
+        /// </summary>
+        public static string employeePhonesList {
+            get {
+                return ResourceManager.GetString("employeePhonesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Find an employee.
         /// </summary>
         public static string findEmployee {
