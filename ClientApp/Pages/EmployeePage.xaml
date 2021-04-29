@@ -1,0 +1,23 @@
+﻿<DockPanel x:Class="ClientApp.Pages.EmployeePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:res="clr-namespace:ClientApp.Properties"
+             xmlns:local="clr-namespace:ClientApp.Pages"
+             mc:Ignorable="d">
+    <TextBlock x:Name="nameText" DockPanel.Dock="Top" Text="employee name"/>
+    <TextBlock x:Name="loginText" DockPanel.Dock="Top" Text="employee login"/>
+    <TextBlock x:Name="birthdayText" DockPanel.Dock="Top" Text="employee birthday"/>
+
+    <TextBlock x:Name="phonesListText" DockPanel.Dock="Top" Text="{x:Static res:Resources.employeePhonesList}"/>
+
+    <Button x:Name="deleteEmployee"
+            DockPanel.Dock="Bottom"
+            HorizontalAlignment="Left"
+            Content="{x:Static res:Resources.deletePhoneNumber}"
+            Click="deleteEmployee_Click"/>
+
+    <ListBox x:Name="phonesList" DockPanel.Dock="Top"/>
+
+</DockPanel>
