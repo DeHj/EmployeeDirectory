@@ -22,7 +22,7 @@ namespace ClientApp.Elements
     {
         public string Hint { set { promptBlock.Text = value; } }
         public string Text { get { return txtUserEntry.Text; } }
-
+        public bool Optional { get; set; }
         public HintTextBox()
         {
             InitializeComponent();

@@ -11,9 +11,9 @@
       Height="400">
     <Border DockPanel.Dock="Top" BorderThickness="1">
         <StackPanel Margin="10 10 10 10">
-            <e:HintTextBox x:Name="firstName" Hint="{x:Static res:Resources.hintFirstNameOptional}"></e:HintTextBox>
-            <e:HintTextBox x:Name="secondName" Hint="{x:Static res:Resources.hintSecondNameOptional}"></e:HintTextBox>
-            <e:HintTextBox x:Name="middleName" Hint="{x:Static res:Resources.hintMiddleNameOptional}"></e:HintTextBox>
+            <e:HintTextBox x:Name="firstName" Hint="{x:Static res:Resources.hintFirstNameOptional}" Optional="True"/>
+            <e:HintTextBox x:Name="secondName" Hint="{x:Static res:Resources.hintSecondNameOptional}" Optional="True"/>
+            <e:HintTextBox x:Name="middleName" Hint="{x:Static res:Resources.hintMiddleNameOptional}" Optional="True"/>
             <Button DockPanel.Dock="Right"
                     Click="Find_Click"
                     HorizontalAlignment="Left"
