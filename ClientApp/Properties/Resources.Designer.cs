@@ -169,6 +169,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Search employee by name.
+        /// </summary>
+        public static string searchByName {
+            get {
+                return ResourceManager.GetString("searchByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Show all employees.
         /// </summary>
         public static string showAllEmployees {

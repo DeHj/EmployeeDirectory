@@ -153,6 +153,9 @@
   <data name="hintSecondNameOptional" xml:space="preserve">
     <value>Enter the second name (optional)</value>
   </data>
+  <data name="searchByName" xml:space="preserve">
+    <value>Search employee by name</value>
+  </data>
   <data name="showAllEmployees" xml:space="preserve">
     <value>Show all employees</value>
   </data>
