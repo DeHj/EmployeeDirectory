@@ -25,9 +25,14 @@ namespace ClientApp.Pages
             InitializeComponent();
         }
 
-        private void Find_Click(object sender, RoutedEventArgs e)
+        private void find_Click(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void allEmployees_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -167,5 +167,14 @@ namespace ClientApp.Properties {
                 return ResourceManager.GetString("hintSecondNameOptional", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Show all employees.
+        /// </summary>
+        public static string showAllEmployees {
+            get {
+                return ResourceManager.GetString("showAllEmployees", resourceCulture);
+            }
+        }
     }
 }
