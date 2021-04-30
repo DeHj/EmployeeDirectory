@@ -1,19 +1,25 @@
 ﻿<DockPanel x:Class="ClientApp.Pages.AddEmployeePage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:e="clr-namespace:ClientApp.Elements"
-      xmlns:res="clr-namespace:ClientApp.Properties"     
-      xmlns:local="clr-namespace:ClientApp.Pages"
-      mc:Ignorable="d">
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:e="clr-namespace:ClientApp.Elements"
+           xmlns:res="clr-namespace:ClientApp.Properties"     
+           xmlns:local="clr-namespace:ClientApp.Pages"
+           mc:Ignorable="d"
+           LastChildFill="True">
     <e:HintTextBox x:Name="login" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintLogin}" Optional="False"/>
-    <e:HintTextBox x:Name="firstName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintFirstNameOptional}" Optional="False"/>
+    <e:HintTextBox x:Name="firstName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintFirstName}" Optional="False"/>
     <e:HintTextBox x:Name="secondName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintSecondNameOptional}" Optional="True"/>
     <e:HintTextBox x:Name="middleName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintMiddleNameOptional}" Optional="True"/>
     <DatePicker x:Name="birthday" DockPanel.Dock="Top"/>
     <Button x:Name="addEmployee"
-                    DockPanel.Dock="Bottom" 
-                    Click="addEmployee_Click" 
-                    Content="{x:Static res:Resources.addNewEmployee}"/>
+            DockPanel.Dock="Bottom" 
+            Click="addEmployee_Click" 
+            Content="{x:Static res:Resources.addNewEmployee}"
+            HorizontalAlignment="Left"/>
+
+    <Grid>
+        
+    </Grid>
 </DockPanel>

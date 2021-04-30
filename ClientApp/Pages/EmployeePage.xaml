@@ -15,7 +15,7 @@
     <Button x:Name="deleteEmployee"
             DockPanel.Dock="Bottom"
             HorizontalAlignment="Left"
-            Content="{x:Static res:Resources.deletePhoneNumber}"
+            Content="{x:Static res:Resources.addPhoneNumber_Button1}"
             Click="deleteEmployee_Click"/>
 
     <ListBox x:Name="phonesList" DockPanel.Dock="Top"/>
