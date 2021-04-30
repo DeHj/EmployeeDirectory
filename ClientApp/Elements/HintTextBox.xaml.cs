@@ -21,7 +21,14 @@ namespace ClientApp.Elements
     public partial class HintTextBox : Grid
     {
         public string Hint { set { promptBlock.Text = value; } }
-        public string Text { get { return txtUserEntry.Text; } }
+        public string Text
+        {
+            get { return txtUserEntry.Text; }
+            set {
+                txtUserEntry.Text = value;
+                promptBlock.Visibility = (txtUserEntry.Text.Length == 0) ? Visibility.Visible : Visibility.Hidden;
+            }
+        }
         public bool Optional { get; set; }
         public HintTextBox()
         {
