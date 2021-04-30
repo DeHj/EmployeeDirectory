@@ -22,22 +22,29 @@ namespace ClientApp.Elements
     {
         public bool Active { get; set; } = false;
         public bool Closable { get; }
+        public string TabName { get; set; }
 
-        public Tab(string tabName, RoutedEventHandler openHandler, RoutedEventHandler closeHandler)
+        public Tab(string tabName, string tabText, RoutedEventHandler openHandler, RoutedEventHandler closeHandler)
         {
             InitializeComponent();
+
+            TabName = tabName;
+
             openTab.Click += openHandler;
             closeTab.Click += closeHandler;
-            openTab.Content = tabName;
+            openTab.Content = tabText;
 
             Closable = true;
         }
 
-        public Tab(string tabName, RoutedEventHandler openHandler)
+        public Tab(string tabName, string tabText, RoutedEventHandler openHandler)
         {
             InitializeComponent();
+
+            TabName = tabName;
+
             openTab.Click += openHandler;
-            openTab.Content = tabName;
+            openTab.Content = tabText;
             
             Closable = false;
             this.Children.Remove(closeTab);
