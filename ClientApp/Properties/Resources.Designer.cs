@@ -88,6 +88,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Change employee data.
+        /// </summary>
+        public static string changeEmployee {
+            get {
+                return ResourceManager.GetString("changeEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Delete phone number.
         /// </summary>
         public static string deletePhoneNumber {

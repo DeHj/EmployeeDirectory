@@ -1,0 +1,18 @@
+﻿<DockPanel x:Class="ClientApp.Pages.ChangeEmployeePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:res="clr-namespace:ClientApp.Properties"
+             xmlns:e="clr-namespace:ClientApp.Elements"
+             xmlns:local="clr-namespace:ClientApp.Pages"
+             mc:Ignorable="d" >
+    <e:HintTextBox x:Name="firstName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintFirstName}" Optional="False"/>
+    <e:HintTextBox x:Name="secondName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintSecondNameOptional}" Optional="True"/>
+    <e:HintTextBox x:Name="middleName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintMiddleNameOptional}" Optional="True"/>
+    <DatePicker x:Name="birthday" DockPanel.Dock="Top"/>
+    <Button x:Name="changeEmployee"
+                    DockPanel.Dock="Bottom" 
+                    Click="changeEmployee_Click" 
+                    Content="{x:Static res:Resources.changeEmployee}"/>
+</DockPanel>

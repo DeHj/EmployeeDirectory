@@ -126,6 +126,9 @@
   <data name="addPhoneNumber_TextBlock1" xml:space="preserve">
     <value>Add new phone number for employee</value>
   </data>
+  <data name="changeEmployee" xml:space="preserve">
+    <value>Change employee data</value>
+  </data>
   <data name="deletePhoneNumber" xml:space="preserve">
     <value>Delete phone number</value>
   </data>
