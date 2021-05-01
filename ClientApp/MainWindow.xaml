@@ -3,13 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:res="clr-namespace:ClientApp.Properties"
+        xmlns:p="clr-namespace:ClientApp.Pages"
         xmlns:local="clr-namespace:ClientApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel x:Name="mainDockPanel" LastChildFill="True" Margin="10 10 10 10">
-        <StackPanel x:Name="Tabs" DockPanel.Dock="Top" Orientation="Horizontal"/>
+        <StackPanel x:Name="toolbox" DockPanel.Dock="Top" Orientation="Horizontal">
+            <Button x:Name="addEmployee_button" 
+                    Content="{x:Static res:Resources.addNewEmployee}" 
+                    Click="addEmployee"/>
+        </StackPanel>
+        <StackPanel x:Name="tabs" DockPanel.Dock="Top" Orientation="Horizontal"/>
 
-
-        <Border x:Name="pagePanel"/>
+        <Border x:Name="pageContainer">
+            
+        </Border>
     </DockPanel>
 </Window>
