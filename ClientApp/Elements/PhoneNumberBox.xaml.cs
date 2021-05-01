@@ -39,16 +39,16 @@ namespace ClientApp.Elements
                 number = number.Substring(0, Math.Max(0, number.Length - 1));
 
             phoneNumber.Text = ConvertPhoneNumber(number.ToString());
-            txtUserEntry.Text = "8(888)888-88-88";
+            txtUserEntry.Text = "7(888)888-88-88";
         }
 
         private string ConvertPhoneNumber(string number)
         {
-            char[] ch = new char[10];
-            for (int i = 0; i < 10; i++)
+            char[] ch = new char[11];
+            for (int i = 0; i < 11; i++)
                 ch[i] = number.Length > i ? number[i] : ' ';
 
-            return $"8({ch[0]}{ch[1]}{ch[2]}){ch[3]}{ch[4]}{ch[5]}-{ch[6]}{ch[7]}-{ch[8]}{ch[9]}";
+            return $"{ch[0]}({ch[1]}{ch[2]}{ch[3]}){ch[4]}{ch[5]}{ch[6]}-{ch[7]}{ch[8]}-{ch[9]}{ch[10]}";
         }
     }
 }
