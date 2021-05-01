@@ -107,5 +107,11 @@ namespace ClientApp
             return null;
         }
         
+        public void CloseTab(Elements.Tab tab)
+        {
+            ActiveTab = MainTab;
+            Pages.Remove(tab.TabName);
+            tabs.Children.Remove(tab);
+        }
     }
 }

@@ -62,10 +62,8 @@ namespace ClientApp.Elements
 
         private void closeTab_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Current.ActiveTab = MainWindow.Current.MainTab;
-
-            MainWindow.Current.Pages.Remove(TabName);
-            MainWindow.Current.tabs.Children.Remove(this);
+            MainWindow.Current.CloseTab(this);
+            return;
         }
 
         private void openTab_Click(object sender, RoutedEventArgs e)
