@@ -34,5 +34,11 @@ namespace ClientApp.Pages
         {
 
         }
+
+        public void AddEmployeeField(EmployeeDirectory.Models.Employee employee)
+        {
+            Elements.EmployeeField employeeField = new Elements.EmployeeField(employee);
+            employees.Children.Add(employeeField);
+        }
     }
 }

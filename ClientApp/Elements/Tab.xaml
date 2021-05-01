@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:ClientApp.Elements"
         MouseEnter="tab_MouseEnter"
         MouseLeave="tab_MouseLeave"
-        Click="openTab_Click"
+        PreviewMouseUp="openTab_Click"
         mc:Ignorable="d">
     <DockPanel>
         <TextBlock x:Name="text" 
@@ -15,7 +15,7 @@
         <Button x:Name="closeTab"
                 Width="15" 
                 Height="15"
-                Click="closeTab_Click"
+                PreviewMouseUp="closeTab_Click"
                 DockPanel.Dock="Left"
                 Background="LightBlue"
                 BorderThickness="0"

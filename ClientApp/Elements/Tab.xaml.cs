@@ -64,16 +64,15 @@ namespace ClientApp.Elements
 
         private void closeTab_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.ActiveTab = MainWindow.MainTab;
+
             MainWindow.Pages.Remove(TabName);
             MainWindow.tabs.Children.Remove(this);
-            MainWindow.pageContainer.Child = MainWindow.Pages["main-page"];
         }
 
         private void openTab_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.ActiveTab.Background = Application.Current.Resources["nonActiveTab"] as SolidColorBrush;
             MainWindow.ActiveTab = this;
-            MainWindow.pageContainer.Child = AssociatedPage;
         }
     }
 }

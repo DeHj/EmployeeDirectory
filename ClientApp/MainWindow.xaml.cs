@@ -20,19 +20,45 @@ namespace ClientApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public readonly Dictionary<string, UIElement> Pages = new Dictionary<string, UIElement>();
-        public Elements.Tab ActiveTab { get; set; }
+        public Dictionary<string, UIElement> Pages { get; } = new Dictionary<string, UIElement>();
+
+        private Elements.Tab activeTab;
+        public Elements.Tab ActiveTab { 
+            get { return activeTab; }
+            set {
+                if (activeTab != null)
+                    activeTab.Background = Application.Current.Resources["nonActiveTab"] as SolidColorBrush;
+
+                activeTab = value;
+                pageContainer.Child = value.AssociatedPage;
+                //pageContainer.UpdateLayout();
+                //this.UpdateLayout();
+                activeTab.Background = Application.Current.Resources["activeTab"] as SolidColorBrush;
+            } 
+        }
+
+        public Pages.EmployeeListPage MainPage { get; }
+        public Elements.Tab MainTab { get; }
+
 
         public MainWindow()
         {
             InitializeComponent();
 
             // Create not closable tab
-            Pages.EmployeeListPage mainPage = new Pages.EmployeeListPage();
-            Pages.Add("main-page", mainPage);
-            Elements.Tab mainTab = new Elements.Tab("main-page", Properties.Resources.mainPage, false, this, mainPage);
-            tabs.Children.Add(mainTab);
-            ActiveTab = mainTab;
+            MainPage = new Pages.EmployeeListPage();
+            MainTab = new Elements.Tab("main-page", Properties.Resources.mainPage, false, this, MainPage);
+            AddTab("main-page", MainPage, MainTab);
+            
+
+
+            EmployeeDirectory.Models.Employee emp1 = new EmployeeDirectory.Models.Employee
+            {
+                FirstName = "Denis",
+                Login = "dehabs",
+                BirthDay = new DateTime(1997, 8, 30)
+            };
+            MainPage.AddEmployeeField(emp1);
         }
 
         private void addEmployee(object sender, RoutedEventArgs e)
@@ -62,6 +88,7 @@ namespace ClientApp
             Pages.Add(pageName, page);
             pageContainer.Child = page;
             tabs.Children.Add(tab);
+            ActiveTab = tab;
         }
     }
 }
