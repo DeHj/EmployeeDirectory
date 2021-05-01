@@ -20,7 +20,10 @@
                DockPanel.Dock="Top"
                Margin="0 20 0 0"
                Text="{x:Static res:Resources.employeePhonesList}"/>
-    <ListBox x:Name="phonesList" DockPanel.Dock="Top"/>
+    <ListBox x:Name="phonesList" 
+             DockPanel.Dock="Top"
+             Width="300"
+             HorizontalAlignment="Left"/>
 
     <Button x:Name="addPhoneNumber"
             DockPanel.Dock="Top"
