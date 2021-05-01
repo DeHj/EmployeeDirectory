@@ -12,61 +12,68 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ClientApp;
 
 namespace ClientApp.Elements
 {
     /// <summary>
     /// Interaction logic for Tab.xaml
     /// </summary>
-    public partial class Tab : DockPanel
+    public partial class Tab : Button
     {
-        public bool Active { get; set; } = false;
         public bool Closable { get; }
         public string TabName { get; set; }
+        public MainWindow MainWindow { get; set; }
+        public UIElement AssociatedPage { get; set; }
 
-        public Tab(string tabName, string tabText, RoutedEventHandler openHandler, RoutedEventHandler closeHandler)
+        public Tab(string tabName, string tabText, bool closable, MainWindow mainWindow, UIElement page)
         {
             InitializeComponent();
 
             TabName = tabName;
+            text.Text = tabText;
 
-            openTab.Click += openHandler;
-            closeTab.Click += closeHandler;
-            openTab.Content = tabText;
+            MainWindow = mainWindow;
+            AssociatedPage = page;
+            Closable = closable;
 
-            Closable = true;
+            if (closable == false)
+                closeTab.Visibility = Visibility.Collapsed;
+            else
+                closeTab.Visibility = Visibility.Hidden;
+
+            Background = Application.Current.Resources["nonActiveTab"] as SolidColorBrush;
         }
 
-        public Tab(string tabName, string tabText, RoutedEventHandler openHandler)
+        private void tab_MouseEnter(object sender, MouseEventArgs e)
         {
-            InitializeComponent();
+            if (Closable)
+                closeTab.Visibility = Visibility.Visible;
 
-            TabName = tabName;
-
-            openTab.Click += openHandler;
-            openTab.Content = tabText;
-            
-            Closable = false;
-            this.Children.Remove(closeTab);
+            Background = Application.Current.Resources["activeTab"] as SolidColorBrush;
         }
 
-        private void Tab_MouseEnter(object sender, MouseEventArgs e)
+        private void tab_MouseLeave(object sender, MouseEventArgs e)
         {
-            var brush = new SolidColorBrush(Colors.LightBlue);
-            this.openTab.Background = brush;
-            this.closeTab.Background = brush;
-            this.closeTab.Content = "x";
+            if (Closable)
+                closeTab.Visibility = Visibility.Hidden;
+
+            if (MainWindow.ActiveTab != this)
+                Background = Application.Current.Resources["nonActiveTab"] as SolidColorBrush;
         }
 
-        private void Tab_MouseLeave(object sender, MouseEventArgs e)
+        private void closeTab_Click(object sender, RoutedEventArgs e)
         {
-            if (Active == false)
-            {
-                var brush = new SolidColorBrush(Colors.LightGray);
-                this.openTab.Background = brush;
-                this.closeTab.Background = brush;
-                this.closeTab.Content = "";
-            }
+            MainWindow.Pages.Remove(TabName);
+            MainWindow.tabs.Children.Remove(this);
+            MainWindow.pageContainer.Child = MainWindow.Pages["main-page"];
+        }
+
+        private void openTab_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.ActiveTab.Background = Application.Current.Resources["nonActiveTab"] as SolidColorBrush;
+            MainWindow.ActiveTab = this;
+            MainWindow.pageContainer.Child = AssociatedPage;
         }
     }
 }

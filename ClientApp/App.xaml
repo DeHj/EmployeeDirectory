@@ -7,6 +7,9 @@
         <SolidColorBrush x:Key="brushWatermarkBackground" Color="White" />
         <SolidColorBrush x:Key="brushWatermarkForeground" Color="LightSteelBlue" />
         <SolidColorBrush x:Key="brushWatermarkBorder" Color="Indigo" />
+        <SolidColorBrush x:Key="nonActiveTab" Color ="LightGray"/>
+        <SolidColorBrush x:Key="activeTab" Color="LightBlue"/>
+
 
         <Style x:Key="EntryFieldStyle" TargetType="Grid" >
             <Setter Property="HorizontalAlignment" Value="Stretch" />

@@ -129,6 +129,9 @@
   <data name="changeEmployee" xml:space="preserve">
     <value>Change employee data</value>
   </data>
+  <data name="closeIcon" xml:space="preserve">
+    <value>x</value>
+  </data>
   <data name="deletePhoneNumber" xml:space="preserve">
     <value>Delete phone number</value>
   </data>
@@ -152,6 +155,12 @@
   </data>
   <data name="hintSecondNameOptional" xml:space="preserve">
     <value>Enter the second name (optional)</value>
+  </data>
+  <data name="mainPage" xml:space="preserve">
+    <value>Main page</value>
+  </data>
+  <data name="newEmployeeTab" xml:space="preserve">
+    <value>New employee</value>
   </data>
   <data name="searchByName" xml:space="preserve">
     <value>Search employee by name</value>

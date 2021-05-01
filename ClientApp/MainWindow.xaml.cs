@@ -20,31 +20,48 @@ namespace ClientApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int count = 0;
-        private readonly Dictionary<string, Panel> pages = new Dictionary<string, Panel>();
+        public readonly Dictionary<string, UIElement> Pages = new Dictionary<string, UIElement>();
+        public Elements.Tab ActiveTab { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
 
-            // Create not closable tabs
-            Tabs.Children.Add(new Elements.Tab("UserList", openUserList));
-            Tabs.Children.Add(new Elements.Tab("AddUser", addUser));
+            // Create not closable tab
+            Pages.EmployeeListPage mainPage = new Pages.EmployeeListPage();
+            Pages.Add("main-page", mainPage);
+            Elements.Tab mainTab = new Elements.Tab("main-page", Properties.Resources.mainPage, false, this, mainPage);
+            tabs.Children.Add(mainTab);
+            ActiveTab = mainTab;
         }
 
-        private void addUser(object sender, RoutedEventArgs e)
+        private void addEmployee(object sender, RoutedEventArgs e)
         {
+            Pages.AddEmployeePage addEmpPage = new Pages.AddEmployeePage();
+            string pageName = "add-employee-page";
+            string tabText = Properties.Resources.addNewEmployee;
 
+            if (Pages.ContainsKey(pageName))
+            {
+                for (int counter = 0; ; counter++ )
+                {
+                    if (Pages.ContainsKey($"{pageName}({counter})") == false)
+                    {
+                        pageName = $"{pageName}({counter})";
+                        tabText = $"{tabText}({counter})";
+                        break;
+                    }
+                }
+            }
 
-            int tmp = count;
-            RoutedEventHandler handler = (object sender, RoutedEventArgs e) => { Title = $"{tmp}"; };
-
-            Tabs.Children.Add(new Elements.Tab($"tab {count++}", handler, handler));
+            AddTab(pageName, addEmpPage, new Elements.Tab(pageName, tabText, true, this, addEmpPage));
         }
 
-        private void openUserList(object sender, RoutedEventArgs e)
+        public void AddTab(string pageName, UIElement page, Elements.Tab tab)
         {
-
+            Pages.Add(pageName, page);
+            pageContainer.Child = page;
+            tabs.Children.Add(tab);
         }
     }
 }

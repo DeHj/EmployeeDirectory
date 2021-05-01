@@ -1,15 +1,24 @@
-﻿<DockPanel x:Class="ClientApp.Elements.Tab"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ClientApp.Elements"
-             mc:Ignorable="d" 
-             d:DesignHeight="20" 
-             d:MinWidth="100"
-             LastChildFill="True"
-             MouseEnter="Tab_MouseEnter"
-             MouseLeave="Tab_MouseLeave">
-    <Button x:Name="closeTab" DockPanel.Dock="Right" Width="15" Height="15"></Button>
-    <Button x:Name="openTab" HorizontalContentAlignment="Left">tabName</Button>
-</DockPanel>
+﻿<Button x:Class="ClientApp.Elements.Tab"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:res="clr-namespace:ClientApp.Properties"
+        xmlns:local="clr-namespace:ClientApp.Elements"
+        MouseEnter="tab_MouseEnter"
+        MouseLeave="tab_MouseLeave"
+        Click="openTab_Click"
+        mc:Ignorable="d">
+    <DockPanel>
+        <TextBlock x:Name="text" 
+                   DockPanel.Dock="Left">tabName</TextBlock>
+        <Button x:Name="closeTab"
+                Width="15" 
+                Height="15"
+                Click="closeTab_Click"
+                DockPanel.Dock="Left"
+                Background="LightBlue"
+                BorderThickness="0"
+                Content="{x:Static res:Resources.closeIcon }"/>
+    </DockPanel>
+</Button>

@@ -97,6 +97,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на x.
+        /// </summary>
+        public static string closeIcon {
+            get {
+                return ResourceManager.GetString("closeIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Delete phone number.
         /// </summary>
         public static string deletePhoneNumber {
@@ -165,6 +174,24 @@ namespace ClientApp.Properties {
         public static string hintSecondNameOptional {
             get {
                 return ResourceManager.GetString("hintSecondNameOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Main page.
+        /// </summary>
+        public static string mainPage {
+            get {
+                return ResourceManager.GetString("mainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на New employee.
+        /// </summary>
+        public static string newEmployeeTab {
+            get {
+                return ResourceManager.GetString("newEmployeeTab", resourceCulture);
             }
         }
         
