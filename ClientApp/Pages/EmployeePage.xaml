@@ -10,14 +10,33 @@
     <TextBlock x:Name="loginText" DockPanel.Dock="Top" Text="employee login"/>
     <TextBlock x:Name="birthdayText" DockPanel.Dock="Top" Text="employee birthday"/>
 
-    <TextBlock x:Name="phonesListText" DockPanel.Dock="Top" Text="{x:Static res:Resources.employeePhonesList}"/>
+    <Button x:Name="changeEmployee"
+            DockPanel.Dock="Top"
+            HorizontalAlignment="Left"
+            Content="{x:Static res:Resources.changeEmployee_Button}"
+            Click="changeEmployee_Click"/>
+
+    <TextBlock x:Name="phonesListText"
+               DockPanel.Dock="Top"
+               Margin="0 20 0 0"
+               Text="{x:Static res:Resources.employeePhonesList}"/>
+    <ListBox x:Name="phonesList" DockPanel.Dock="Top"/>
+
+    <Button x:Name="addPhoneNumber"
+            DockPanel.Dock="Top"
+            HorizontalAlignment="Left"
+            Content="{x:Static res:Resources.addPhoneNumber_Button}"
+            Click="addPhoneNumber_Click"/>
 
     <Button x:Name="deleteEmployee"
             DockPanel.Dock="Bottom"
-            HorizontalAlignment="Left"
-            Content="{x:Static res:Resources.addPhoneNumber_Button1}"
+            HorizontalAlignment="Right"
+            Background="{StaticResource warningButton}"
+            Content="{x:Static res:Resources.deleteEmployee_Button}"
             Click="deleteEmployee_Click"/>
 
-    <ListBox x:Name="phonesList" DockPanel.Dock="Top"/>
+    <Grid>
+        
+    </Grid>
 
 </DockPanel>

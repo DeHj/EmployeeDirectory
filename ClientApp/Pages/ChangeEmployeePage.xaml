@@ -15,7 +15,7 @@
     <Button x:Name="changeEmployee"
             DockPanel.Dock="Bottom" 
             Click="changeEmployee_Click" 
-            Content="{x:Static res:Resources.changeEmployee}"
+            Content="{x:Static res:Resources.changeEmployee_Button}"
             HorizontalAlignment="Left"/>
 
     <Grid>

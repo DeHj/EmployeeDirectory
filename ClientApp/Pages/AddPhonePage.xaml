@@ -7,11 +7,11 @@
             xmlns:e="clr-namespace:ClientApp.Elements"
             xmlns:local="clr-namespace:ClientApp.Pages"
             mc:Ignorable="d">
-    <TextBlock DockPanel.Dock="Top" Text="{x:Static res:Resources.addPhoneNumber_TextBlock1}"/>
+    <TextBlock DockPanel.Dock="Top" Text="{x:Static res:Resources.addPhoneNumber_TextBlock}"/>
     <TextBlock x:Name="login_TextBlock" DockPanel.Dock="Top" Text="employee_login"/>
     <e:PhoneNumberBox x:Name="phoneNumberBox"/>
     <Button x:Name="addPhone"
-            Content="{x:Static res:Resources.addPhoneNumber_Button1}" 
+            Content="{x:Static res:Resources.addPhoneNumber_Button}" 
             Click="addPhone_Click"
             HorizontalAlignment="Left"/>
 </StackPanel>

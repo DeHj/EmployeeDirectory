@@ -72,27 +72,27 @@ namespace ClientApp.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Add phone number.
         /// </summary>
-        public static string addPhoneNumber_Button1 {
+        public static string addPhoneNumber_Button {
             get {
-                return ResourceManager.GetString("addPhoneNumber_Button1", resourceCulture);
+                return ResourceManager.GetString("addPhoneNumber_Button", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Add new phone number for employee.
         /// </summary>
-        public static string addPhoneNumber_TextBlock1 {
+        public static string addPhoneNumber_TextBlock {
             get {
-                return ResourceManager.GetString("addPhoneNumber_TextBlock1", resourceCulture);
+                return ResourceManager.GetString("addPhoneNumber_TextBlock", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Change employee data.
         /// </summary>
-        public static string changeEmployee {
+        public static string changeEmployee_Button {
             get {
-                return ResourceManager.GetString("changeEmployee", resourceCulture);
+                return ResourceManager.GetString("changeEmployee_Button", resourceCulture);
             }
         }
         
@@ -102,6 +102,15 @@ namespace ClientApp.Properties {
         public static string closeIcon {
             get {
                 return ResourceManager.GetString("closeIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete this employee.
+        /// </summary>
+        public static string deleteEmployee_Button {
+            get {
+                return ResourceManager.GetString("deleteEmployee_Button", resourceCulture);
             }
         }
         
