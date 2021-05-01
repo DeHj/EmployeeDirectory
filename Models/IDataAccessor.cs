@@ -7,7 +7,7 @@ using EmployeeDirectory.Models;
 
 namespace EmployeeDirectory.Infrastructure
 {
-    public interface IDbAccessor
+    public interface IDataAccessor
     {
         /// <summary>
         /// Get part of the collection of all employees

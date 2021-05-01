@@ -19,7 +19,7 @@ namespace WebApi.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly ILogger<EmployeeController> _logger;
-        private IDbAccessor dbAccessor = new DbAccessor("Server = WIN-NA5S2RO1BDR; Database=EmployeesDirectory; Trusted_Connection=True;");
+        private IDataAccessor dbAccessor = new DbAccessor("Server = WIN-NA5S2RO1BDR; Database=EmployeesDirectory; Trusted_Connection=True;");
 
         public EmployeeController(ILogger<EmployeeController> logger)
         {

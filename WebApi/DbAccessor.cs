@@ -9,7 +9,7 @@ namespace EmployeeDirectory.Infrastructure
 {
     public delegate T ReadFromSDR<T>(in SqlDataReader sqlDataReader);
 
-    public class DbAccessor : IDbAccessor
+    public class DbAccessor : IDataAccessor
     {
         private string connectionString { get; }
 
