@@ -23,7 +23,6 @@ namespace ClientApp.Elements
     {
         public bool Closable { get; }
         public string TabName { get; set; }
-        public MainWindow MainWindow { get; set; }
         public UIElement AssociatedPage { get; set; }
 
         public Tab(string tabName, string tabText, bool closable, MainWindow mainWindow, UIElement page)
@@ -33,7 +32,6 @@ namespace ClientApp.Elements
             TabName = tabName;
             text.Text = tabText;
 
-            MainWindow = mainWindow;
             AssociatedPage = page;
             Closable = closable;
 
@@ -58,21 +56,21 @@ namespace ClientApp.Elements
             if (Closable)
                 closeTab.Visibility = Visibility.Hidden;
 
-            if (MainWindow.ActiveTab != this)
+            if (MainWindow.Current.ActiveTab != this)
                 Background = Application.Current.Resources["nonActiveTab"] as SolidColorBrush;
         }
 
         private void closeTab_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.ActiveTab = MainWindow.MainTab;
+            MainWindow.Current.ActiveTab = MainWindow.Current.MainTab;
 
-            MainWindow.Pages.Remove(TabName);
-            MainWindow.tabs.Children.Remove(this);
+            MainWindow.Current.Pages.Remove(TabName);
+            MainWindow.Current.tabs.Children.Remove(this);
         }
 
         private void openTab_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.ActiveTab = this;
+            MainWindow.Current.ActiveTab = this;
         }
     }
 }

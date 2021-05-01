@@ -20,6 +20,8 @@ namespace ClientApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow Current { get; private set; }
+
         public Dictionary<string, UIElement> Pages { get; } = new Dictionary<string, UIElement>();
 
         private Elements.Tab activeTab;
@@ -44,6 +46,8 @@ namespace ClientApp
         public MainWindow()
         {
             InitializeComponent();
+
+            Current = this;
 
             // Create not closable tab
             MainPage = new Pages.EmployeeListPage();
@@ -90,5 +94,17 @@ namespace ClientApp
             tabs.Children.Add(tab);
             ActiveTab = tab;
         }
+
+        /*
+        public Elements.Tab FindExistingTab(EmployeeDirectory.Models.Employee employee)
+        {
+            foreach (var tab in tabs.Children)
+            {
+                if (tab is Pages.EmployeePage && (tab as Pages.EmployeePage).AssociatedEmployee == employee)
+                    return tab as Elements.Tab;
+            }
+            return null;
+        }
+        */
     }
 }
