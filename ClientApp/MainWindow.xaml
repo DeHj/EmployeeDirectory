@@ -7,7 +7,8 @@
         xmlns:p="clr-namespace:ClientApp.Pages"
         xmlns:local="clr-namespace:ClientApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="1200"
+        Background="{StaticResource windowBackground}">
     <DockPanel x:Name="mainDockPanel" LastChildFill="True" Margin="10 10 10 10">
         <StackPanel x:Name="toolbox" DockPanel.Dock="Top" Orientation="Horizontal">
             <Button x:Name="addEmployee_button" 

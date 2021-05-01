@@ -12,6 +12,8 @@
         <SolidColorBrush x:Key="activeTab" Color="LightBlue"/>
 
         <SolidColorBrush x:Key="pageBackground" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="windowBackground" Color="#A0A0B0"/>
+
         <SolidColorBrush x:Key="warningButton" Color="#F04040"/>
 
 
