@@ -36,8 +36,18 @@ namespace ClientApp.Elements
 
         
         private void nameText_MouseUp(object sender, MouseButtonEventArgs e)
-        {   
-            Tab existingTab = MainWindow.Current.FindExistingTab(AssociatedEmployee);
+        {
+            Predicate<Tab> predicate = (Tab tab) =>
+            {
+                Pages.EmployeePage page = (tab as Tab).AssociatedPage as Pages.EmployeePage;
+                if (page == null)
+                    return false;
+                if (page.AssociatedEmployee == AssociatedEmployee)
+                    return true;
+                return false;
+            };
+
+            Tab existingTab = MainWindow.Current.FindExistingTab(predicate);
 
             if (existingTab != null)
                 MainWindow.Current.ActiveTab = existingTab;

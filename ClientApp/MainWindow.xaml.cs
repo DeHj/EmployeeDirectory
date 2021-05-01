@@ -22,6 +22,8 @@ namespace ClientApp
     {
         public static MainWindow Current { get; private set; }
 
+        public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; } = new Infrastructure.ServerAccessor();
+
         public Dictionary<string, UIElement> Pages { get; } = new Dictionary<string, UIElement>();
 
         private Elements.Tab activeTab;
@@ -95,15 +97,11 @@ namespace ClientApp
             ActiveTab = tab;
         }
 
-        public Elements.Tab FindExistingTab(EmployeeDirectory.Models.Employee employee)
+        public Elements.Tab FindExistingTab(Predicate<Elements.Tab> predicate)
         {
             foreach (var tab in tabs.Children)
             {
-                Pages.EmployeePage page = (tab as Elements.Tab).AssociatedPage as Pages.EmployeePage;
-                if (page == null)
-                    continue;
-
-                if (page.AssociatedEmployee == employee)
+                if (predicate(tab as Elements.Tab))
                     return tab as Elements.Tab;
             }
             return null;
