@@ -1,4 +1,4 @@
-﻿<Grid x:Class="ClientApp.Elements.EmployeeField"
+﻿<Border x:Class="ClientApp.Elements.EmployeeField"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -19,4 +19,14 @@
         <TextBlock Grid.Row="1" x:Name="loginText" FontSize="14"/>
         <TextBlock Grid.Row="2" x:Name="birthdayText" FontSize="14"/>
     </Grid>
-</Grid>
+    <Border.Style>
+        <Style>
+            <Setter Property="Border.Background" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="Border.IsMouseOver" Value="True">
+                    <Setter Property="Border.Background" Value="{StaticResource activeTab}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Border.Style>
+</Border>
