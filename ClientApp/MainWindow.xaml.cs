@@ -51,7 +51,7 @@ namespace ClientApp
 
             // Create not closable tab
             MainPage = new Pages.EmployeeListPage();
-            MainTab = new Elements.Tab("main-page", Properties.Resources.mainPage, false, this, MainPage);
+            MainTab = new Elements.Tab("main-page", Properties.Resources.mainPage, false, MainPage);
             AddTab("main-page", MainPage, MainTab);
             
 
@@ -84,7 +84,7 @@ namespace ClientApp
                 }
             }
 
-            AddTab(pageName, addEmpPage, new Elements.Tab(pageName, tabText, true, this, addEmpPage));
+            AddTab(pageName, addEmpPage, new Elements.Tab(pageName, tabText, true, addEmpPage));
         }
 
         public void AddTab(string pageName, UIElement page, Elements.Tab tab)
@@ -95,16 +95,19 @@ namespace ClientApp
             ActiveTab = tab;
         }
 
-        /*
         public Elements.Tab FindExistingTab(EmployeeDirectory.Models.Employee employee)
         {
             foreach (var tab in tabs.Children)
             {
-                if (tab is Pages.EmployeePage && (tab as Pages.EmployeePage).AssociatedEmployee == employee)
+                Pages.EmployeePage page = (tab as Elements.Tab).AssociatedPage as Pages.EmployeePage;
+                if (page == null)
+                    continue;
+
+                if (page.AssociatedEmployee == employee)
                     return tab as Elements.Tab;
             }
             return null;
         }
-        */
+        
     }
 }

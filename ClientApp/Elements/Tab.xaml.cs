@@ -25,7 +25,7 @@ namespace ClientApp.Elements
         public string TabName { get; set; }
         public UIElement AssociatedPage { get; set; }
 
-        public Tab(string tabName, string tabText, bool closable, MainWindow mainWindow, UIElement page)
+        public Tab(string tabName, string tabText, bool closable, UIElement page)
         {
             InitializeComponent();
 

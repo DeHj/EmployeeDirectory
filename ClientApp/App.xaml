@@ -19,5 +19,14 @@
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
+
+        <Style x:Key="clickableTextBlock" TargetType="TextBlock">
+            <Setter Property="TextBlock.Foreground" Value="Black"/>
+            <Style.Triggers>
+                <Trigger Property="TextBlock.IsMouseOver" Value="True">
+                    <Setter Property="TextBlock.Foreground" Value="DarkOrange" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

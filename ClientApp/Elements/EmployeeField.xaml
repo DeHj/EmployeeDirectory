@@ -15,7 +15,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" x:Name="nameText" FontSize="18"/>
+        <TextBlock Grid.Row="0" x:Name="nameText" 
+                   FontSize="18" 
+                   Style="{StaticResource clickableTextBlock}"
+                   HorizontalAlignment="Left"
+                   MouseUp="nameText_MouseUp"/>
+
         <TextBlock Grid.Row="1" x:Name="loginText" FontSize="14"/>
         <TextBlock Grid.Row="2" x:Name="birthdayText" FontSize="14"/>
     </Grid>
