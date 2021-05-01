@@ -7,8 +7,12 @@
         <SolidColorBrush x:Key="brushWatermarkBackground" Color="White" />
         <SolidColorBrush x:Key="brushWatermarkForeground" Color="LightSteelBlue" />
         <SolidColorBrush x:Key="brushWatermarkBorder" Color="Indigo" />
+        
         <SolidColorBrush x:Key="nonActiveTab" Color ="LightGray"/>
         <SolidColorBrush x:Key="activeTab" Color="LightBlue"/>
+
+        <SolidColorBrush x:Key="pageBackground" Color="#E0E0E0"/>
+
 
 
         <Style x:Key="EntryFieldStyle" TargetType="Grid" >

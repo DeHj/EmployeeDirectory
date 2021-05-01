@@ -8,7 +8,7 @@
            xmlns:local="clr-namespace:ClientApp.Pages"
            mc:Ignorable="d">
     <Border DockPanel.Dock="Top" BorderThickness="1">
-        <StackPanel Margin="10 10 10 10">
+        <StackPanel>
             <TextBlock Text="{x:Static res:Resources.searchByName}"/>
             <e:HintTextBox x:Name="firstName" Hint="{x:Static res:Resources.hintFirstNameOptional}" Optional="True"/>
             <e:HintTextBox x:Name="secondName" Hint="{x:Static res:Resources.hintSecondNameOptional}" Optional="True"/>
