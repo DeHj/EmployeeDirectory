@@ -81,11 +81,11 @@ namespace EmployeeDirectory.Infrastructure
 
         public IEnumerable<Employee> GetAllEmployees(
             int from, int count,
-            out StoredProcedureResultCode resultCode)
+            out ResultCode resultCode)
         {
             try
             {
-                resultCode = StoredProcedureResultCode.OK;
+                resultCode = ResultCode.OK;
                 return GetCollectionByProcedure(
                 "get_all_employees",
                 new SqlParameter[] {
@@ -97,7 +97,7 @@ namespace EmployeeDirectory.Infrastructure
             }
             catch
             {
-                resultCode = StoredProcedureResultCode.InternalError;
+                resultCode = ResultCode.InternalError;
                 return null;
             }
         }
@@ -107,11 +107,11 @@ namespace EmployeeDirectory.Infrastructure
         public IEnumerable<Employee> GetEmployeesByName(
             string firstName, string secondName, string middleName,
             int from, int count,
-            out StoredProcedureResultCode resultCode)
+            out ResultCode resultCode)
         {
             try
             {
-                resultCode = StoredProcedureResultCode.OK;
+                resultCode = ResultCode.OK;
                 return GetCollectionByProcedure(
                 "get_employees_by_name",
                 new SqlParameter[] {
@@ -126,7 +126,7 @@ namespace EmployeeDirectory.Infrastructure
             }
             catch
             {
-                resultCode = StoredProcedureResultCode.InternalError;
+                resultCode = ResultCode.InternalError;
                 return null;
             }
         }
@@ -135,11 +135,11 @@ namespace EmployeeDirectory.Infrastructure
 
         public IEnumerable<Phone> GetPhonesById(
             int idEmployee,
-            out StoredProcedureResultCode resultCode)
+            out ResultCode resultCode)
         {
             try
             {
-                resultCode = StoredProcedureResultCode.OK;
+                resultCode = ResultCode.OK;
                 return GetCollectionByProcedure(
                 "get_phones_by_id",
                 new SqlParameter[] {
@@ -150,7 +150,7 @@ namespace EmployeeDirectory.Infrastructure
             }
             catch
             {
-                resultCode = StoredProcedureResultCode.InternalError;
+                resultCode = ResultCode.InternalError;
                 return null;
             }
         }
@@ -159,9 +159,9 @@ namespace EmployeeDirectory.Infrastructure
 
         public void AddUser(
             string login, string hashsum, string firstName,
-            out int userId, out StoredProcedureResultCode resultCode)
+            out int userId, out ResultCode resultCode)
         {
-            resultCode = StoredProcedureResultCode.OK;
+            resultCode = ResultCode.OK;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -195,21 +195,21 @@ namespace EmployeeDirectory.Infrastructure
                 int result = (int)command.Parameters["@result"].Value;
                 if (result == 0)
                 {
-                    resultCode = StoredProcedureResultCode.OK;
+                    resultCode = ResultCode.OK;
                     userId = (int)command.Parameters["@employee_id"].Value;
                 }
                 else if (result == 1)
-                    resultCode = StoredProcedureResultCode.AlreadyExist;
+                    resultCode = ResultCode.AlreadyExist;
                 else
-                    resultCode = StoredProcedureResultCode.InternalError;
+                    resultCode = ResultCode.InternalError;
             }
         }
 
 
 
-        public void AddPhone(int userId, string phoneNumber, out StoredProcedureResultCode resultCode)
+        public void AddPhone(int userId, string phoneNumber, out ResultCode resultCode)
         {
-            resultCode = StoredProcedureResultCode.OK;
+            resultCode = ResultCode.OK;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -233,21 +233,21 @@ namespace EmployeeDirectory.Infrastructure
 
                 int result = (int)command.Parameters["@result"].Value;
                 if (result == 0)
-                    resultCode = StoredProcedureResultCode.OK;
+                    resultCode = ResultCode.OK;
                 else if (result == 1)
-                    resultCode = StoredProcedureResultCode.AlreadyExist;
+                    resultCode = ResultCode.AlreadyExist;
                 else if (result == 2)
-                    resultCode = StoredProcedureResultCode.NotExist;
+                    resultCode = ResultCode.NotExist;
                 else
-                    resultCode = StoredProcedureResultCode.InternalError;
+                    resultCode = ResultCode.InternalError;
             }
         }
 
 
 
-        public void RemoveUser(int userId, out StoredProcedureResultCode resultCode)
+        public void RemoveUser(int userId, out ResultCode resultCode)
         {
-            resultCode = StoredProcedureResultCode.OK;
+            resultCode = ResultCode.OK;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -270,19 +270,19 @@ namespace EmployeeDirectory.Infrastructure
 
                 int result = (int)command.Parameters["@result"].Value;
                 if (result == 0)
-                    resultCode = StoredProcedureResultCode.OK;
+                    resultCode = ResultCode.OK;
                 else if (result == 1)
-                    resultCode = StoredProcedureResultCode.NotExist;
+                    resultCode = ResultCode.NotExist;
                 else
-                    resultCode = StoredProcedureResultCode.InternalError;
+                    resultCode = ResultCode.InternalError;
             }
         }
 
 
 
-        public void ChangeUser(int userId, string newHashsum, string firstName, string secondName, string middleName, DateTime? birthday, out StoredProcedureResultCode resultCode)
+        public void ChangeUser(int userId, string newHashsum, string firstName, string secondName, string middleName, DateTime? birthday, out ResultCode resultCode)
         {
-            resultCode = StoredProcedureResultCode.OK;
+            resultCode = ResultCode.OK;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -315,19 +315,19 @@ namespace EmployeeDirectory.Infrastructure
 
                 int result = (int)command.Parameters["@result"].Value;
                 if (result == 0)
-                    resultCode = StoredProcedureResultCode.OK;
+                    resultCode = ResultCode.OK;
                 else if (result == 1)
-                    resultCode = StoredProcedureResultCode.NotExist;
+                    resultCode = ResultCode.NotExist;
                 else
-                    resultCode = StoredProcedureResultCode.InternalError;
+                    resultCode = ResultCode.InternalError;
             }
         }
 
 
 
-        public void RemovePhone(string phoneNumber, out StoredProcedureResultCode resultCode)
+        public void RemovePhone(string phoneNumber, out ResultCode resultCode)
         {
-            resultCode = StoredProcedureResultCode.OK;
+            resultCode = ResultCode.OK;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -350,11 +350,11 @@ namespace EmployeeDirectory.Infrastructure
 
                 int result = (int)command.Parameters["@result"].Value;
                 if (result == 0)
-                    resultCode = StoredProcedureResultCode.OK;
+                    resultCode = ResultCode.OK;
                 else if (result == 1)
-                    resultCode = StoredProcedureResultCode.NotExist;
+                    resultCode = ResultCode.NotExist;
                 else
-                    resultCode = StoredProcedureResultCode.InternalError;
+                    resultCode = ResultCode.InternalError;
             }
         }
     }

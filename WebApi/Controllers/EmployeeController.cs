@@ -32,10 +32,10 @@ namespace WebApi.Controllers
         [Route("get-all-employees")]
         public ActionResult<IEnumerable<Employee>> GetAllEmployees(int from, int count)
         {
-            StoredProcedureResultCode resultCode;
+            ResultCode resultCode;
             IEnumerable<Employee> result = dbAccessor.GetAllEmployees(from, count, out resultCode);
 
-            if (resultCode == StoredProcedureResultCode.InternalError)
+            if (resultCode == ResultCode.InternalError)
                 return StatusCode(500);
 
             return new ActionResult<IEnumerable<Employee>>(result);
@@ -49,12 +49,12 @@ namespace WebApi.Controllers
             string firstName, string secondName, string middleName,
             int from, int count)
         {
-            StoredProcedureResultCode resultCode;
+            ResultCode resultCode;
             IEnumerable<Employee> result = dbAccessor.GetEmployeesByName(firstName, secondName, middleName, from, count, out resultCode);
 
             if (result.Count() == 0)
                 return new EmptyResult();
-            else if (resultCode == StoredProcedureResultCode.InternalError)
+            else if (resultCode == ResultCode.InternalError)
                 return StatusCode(500);
 
             return new ActionResult<IEnumerable<Employee>>(result);
@@ -66,12 +66,12 @@ namespace WebApi.Controllers
         [Route("get-phones")]
         public ActionResult<IEnumerable<Phone>> GetPhonesById(int employeeId)
         {
-            StoredProcedureResultCode resultCode;
+            ResultCode resultCode;
             IEnumerable<Phone> result = dbAccessor.GetPhonesById(employeeId, out resultCode);
 
-            if (resultCode == StoredProcedureResultCode.NotExist)
+            if (resultCode == ResultCode.NotExist)
                 return StatusCode(406);
-            if (resultCode == StoredProcedureResultCode.InternalError)
+            if (resultCode == ResultCode.InternalError)
                 return StatusCode(500);
 
             return new ActionResult<IEnumerable<Phone>>(result);
@@ -85,11 +85,11 @@ namespace WebApi.Controllers
         {
             // Check employee validaty
 
-            StoredProcedureResultCode resultCode;
+            ResultCode resultCode;
             int employeeId;
 
             dbAccessor.AddUser(employee.Login, "", employee.FirstName, out employeeId, out resultCode);
-            if (resultCode == StoredProcedureResultCode.AlreadyExist)
+            if (resultCode == ResultCode.AlreadyExist)
                 return StatusCode(409);
 
             if (employee.SecondName != null || employee.MiddleName != null || employee.BirthDay != null)
@@ -97,7 +97,7 @@ namespace WebApi.Controllers
                 dbAccessor.ChangeUser(employeeId, "", null, employee.SecondName, employee.MiddleName, employee.BirthDay, out resultCode);
             }
 
-            if (resultCode == StoredProcedureResultCode.InternalError)
+            if (resultCode == ResultCode.InternalError)
                 return StatusCode(500);
 
             return new ActionResult<int>(employeeId);
@@ -111,17 +111,17 @@ namespace WebApi.Controllers
         {
             // Check phone validaty
 
-            StoredProcedureResultCode resultCode;
+            ResultCode resultCode;
 
             dbAccessor.AddPhone(phone.IdEmployee, phone.PhoneValue, out resultCode);
 
-            if (resultCode == StoredProcedureResultCode.NotExist)
+            if (resultCode == ResultCode.NotExist)
                 return StatusCode(406);
 
-            if (resultCode == StoredProcedureResultCode.AlreadyExist)
+            if (resultCode == ResultCode.AlreadyExist)
                 return StatusCode(409);
 
-            if (resultCode == StoredProcedureResultCode.InternalError)
+            if (resultCode == ResultCode.InternalError)
                 return StatusCode(500);
 
             return new OkResult();

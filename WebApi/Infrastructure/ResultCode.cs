@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeDirectory.Infrastructure
 {
-    public enum StoredProcedureResultCode
+    public enum ResultCode
     {
         OK,
         InvalidLoginOrPassword,

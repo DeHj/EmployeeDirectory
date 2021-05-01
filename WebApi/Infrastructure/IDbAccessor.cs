@@ -18,7 +18,7 @@ namespace EmployeeDirectory.Infrastructure
         IEnumerable<Employee> GetAllEmployees(
             int from,
             int count,
-            out StoredProcedureResultCode resultCode
+            out ResultCode resultCode
             );
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace EmployeeDirectory.Infrastructure
             string middleName,
             int from,
             int count,
-            out StoredProcedureResultCode resultCode
+            out ResultCode resultCode
             );
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace EmployeeDirectory.Infrastructure
         /// <param name="resultCode">Result code of request</param>
         IEnumerable<Phone> GetPhonesById(
             int idEmployee,
-            out StoredProcedureResultCode resultCode
+            out ResultCode resultCode
             );
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace EmployeeDirectory.Infrastructure
             string hashsum,
             string firstName,
             out int userId,
-            out StoredProcedureResultCode resultCode
+            out ResultCode resultCode
             );
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace EmployeeDirectory.Infrastructure
         /// <param name="resultCode">Result code of the operation</param>
         void RemoveUser(
             int userId,
-            out StoredProcedureResultCode resultCode
+            out ResultCode resultCode
             );
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace EmployeeDirectory.Infrastructure
             string secondName,
             string middleName,
             DateTime? birthday,
-            out StoredProcedureResultCode resultCode
+            out ResultCode resultCode
             );
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace EmployeeDirectory.Infrastructure
         void AddPhone(
             int userId,
             string phoneNumber,
-            out StoredProcedureResultCode resultCode
+            out ResultCode resultCode
             );
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace EmployeeDirectory.Infrastructure
         /// <param name="resultCode">Result code of the operation</param>
         void RemovePhone(
             string phoneNumber,
-            out StoredProcedureResultCode resultCode
+            out ResultCode resultCode
             );
     }
 }
