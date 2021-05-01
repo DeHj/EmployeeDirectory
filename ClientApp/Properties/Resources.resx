@@ -129,6 +129,9 @@
   <data name="changeEmployee_Button" xml:space="preserve">
     <value>Change employee data</value>
   </data>
+  <data name="change_Button" xml:space="preserve">
+    <value>Change</value>
+  </data>
   <data name="closeIcon" xml:space="preserve">
     <value>x</value>
   </data>
@@ -138,8 +141,14 @@
   <data name="deletePhoneNumber" xml:space="preserve">
     <value>Delete phone number</value>
   </data>
+  <data name="delete_Button" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="employeePhonesList" xml:space="preserve">
     <value>Employee phones number list:</value>
+  </data>
+  <data name="emptyEmployeePhonesList" xml:space="preserve">
+    <value>This employee have no phones number</value>
   </data>
   <data name="findEmployee" xml:space="preserve">
     <value>Find an employee</value>

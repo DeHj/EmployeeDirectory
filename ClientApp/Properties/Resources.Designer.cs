@@ -88,6 +88,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Change.
+        /// </summary>
+        public static string change_Button {
+            get {
+                return ResourceManager.GetString("change_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Change employee data.
         /// </summary>
         public static string changeEmployee_Button {
@@ -102,6 +111,15 @@ namespace ClientApp.Properties {
         public static string closeIcon {
             get {
                 return ResourceManager.GetString("closeIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Delete.
+        /// </summary>
+        public static string delete_Button {
+            get {
+                return ResourceManager.GetString("delete_Button", resourceCulture);
             }
         }
         
@@ -129,6 +147,15 @@ namespace ClientApp.Properties {
         public static string employeePhonesList {
             get {
                 return ResourceManager.GetString("employeePhonesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на This employee have no phones number.
+        /// </summary>
+        public static string emptyEmployeePhonesList {
+            get {
+                return ResourceManager.GetString("emptyEmployeePhonesList", resourceCulture);
             }
         }
         
