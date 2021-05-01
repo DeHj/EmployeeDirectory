@@ -47,7 +47,7 @@ namespace ClientApp.Elements
                 return false;
             };
 
-            Tab existingTab = MainWindow.Current.FindExistingTab(predicate);
+            Tab existingTab = MainWindow.Current.FindTab(predicate);
 
             if (existingTab != null)
                 MainWindow.Current.ActiveTab = existingTab;

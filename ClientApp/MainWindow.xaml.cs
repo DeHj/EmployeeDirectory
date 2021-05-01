@@ -97,7 +97,7 @@ namespace ClientApp
             ActiveTab = tab;
         }
 
-        public Elements.Tab FindExistingTab(Predicate<Elements.Tab> predicate)
+        public Elements.Tab FindTab(Predicate<Elements.Tab> predicate)
         {
             foreach (var tab in tabs.Children)
             {
