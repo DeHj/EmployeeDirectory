@@ -20,12 +20,11 @@ namespace ClientApp.Pages
     /// </summary>
     public partial class EmployeePage : DockPanel
     {
-        public EmployeeDirectory.Models.Employee AssociatedEmployee { get; set; }
-        //public IEnumerable<EmployeeDirectory.Models.Phone> GetPhones {
-        //    get {
-        //        return phonesList.Items.
-        //    } 
-        //}
+        public EmployeeDirectory.Models.Employee AssociatedEmployee { get; }
+        public IEnumerable<EmployeeDirectory.Models.Phone> Phones {
+            get;
+            private set;
+        }
 
         public EmployeePage(EmployeeDirectory.Models.Employee employee)
         {
@@ -36,6 +35,9 @@ namespace ClientApp.Pages
             nameText.Text = $"{employee.FirstName} {employee.SecondName ?? ""} {employee.MiddleName ?? ""}".Replace("  ", " ");
             loginText.Text = employee.Login;
             if (employee.BirthDay != null) birthdayText.Text = employee.BirthDay?.GetDateTimeFormats('D').First();
+
+            Phones = UpdatePhones();
+            RedrawPhones();
         }
 
         private void changeEmployee_Click(object sender, RoutedEventArgs e)
@@ -51,6 +53,34 @@ namespace ClientApp.Pages
         private void deleteEmployee_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public IEnumerable<EmployeeDirectory.Models.Phone> UpdatePhones()
+        {
+            EmployeeDirectory.Infrastructure.ResultCode resultCode;
+            return MainWindow.Current.DataAccessor.GetPhonesById(AssociatedEmployee.Id, out resultCode);
+
+            // Add resultCode handler!
+        }
+
+        public void RedrawPhones()
+        {
+            foreach (var phone in Phones)
+            {
+                Elements.PhoneField phoneField = new Elements.PhoneField(phone);
+                phonesList.Items.Add(phoneField);
+            }
+
+            if (Phones.Any())
+            {
+                phonesListText.Text = Properties.Resources.employeePhonesList;
+                phonesListText.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                phonesListText.Text = Properties.Resources.emptyEmployeePhonesList;
+                phonesListText.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

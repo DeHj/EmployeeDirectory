@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ClientApp.Pages
 {
@@ -27,7 +18,27 @@ namespace ClientApp.Pages
 
         private void addEmployee_Click(object sender, RoutedEventArgs e)
         {
+            // Add user input check!
 
+            EmployeeDirectory.Infrastructure.ResultCode resultCode;
+            int employeeId;
+            MainWindow.Current.DataAccessor.AddUser(login.Text, "", firstName.Text, out employeeId, out resultCode);
+
+            // Add resultCode handler!
+
+            EmployeeDirectory.Models.Employee employee = new EmployeeDirectory.Models.Employee
+            {
+                Login = login.Text,
+                Id = employeeId,
+                FirstName = firstName.Text,
+            };
+
+            EmployeePage newPage = new EmployeePage(employee);
+            string tabName = employee.Login;
+            Elements.Tab newTab = new Elements.Tab(tabName, tabName, true, newPage);
+
+            MainWindow.Current.CloseTab(this)
+            MainWindow.Current.AddTab(tabName, newPage, newTab);
         }
     }
 }

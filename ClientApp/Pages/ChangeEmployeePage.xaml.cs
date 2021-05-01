@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using EmployeeDirectory.Models;
 
 namespace ClientApp.Pages
 {
@@ -21,13 +20,12 @@ namespace ClientApp.Pages
     /// </summary>
     public partial class ChangeEmployeePage : DockPanel
     {
-        public ChangeEmployeePage()
+        public EmployeeDirectory.Models.Employee AssociatedEmployee { get; }
+
+        public ChangeEmployeePage(EmployeeDirectory.Models.Employee employee)
         {
             InitializeComponent();
-        }
 
-        public void SetValues(Employee employee)
-        {
             firstName.Text = employee.FirstName;
             secondName.Text = employee.SecondName ?? "";
             middleName.Text = employee.MiddleName ?? "";
@@ -37,7 +35,41 @@ namespace ClientApp.Pages
 
         private void changeEmployee_Click(object sender, RoutedEventArgs e)
         {
+            // Add user input data check 
 
+            EmployeeDirectory.Infrastructure.ResultCode resultCode;
+            MainWindow.Current.DataAccessor.ChangeUser(AssociatedEmployee.Id, "", 
+                firstName.Text == "" ? null : firstName.Text, 
+                secondName.Text == "" ? null : secondName.Text,
+                middleName.Text == "" ? null : middleName.Text,
+                birthday.SelectedDate,
+                out resultCode);
+
+            // Add resultCode handler!
+
+            // If all is OK:
+
+            // Search the corresponding tab:
+            Predicate<Elements.Tab> predicate = (Elements.Tab tab) =>
+            {
+                EmployeePage page = tab.AssociatedPage as EmployeePage;
+                if (page == null)
+                    return false;
+                if (page.AssociatedEmployee == AssociatedEmployee)
+                    return true;
+                return false;
+            };
+
+            Elements.Tab tab = MainWindow.Current.FindTab(predicate);
+            if (tab == null)
+            {
+                
+            }
+            else
+            {
+                MainWindow.Current.ActiveTab = tab;
+
+            }
         }
     }
 }
