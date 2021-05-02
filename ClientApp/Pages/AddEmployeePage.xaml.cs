@@ -38,7 +38,7 @@ namespace ClientApp.Pages
             Elements.Tab newTab = new Elements.Tab(tabName, true, newPage);
 
             MainWindow.Current.CloseTab(this);
-            MainWindow.Current.AddTab(tabName, newPage, newTab);
+            MainWindow.Current.AddTab(newPage, newTab);
         }
     }
 }

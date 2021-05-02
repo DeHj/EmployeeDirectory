@@ -54,19 +54,18 @@ namespace ClientApp
             // Create not closable tab
             MainPage = new Pages.EmployeeListPage();
             MainTab = new Elements.Tab(Properties.Resources.mainPage, false, MainPage);
-            AddTab("main-page", MainPage, MainTab);
+            AddTab(MainPage, MainTab);
         }
 
         private void addEmployee(object sender, RoutedEventArgs e)
         {
             Pages.AddEmployeePage addEmpPage = new Pages.AddEmployeePage();
-            string pageName = "add-employee-page";
             string tabText = GiveFreeTabName(Properties.Resources.addNewEmployee);
 
-            AddTab(pageName, addEmpPage, new Elements.Tab(tabText, true, addEmpPage));
+            AddTab(addEmpPage, new Elements.Tab(tabText, true, addEmpPage));
         }
 
-        public void AddTab(string pageName, UIElement page, Elements.Tab tab)
+        public void AddTab(UIElement page, Elements.Tab tab)
         {
             pageContainer.Child = page;
             tabs.Children.Add(tab);

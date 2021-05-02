@@ -57,7 +57,7 @@ namespace ClientApp.Elements
                 string tabName = AssociatedEmployee.Login;
                 Tab newTab = new Tab(tabName, true, newPage);
 
-                MainWindow.Current.AddTab(tabName, newPage, newTab);
+                MainWindow.Current.AddTab(newPage, newTab);
             }
         }
     }
