@@ -20,25 +20,25 @@ namespace ClientApp.Elements
     /// </summary>
     public partial class PhoneNumberBox : Grid
     {
-        string number = "";
-
+        public string Number { get; private set; } = "";
+       
         public PhoneNumberBox()
         {
             InitializeComponent();
 
-            phoneNumber.Text = ConvertPhoneNumber(number.ToString());
+            phoneNumber.Text = ConvertPhoneNumber(Number.ToString());
             txtUserEntry.MaxLength = phoneNumber.Text.Length;
         }
 
         private void txtUserEntry_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 && number.Length < 10)
-                number += (e.Key - Key.D0).ToString();
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 && Number.Length < 10)
+                Number += (e.Key - Key.D0).ToString();
 
             if (e.Key == Key.Back)
-                number = number.Substring(0, Math.Max(0, number.Length - 1));
+                Number = Number.Substring(0, Math.Max(0, Number.Length - 1));
 
-            phoneNumber.Text = ConvertPhoneNumber(number.ToString());
+            phoneNumber.Text = ConvertPhoneNumber(Number.ToString());
             txtUserEntry.Text = "7(888)888-88-88";
         }
 
