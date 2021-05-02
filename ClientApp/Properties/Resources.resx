@@ -150,6 +150,9 @@
   <data name="confirmDialogTitle" xml:space="preserve">
     <value>Confirm</value>
   </data>
+  <data name="deleteEmployeeConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to delete profile of this employee?</value>
+  </data>
   <data name="deleteEmployee_Button" xml:space="preserve">
     <value>Delete this employee</value>
   </data>

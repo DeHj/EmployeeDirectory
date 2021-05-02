@@ -178,6 +178,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Are you sure you want to delete profile of this employee?.
+        /// </summary>
+        public static string deleteEmployeeConfirmMessage {
+            get {
+                return ResourceManager.GetString("deleteEmployeeConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Are you sure you want to delete this phone number?.
         /// </summary>
         public static string deletePhoneConfirmMessage {

@@ -78,7 +78,16 @@ namespace ClientApp.Pages
 
         private void deleteEmployee_Click(object sender, RoutedEventArgs e)
         {
+            Windows.ConfirmDialog dialog = new Windows.ConfirmDialog(Properties.Resources.deleteEmployeeConfirmMessage);
+            if (dialog.ShowDialog() == true)
+            {
+                EmployeeDirectory.Infrastructure.ResultCode resultCode;
+                MainWindow.Current.DataAccessor.RemoveUser(AssociatedEmployee.Id, out resultCode);
 
+                // Add resultCode handler!
+
+                MainWindow.Current.CloseTab(this);
+            }
         }
 
         public IEnumerable<EmployeeDirectory.Models.Phone> UpdatePhones()
