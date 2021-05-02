@@ -162,5 +162,24 @@ namespace WebApi.Controllers
 
             return new OkResult();
         }
+
+
+
+        [HttpPut]
+        [Route("remove-phone/{phoneNumber}")]
+        public ActionResult RemovePhone(string phoneNumber)
+        {
+            ResultCode resultCode;
+
+            dbAccessor.RemovePhone(phoneNumber, out resultCode);
+
+            if (resultCode == ResultCode.NotExist)
+                return StatusCode(406);
+
+            if (resultCode == ResultCode.InternalError)
+                return StatusCode(500);
+
+            return new OkResult();
+        }
     }
 }
