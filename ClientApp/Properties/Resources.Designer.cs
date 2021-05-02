@@ -232,6 +232,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на new phone.
+        /// </summary>
+        public static string newPhoneTab {
+            get {
+                return ResourceManager.GetString("newPhoneTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Search employee by name.
         /// </summary>
         public static string searchByName {

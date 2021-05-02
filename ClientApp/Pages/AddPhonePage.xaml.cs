@@ -20,13 +20,40 @@ namespace ClientApp.Pages
     /// </summary>
     public partial class AddPhonePage : StackPanel
     {
-        public AddPhonePage()
+        int employeeId;
+
+        public AddPhonePage(int id)
         {
             InitializeComponent();
+
+            employeeId = id;
         }
 
         private void addPhone_Click(object sender, RoutedEventArgs e)
         {
+            if (phoneNumberBox.Number.Length == 11)
+            {
+                EmployeeDirectory.Infrastructure.ResultCode resultCode;
+                MainWindow.Current.DataAccessor.AddPhone(employeeId, phoneNumberBox.Number, out resultCode);
+
+                // Add resultCode handler!
+
+                Elements.Tab tab = MainWindow.Current.FindTab((Elements.Tab tab) =>
+                {
+                    EmployeePage page = tab.AssociatedPage as EmployeePage;
+                    if (page == null)
+                        return false;
+                    if (page.AssociatedEmployee.Id == employeeId)
+                        return true;
+                    return false;
+                });
+
+                MainWindow.Current.ActiveTab = tab ?? MainWindow.Current.MainTab;
+            }
+            else
+            {
+                // Add incorrect input notice!
+            }
 
         }
     }

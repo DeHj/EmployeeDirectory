@@ -47,7 +47,11 @@ namespace ClientApp.Pages
 
         private void addPhoneNumber_Click(object sender, RoutedEventArgs e)
         {
+            AddPhonePage page = new AddPhonePage(AssociatedEmployee.Id);
+            string tabName = $"{AssociatedEmployee.Login} - {Properties.Resources.newPhoneTab}";
+            Elements.Tab tab = new Elements.Tab(MainWindow.Current.GiveFreeTabName(tabName), true, page);
 
+            MainWindow.Current.AddTab(page, tab);
         }
 
         private void deleteEmployee_Click(object sender, RoutedEventArgs e)
@@ -75,11 +79,14 @@ namespace ClientApp.Pages
             {
                 phonesListText.Text = Properties.Resources.employeePhonesList;
                 phonesListText.Visibility = Visibility.Visible;
+                phonesList.Visibility = Visibility.Visible;
+
             }
             else
             {
                 phonesListText.Text = Properties.Resources.emptyEmployeePhonesList;
                 phonesListText.Visibility = Visibility.Collapsed;
+                phonesList.Visibility = Visibility.Collapsed;
             }
         }
     }
