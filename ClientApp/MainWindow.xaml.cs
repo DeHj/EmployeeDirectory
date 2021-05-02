@@ -55,16 +55,6 @@ namespace ClientApp
             MainPage = new Pages.EmployeeListPage();
             MainTab = new Elements.Tab("main-page", Properties.Resources.mainPage, false, MainPage);
             AddTab("main-page", MainPage, MainTab);
-            
-
-
-            EmployeeDirectory.Models.Employee emp1 = new EmployeeDirectory.Models.Employee
-            {
-                FirstName = "Denis",
-                Login = "dehabs",
-                BirthDay = new DateTime(1997, 8, 30)
-            };
-            MainPage.AddEmployeeField(emp1);
         }
 
         private void addEmployee(object sender, RoutedEventArgs e)
@@ -112,6 +102,18 @@ namespace ClientApp
             ActiveTab = MainTab;
             Pages.Remove(tab.TabName);
             tabs.Children.Remove(tab);
+        }
+
+        public void CloseTab(UIElement page)
+        {
+            foreach (var tab in tabs.Children)
+            {
+                if ((tab as Elements.Tab).AssociatedPage == page)
+                {
+                    CloseTab(tab as Elements.Tab);
+                    break;
+                }
+            }
         }
     }
 }
