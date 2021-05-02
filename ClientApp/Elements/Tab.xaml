@@ -11,7 +11,10 @@
         mc:Ignorable="d">
     <DockPanel>
         <TextBlock x:Name="text" 
-                   DockPanel.Dock="Left">tabName</TextBlock>
+                   DockPanel.Dock="Left"
+                   Margin="4 0 4 0">
+            tabName
+        </TextBlock>
         <Button x:Name="closeTab"
                 Width="15" 
                 Height="15"
