@@ -29,7 +29,7 @@ namespace WebApi.Controllers
 
 
         [HttpGet]
-        [Route("get-all-employees")]
+        [Route("get-all-employees/{from}-{count}")]
         public ActionResult<IEnumerable<Employee>> GetAllEmployees(int from, int count)
         {
             ResultCode resultCode;
@@ -44,7 +44,7 @@ namespace WebApi.Controllers
 
 
         [HttpGet]
-        [Route("get-employees-by-name")]
+        [Route("get-employees-by-name/{from}-{count}-{firstName}-{secondName}-{middleName}")]
         public ActionResult<IEnumerable<Employee>> GetEmployeesByName(
             string firstName, string secondName, string middleName,
             int from, int count)
@@ -63,7 +63,7 @@ namespace WebApi.Controllers
 
 
         [HttpGet]
-        [Route("get-phones")]
+        [Route("get-phones/{employeeId}")]
         public ActionResult<IEnumerable<Phone>> GetPhonesById(int employeeId)
         {
             ResultCode resultCode;
@@ -80,7 +80,7 @@ namespace WebApi.Controllers
 
 
         [HttpPut]
-        [Route("add-user")]
+        [Route("add-employee")]
         public ActionResult<int> AddUser(Employee employee)
         {
             // Check employee validaty
