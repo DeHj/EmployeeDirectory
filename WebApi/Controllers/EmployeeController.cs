@@ -62,6 +62,23 @@ namespace WebApi.Controllers
 
 
 
+        [HttpPut]
+        [Route("get-employees-by-id/{idEmployee}")]
+        public ActionResult<Employee> GetEmployeeById(int idEmployee)
+        {
+            ResultCode resultCode;
+            Employee result = dbAccessor.GetEmployeeById(idEmployee, out resultCode);
+
+            if (resultCode == ResultCode.NotExist)
+                return new EmptyResult();
+            else if (resultCode == ResultCode.InternalError)
+                return StatusCode(500);
+
+            return new ActionResult<Employee>(result);
+        }
+
+
+
         [HttpGet]
         [Route("get-phones/{employeeId}")]
         public ActionResult<IEnumerable<Phone>> GetPhonesById(int employeeId)
@@ -126,5 +143,28 @@ namespace WebApi.Controllers
 
             return new OkResult();
         }
+
+
+        /*
+        [HttpPut]
+        [Route("remove-employee/{idEmployee}")]
+        public ActionResult RemoveEmployee(int idEmployee)
+        {
+            ResultCode resultCode;
+
+            //dbAccessor.Remove(phone.IdEmployee, phone.PhoneValue, out resultCode);
+
+            if (resultCode == ResultCode.NotExist)
+                return StatusCode(406);
+
+            if (resultCode == ResultCode.AlreadyExist)
+                return StatusCode(409);
+
+            if (resultCode == ResultCode.InternalError)
+                return StatusCode(500);
+
+            return new OkResult();
+        }
+        */
     }
 }
