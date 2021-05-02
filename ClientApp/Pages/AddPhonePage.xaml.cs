@@ -26,30 +26,29 @@ namespace ClientApp.Pages
         /// <summary>
         /// Using to add new phone number
         /// </summary>
-        /// <param name="id"></param>
-        public AddPhonePage(int id)
+        public AddPhonePage(int id, string login)
         {
             InitializeComponent();
 
             employeeId = id;
+
             addChangePhone.Content = Properties.Resources.addPhoneNumber_Button;
-            message_TextBox.Text = Properties.Resources.addPhoneNumber_TextBlock;
+            message_TextBox.Text = $"{Properties.Resources.addPhoneNumber_TextBlock} {login}";
         }
 
         /// <summary>
         /// Using to change existing phone number
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="changingPhone"></param>
-        public AddPhonePage(EmployeeDirectory.Models.Phone changingPhone)
+        public AddPhonePage(EmployeeDirectory.Models.Phone changingPhone, string login)
         {
             InitializeComponent();
 
             employeeId = changingPhone.IdEmployee;
             this.changingPhone = changingPhone.PhoneNumber;
-            addChangePhone.Content = Properties.Resources.change_Button;
             phoneNumberBox.Number = changingPhone.PhoneNumber;
-            message_TextBox.Text = Properties.Resources.changePhoneNumber_TextBlock;
+
+            addChangePhone.Content = Properties.Resources.changePhoneNumber_Button;
+            message_TextBox.Text = $"{Properties.Resources.changePhoneNumber_TextBlock} {login}";
         }
 
         private void addPhone_Click(object sender, RoutedEventArgs e)
@@ -88,7 +87,6 @@ namespace ClientApp.Pages
             {
                 // Add incorrect input notice!
             }
-
         }
     }
 }

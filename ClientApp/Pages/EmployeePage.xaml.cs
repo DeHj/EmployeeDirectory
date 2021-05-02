@@ -69,7 +69,7 @@ namespace ClientApp.Pages
 
         private void addPhoneNumber_Click(object sender, RoutedEventArgs e)
         {
-            AddPhonePage page = new AddPhonePage(AssociatedEmployee.Id);
+            AddPhonePage page = new AddPhonePage(AssociatedEmployee.Id, AssociatedEmployee.Login);
             string tabName = $"{AssociatedEmployee.Login} - {Properties.Resources.newPhoneTab}";
             Elements.Tab tab = new Elements.Tab(MainWindow.Current.GiveFreeTabName(tabName), true, page);
 
@@ -104,7 +104,7 @@ namespace ClientApp.Pages
 
             foreach (var phone in Phones)
             {
-                Elements.PhoneField phoneField = new Elements.PhoneField(phone);
+                Elements.PhoneField phoneField = new Elements.PhoneField(phone, AssociatedEmployee);
                 phonesList.Items.Add(phoneField);
             }
 

@@ -133,6 +133,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Change phone number.
+        /// </summary>
+        public static string changePhoneNumber_Button {
+            get {
+                return ResourceManager.GetString("changePhoneNumber_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Change phone number of employee.
         /// </summary>
         public static string changePhoneNumber_TextBlock {
