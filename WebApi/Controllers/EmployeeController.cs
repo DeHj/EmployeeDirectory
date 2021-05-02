@@ -69,8 +69,8 @@ namespace WebApi.Controllers
 
 
 
-        [HttpPut]
-        [Route("get-employees-by-id/{idEmployee}")]
+        [HttpGet]
+        [Route("get-employee-by-id/{idEmployee}")]
         public ActionResult<Employee> GetEmployeeById(int idEmployee)
         {
             ResultCode resultCode;
