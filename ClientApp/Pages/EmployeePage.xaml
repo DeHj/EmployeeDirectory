@@ -8,7 +8,7 @@
              mc:Ignorable="d">
     <TextBlock x:Name="nameText" DockPanel.Dock="Top" Text="employee name"/>
     <TextBlock x:Name="loginText" DockPanel.Dock="Top" Text="employee login"/>
-    <TextBlock x:Name="birthdayText" DockPanel.Dock="Top" Text="employee birthday"/>
+    <TextBlock x:Name="birthdayText" DockPanel.Dock="Top"/>
 
     <Button x:Name="changeEmployee"
             DockPanel.Dock="Top"
@@ -23,13 +23,15 @@
     <ListBox x:Name="phonesList" 
              DockPanel.Dock="Top"
              Width="300"
-             HorizontalAlignment="Left"/>
+             HorizontalAlignment="Left"
+             Margin="0 10 0 0"/>
 
     <Button x:Name="addPhoneNumber"
             DockPanel.Dock="Top"
             HorizontalAlignment="Left"
             Content="{x:Static res:Resources.addPhoneNumber_Button}"
-            Click="addPhoneNumber_Click"/>
+            Click="addPhoneNumber_Click"
+            Margin="0 10 0 0"/>
 
     <Button x:Name="deleteEmployee"
             DockPanel.Dock="Bottom"
