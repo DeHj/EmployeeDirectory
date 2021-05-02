@@ -21,12 +21,34 @@ namespace ClientApp.Pages
     public partial class AddPhonePage : StackPanel
     {
         int employeeId;
+        string changingPhone;
 
+        /// <summary>
+        /// Using to add new phone number
+        /// </summary>
+        /// <param name="id"></param>
         public AddPhonePage(int id)
         {
             InitializeComponent();
 
             employeeId = id;
+            addChangePhone.Content = Properties.Resources.addPhoneNumber_Button;
+        }
+
+        /// <summary>
+        /// Using to change existing phone number
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="changingPhone"></param>
+        public AddPhonePage(EmployeeDirectory.Models.Phone changingPhone)
+        {
+            InitializeComponent();
+
+            employeeId = changingPhone.IdEmployee;
+            this.changingPhone = changingPhone.PhoneValue;
+            addChangePhone.Content = Properties.Resources.change_Button;
+            phoneNumberBox.Number = changingPhone.PhoneValue;
+
         }
 
         private void addPhone_Click(object sender, RoutedEventArgs e)
@@ -34,9 +56,19 @@ namespace ClientApp.Pages
             if (phoneNumberBox.Number.Length == 11)
             {
                 EmployeeDirectory.Infrastructure.ResultCode resultCode;
-                MainWindow.Current.DataAccessor.AddPhone(employeeId, phoneNumberBox.Number, out resultCode);
 
-                // Add resultCode handler!
+                if (changingPhone == null)
+                {
+                    MainWindow.Current.DataAccessor.AddPhone(employeeId, phoneNumberBox.Number, out resultCode);
+                    // Add resultCode handler!
+                }
+                else
+                {
+                    MainWindow.Current.DataAccessor.RemovePhone(changingPhone, out resultCode);
+                    // Add resultCode handler!
+                    MainWindow.Current.DataAccessor.AddPhone(employeeId, phoneNumberBox.Number, out resultCode);
+                    // Add resultCode handler! 
+                }
 
                 Elements.Tab tab = MainWindow.Current.FindTab((Elements.Tab tab) =>
                 {
@@ -48,6 +80,7 @@ namespace ClientApp.Pages
                     return false;
                 });
 
+                MainWindow.Current.CloseTab(this);
                 MainWindow.Current.ActiveTab = tab ?? MainWindow.Current.MainTab;
             }
             else

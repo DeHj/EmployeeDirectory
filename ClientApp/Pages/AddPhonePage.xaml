@@ -10,7 +10,7 @@
     <TextBlock DockPanel.Dock="Top" Text="{x:Static res:Resources.addPhoneNumber_TextBlock}"/>
     <TextBlock x:Name="login_TextBlock" DockPanel.Dock="Top" Text="employee_login"/>
     <e:PhoneNumberBox x:Name="phoneNumberBox"/>
-    <Button x:Name="addPhone"
+    <Button x:Name="addChangePhone"
             Content="{x:Static res:Resources.addPhoneNumber_Button}" 
             Click="addPhone_Click"
             HorizontalAlignment="Left"/>
