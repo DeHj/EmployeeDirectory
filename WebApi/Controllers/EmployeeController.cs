@@ -181,5 +181,24 @@ namespace WebApi.Controllers
 
             return new OkResult();
         }
+
+
+
+        [HttpPut]
+        [Route("change-employee")]
+        public ActionResult RemovePhone(Employee employee)
+        {
+            ResultCode resultCode;
+
+            dbAccessor.ChangeEmployee(employee.Id, "", employee.FirstName, employee.SecondName, employee.MiddleName, employee.BirthDay, out resultCode);
+
+            if (resultCode == ResultCode.NotExist)
+                return StatusCode(406);
+
+            if (resultCode == ResultCode.InternalError)
+                return StatusCode(500);
+
+            return new OkResult();
+        }
     }
 }
