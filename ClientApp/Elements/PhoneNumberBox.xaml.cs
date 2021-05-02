@@ -32,7 +32,7 @@ namespace ClientApp.Elements
 
         private void txtUserEntry_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 && Number.Length < 10)
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 && Number.Length < 11)
                 Number += (e.Key - Key.D0).ToString();
 
             if (e.Key == Key.Back)
