@@ -24,7 +24,7 @@ namespace ClientApp
 
         public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; } = new Infrastructure.ServerAccessor();
 
-        public Dictionary<string, UIElement> Pages { get; } = new Dictionary<string, UIElement>();
+        //public Dictionary<string, UIElement> Pages { get; } = new Dictionary<string, UIElement>();
 
         private Elements.Tab activeTab;
         public Elements.Tab ActiveTab { 
@@ -53,7 +53,7 @@ namespace ClientApp
 
             // Create not closable tab
             MainPage = new Pages.EmployeeListPage();
-            MainTab = new Elements.Tab("main-page", Properties.Resources.mainPage, false, MainPage);
+            MainTab = new Elements.Tab(Properties.Resources.mainPage, false, MainPage);
             AddTab("main-page", MainPage, MainTab);
         }
 
@@ -61,27 +61,13 @@ namespace ClientApp
         {
             Pages.AddEmployeePage addEmpPage = new Pages.AddEmployeePage();
             string pageName = "add-employee-page";
-            string tabText = Properties.Resources.addNewEmployee;
+            string tabText = GiveFreeTabName(Properties.Resources.addNewEmployee);
 
-            if (Pages.ContainsKey(pageName))
-            {
-                for (int counter = 0; ; counter++ )
-                {
-                    if (Pages.ContainsKey($"{pageName}({counter})") == false)
-                    {
-                        pageName = $"{pageName}({counter})";
-                        tabText = $"{tabText}({counter})";
-                        break;
-                    }
-                }
-            }
-
-            AddTab(pageName, addEmpPage, new Elements.Tab(pageName, tabText, true, addEmpPage));
+            AddTab(pageName, addEmpPage, new Elements.Tab(tabText, true, addEmpPage));
         }
 
         public void AddTab(string pageName, UIElement page, Elements.Tab tab)
         {
-            Pages.Add(pageName, page);
             pageContainer.Child = page;
             tabs.Children.Add(tab);
             ActiveTab = tab;
@@ -100,7 +86,6 @@ namespace ClientApp
         public void CloseTab(Elements.Tab tab)
         {
             ActiveTab = MainTab;
-            Pages.Remove(tab.TabName);
             tabs.Children.Remove(tab);
         }
 
@@ -114,6 +99,33 @@ namespace ClientApp
                     break;
                 }
             }
+        }
+
+        public string GiveFreeTabName(string tabName)
+        {
+            Predicate<string> nameIsTaken = (string name) =>
+            {
+                foreach (var tab in tabs.Children)
+                {
+                    if ((tab as Elements.Tab).TabName == name)
+                        return true;
+                    else
+                        continue;
+                }
+                return false;
+            };
+
+            if (nameIsTaken(tabName) == false)
+                return tabName;
+
+            for(int i = 0; ; i++)
+            {
+                string curName = $"{tabName} ({i})";
+                if (nameIsTaken(curName) == false)
+                    return curName;
+            }
+
+            throw new Exception("All name is taken");
         }
     }
 }

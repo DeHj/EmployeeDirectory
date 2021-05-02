@@ -25,12 +25,13 @@ namespace ClientApp.Elements
         public string TabName { get; set; }
         public UIElement AssociatedPage { get; set; }
 
-        public Tab(string tabName, string tabText, bool closable, UIElement page)
+
+        public Tab(string tabName, bool closable, UIElement page)
         {
             InitializeComponent();
 
             TabName = tabName;
-            text.Text = tabText;
+            text.Text = tabName;
 
             AssociatedPage = page;
             Closable = closable;
