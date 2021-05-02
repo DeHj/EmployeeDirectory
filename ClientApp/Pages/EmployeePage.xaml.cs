@@ -42,6 +42,28 @@ namespace ClientApp.Pages
 
         private void changeEmployee_Click(object sender, RoutedEventArgs e)
         {
+            Elements.Tab tab = MainWindow.Current.FindTab((Elements.Tab tab) =>
+            {
+                ChangeEmployeePage page = tab.AssociatedPage as ChangeEmployeePage;
+                if (page == null)
+                    return false;
+                if (page.AssociatedEmployee.Id == AssociatedEmployee.Id)
+                    return true;
+                return false;
+            });
+
+            if (tab != null)
+            {
+                MainWindow.Current.ActiveTab = tab;
+            }
+            else
+            {
+                ChangeEmployeePage page = new ChangeEmployeePage(AssociatedEmployee);
+                string tabName = $"{Properties.Resources.changeEmployeeTab} {AssociatedEmployee.Login}";
+                tab = new Elements.Tab(MainWindow.Current.GiveFreeTabName(tabName), true, page);
+
+                MainWindow.Current.AddTab(page, tab);
+            }
 
         }
 

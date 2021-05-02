@@ -126,6 +126,9 @@
   <data name="addPhoneNumber_TextBlock" xml:space="preserve">
     <value>Add new phone number for employee</value>
   </data>
+  <data name="changeEmployeeTab" xml:space="preserve">
+    <value>Change</value>
+  </data>
   <data name="changeEmployee_Button" xml:space="preserve">
     <value>Change employee data</value>
   </data>

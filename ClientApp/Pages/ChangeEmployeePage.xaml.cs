@@ -26,6 +26,8 @@ namespace ClientApp.Pages
         {
             InitializeComponent();
 
+            AssociatedEmployee = employee;
+
             firstName.Text = employee.FirstName;
             secondName.Text = employee.SecondName ?? "";
             middleName.Text = employee.MiddleName ?? "";
@@ -61,15 +63,7 @@ namespace ClientApp.Pages
             };
 
             Elements.Tab tab = MainWindow.Current.FindTab(predicate);
-            if (tab == null)
-            {
-                
-            }
-            else
-            {
-                MainWindow.Current.ActiveTab = tab;
-
-            }
+            MainWindow.Current.ActiveTab = tab ?? MainWindow.Current.MainTab;
         }
     }
 }

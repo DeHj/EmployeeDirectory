@@ -106,6 +106,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Change.
+        /// </summary>
+        public static string changeEmployeeTab {
+            get {
+                return ResourceManager.GetString("changeEmployeeTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на x.
         /// </summary>
         public static string closeIcon {
