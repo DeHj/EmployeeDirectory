@@ -7,7 +7,7 @@
             xmlns:e="clr-namespace:ClientApp.Elements"
             xmlns:local="clr-namespace:ClientApp.Pages"
             mc:Ignorable="d">
-    <TextBlock DockPanel.Dock="Top" Text="{x:Static res:Resources.addPhoneNumber_TextBlock}"/>
+    <TextBlock x:Name="message_TextBox" DockPanel.Dock="Top" Text="{x:Static res:Resources.addPhoneNumber_TextBlock}"/>
     <TextBlock x:Name="login_TextBlock" DockPanel.Dock="Top" Text="employee_login"/>
     <e:PhoneNumberBox x:Name="phoneNumberBox"/>
     <Button x:Name="addChangePhone"

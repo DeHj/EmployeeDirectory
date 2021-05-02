@@ -33,6 +33,7 @@ namespace ClientApp.Pages
 
             employeeId = id;
             addChangePhone.Content = Properties.Resources.addPhoneNumber_Button;
+            message_TextBox.Text = Properties.Resources.addPhoneNumber_TextBlock;
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace ClientApp.Pages
             this.changingPhone = changingPhone.PhoneNumber;
             addChangePhone.Content = Properties.Resources.change_Button;
             phoneNumberBox.Number = changingPhone.PhoneNumber;
-
+            message_TextBox.Text = Properties.Resources.changePhoneNumber_TextBlock;
         }
 
         private void addPhone_Click(object sender, RoutedEventArgs e)

@@ -138,6 +138,9 @@
   <data name="changeEmployee_Button" xml:space="preserve">
     <value>Change employee data</value>
   </data>
+  <data name="changePhoneNumber_TextBlock" xml:space="preserve">
+    <value>Change phone number of employee</value>
+  </data>
   <data name="changePhoneTab" xml:space="preserve">
     <value>change</value>
   </data>
