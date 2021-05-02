@@ -39,7 +39,7 @@ namespace EmployeeDirectory.Infrastructure
         {
             return new Phone
             {
-                PhoneValue = (string)sqlDataReader.GetValue(0),
+                PhoneNumber = (string)sqlDataReader.GetValue(0),
                 IdEmployee = (int)sqlDataReader.GetValue(1)
             };
         }

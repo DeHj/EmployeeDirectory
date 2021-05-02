@@ -13,17 +13,17 @@ namespace ClientApp.Infrastructure
             new Phone
             {
                 IdEmployee = 0,
-                PhoneValue = "89123340840"
+                PhoneNumber = "89123340840"
             },
             new Phone
             {
                 IdEmployee = 0,
-                PhoneValue = "89120000000"
+                PhoneNumber = "89120000000"
             },
             new Phone
             {
                 IdEmployee = 1,
-                PhoneValue = "89122327720"
+                PhoneNumber = "89122327720"
             }
         };
 
@@ -105,7 +105,7 @@ namespace ClientApp.Infrastructure
 
         public void AddPhone(int userId, string phoneNumber, out ResultCode resultCode)
         {
-            Phones.Add(new Phone { IdEmployee = userId, PhoneValue = phoneNumber });
+            Phones.Add(new Phone { IdEmployee = userId, PhoneNumber = phoneNumber });
 
             resultCode = ResultCode.OK;
         }
@@ -180,7 +180,7 @@ namespace ClientApp.Infrastructure
 
         public void RemovePhone(string phoneNumber, out ResultCode resultCode)
         {
-            var phones = Phones.Where((Phone p) => { return p.PhoneValue == phoneNumber; });
+            var phones = Phones.Where((Phone p) => { return p.PhoneNumber == phoneNumber; });
             if (phones.Any() == false)
             {
                 resultCode = ResultCode.NotExist;

@@ -45,9 +45,9 @@ namespace ClientApp.Pages
             InitializeComponent();
 
             employeeId = changingPhone.IdEmployee;
-            this.changingPhone = changingPhone.PhoneValue;
+            this.changingPhone = changingPhone.PhoneNumber;
             addChangePhone.Content = Properties.Resources.change_Button;
-            phoneNumberBox.Number = changingPhone.PhoneValue;
+            phoneNumberBox.Number = changingPhone.PhoneNumber;
 
         }
 

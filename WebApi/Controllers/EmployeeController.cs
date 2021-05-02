@@ -137,7 +137,7 @@ namespace WebApi.Controllers
 
             ResultCode resultCode;
 
-            dbAccessor.AddPhone(phone.IdEmployee, phone.PhoneValue, out resultCode);
+            dbAccessor.AddPhone(phone.IdEmployee, phone.PhoneNumber, out resultCode);
 
             if (resultCode == ResultCode.NotExist)
                 return StatusCode(406);

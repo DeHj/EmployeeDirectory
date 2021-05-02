@@ -12,12 +12,12 @@ namespace EmployeeDirectory.Models
     public class Phone
     {
         public int IdEmployee { get; set; }
-        public string PhoneValue { get; set; }
+        public string PhoneNumber { get; set; }
 
 
         private const string validSymbols = "1234567890";
         /// <summary>
-        /// Checks the validity for PhoneValue symbols
+        /// Checks the validity for PhoneNumber symbols
         /// </summary>
         /// <param name="ch">Symbol for check</param>
         /// <returns></returns>
