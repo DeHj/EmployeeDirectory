@@ -60,45 +60,43 @@ namespace EmployeeDirectory.Infrastructure
             );
 
         /// <summary>
-        /// Add new user to the system
+        /// Add new employee to the system
         /// </summary>
-        /// <param name="login">New user login</param>
-        /// <param name="hashsum">New user password hashsum</param>
-        /// <param name="firstName">New user first name</param>
-        /// <param name="userId">Id of the new user</param>
+        /// <param name="login">New employee login</param>
+        /// <param name="hashsum">New employee password hashsum</param>
+        /// <param name="firstName">New employee first name</param>
+        /// <param name="idEmployee">Id of the new employee</param>
         /// <param name="resultCode">Result code of the operation</param>
-        void AddUser(
+        void AddEmployee(
             string login,
             string hashsum,
             string firstName,
-            out int userId,
+            out int idEmployee,
             out ResultCode resultCode
             );
 
         /// <summary>
-        /// Remove user from the system
+        /// Remove employee from the system
         /// </summary>
-        /// <param name="userId">Id of the user to delete</param>
-        /// <param name="login">Login of the user to delete</param>
-        /// <param name="hashsum">Hashsum of the password of the user to delete</param>
+        /// <param name="idEmployee">Id of the employee to delete</param>
         /// <param name="resultCode">Result code of the operation</param>
-        void RemoveUser(
-            int userId,
+        void RemoveEmployee(
+            int idEmployee,
             out ResultCode resultCode
             );
 
         /// <summary>
-        /// Change user data
+        /// Change employee data
         /// </summary>
-        /// <param name="login">Login of the user</param>
-        /// <param name="newHashsum">User new password hashsum</param>
-        /// <param name="firstName">New user firstname</param>
-        /// <param name="secondName">New user secondname</param>
-        /// <param name="middleName">New user middlename</param>
-        /// <param name="birthday">New user birthday</param>
+        /// <param name="idEmployee">Id of the employee</param>
+        /// <param name="newHashsum">Employee new password hashsum</param>
+        /// <param name="firstName">New employee firstname</param>
+        /// <param name="secondName">New employee secondname</param>
+        /// <param name="middleName">New employee middlename</param>
+        /// <param name="birthday">New employee birthday</param>
         /// <param name="resultCode">Result code of the operation</param>
-        void ChangeUser(
-            int userId,
+        void ChangeEmployee(
+            int idEmployee,
             string newHashsum,
             string firstName,
             string secondName,
@@ -110,13 +108,11 @@ namespace EmployeeDirectory.Infrastructure
         /// <summary>
         /// Adds a phone number
         /// </summary>
-        /// <param name="userId">Id of the user who adds the phone number</param>
-        /// <param name="login">Login of the user</param>
-        /// <param name="hashsum">User password hashsum</param>
+        /// <param name="idEmployee">Id of the employee who owns the phone number</param>
         /// <param name="phoneNumber">A phone number</param>
         /// <param name="resultCode">Result code of the operation</param>
         void AddPhone(
-            int userId,
+            int idEmployee,
             string phoneNumber,
             out ResultCode resultCode
             );
@@ -124,9 +120,7 @@ namespace EmployeeDirectory.Infrastructure
         /// <summary>
         /// Removes the phone number
         /// </summary>
-        /// <param name="userId">Id of the user who remove the phone number</param>
-        /// <param name="login">Login of the user</param>
-        /// <param name="hashsum">User password hashsum</param>
+        /// <param name="idEmployee">Id of the employee who remove the phone number</param>
         /// <param name="phoneNumber">A phone number</param>
         /// <param name="resultCode">Result code of the operation</param>
         void RemovePhone(

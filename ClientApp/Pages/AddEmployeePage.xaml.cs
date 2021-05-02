@@ -22,7 +22,7 @@ namespace ClientApp.Pages
 
             EmployeeDirectory.Infrastructure.ResultCode resultCode;
             int employeeId;
-            MainWindow.Current.DataAccessor.AddUser(login.Text, "", firstName.Text, out employeeId, out resultCode);
+            MainWindow.Current.DataAccessor.AddEmployee(login.Text, "", firstName.Text, out employeeId, out resultCode);
 
             // Add resultCode handler!
 

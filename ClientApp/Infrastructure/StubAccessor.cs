@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ClientApp.Infrastructure
 {
-    class ServerAccessor : IDataAccessor
+    class StubAccessor : IDataAccessor
     {
         IList<Phone> Phones = new List<Phone>()
         {
@@ -110,7 +110,7 @@ namespace ClientApp.Infrastructure
             resultCode = ResultCode.OK;
         }
 
-        public void AddUser(string login, string hashsum, string firstName, out int userId, out ResultCode resultCode)
+        public void AddEmployee(string login, string hashsum, string firstName, out int userId, out ResultCode resultCode)
         {
             userId = new Random().Next();
 
@@ -119,7 +119,7 @@ namespace ClientApp.Infrastructure
             resultCode = ResultCode.OK;
         }
 
-        public void ChangeUser(int userId, string newHashsum, string firstName, string secondName, string middleName, DateTime? birthday, out ResultCode resultCode)
+        public void ChangeEmployee(int userId, string newHashsum, string firstName, string secondName, string middleName, DateTime? birthday, out ResultCode resultCode)
         {
             Employee employee = Employees.Where((Employee e) => e.Id == userId).First();
             
@@ -191,7 +191,7 @@ namespace ClientApp.Infrastructure
             resultCode = ResultCode.OK;
         }
 
-        public void RemoveUser(int userId, out ResultCode resultCode)
+        public void RemoveEmployee(int userId, out ResultCode resultCode)
         {
             var employees = Employees.Where((Employee e) => e.Id == userId);
 

@@ -187,7 +187,7 @@ namespace EmployeeDirectory.Infrastructure
 
 
 
-        public void AddUser(
+        public void AddEmployee(
             string login, string hashsum, string firstName,
             out int userId, out ResultCode resultCode)
         {
@@ -275,7 +275,7 @@ namespace EmployeeDirectory.Infrastructure
 
 
 
-        public void RemoveUser(int userId, out ResultCode resultCode)
+        public void RemoveEmployee(int userId, out ResultCode resultCode)
         {
             resultCode = ResultCode.OK;
 
@@ -310,7 +310,7 @@ namespace EmployeeDirectory.Infrastructure
 
 
 
-        public void ChangeUser(int userId, string newHashsum, string firstName, string secondName, string middleName, DateTime? birthday, out ResultCode resultCode)
+        public void ChangeEmployee(int userId, string newHashsum, string firstName, string secondName, string middleName, DateTime? birthday, out ResultCode resultCode)
         {
             resultCode = ResultCode.OK;
 

@@ -82,7 +82,7 @@ namespace ClientApp.Pages
             if (dialog.ShowDialog() == true)
             {
                 EmployeeDirectory.Infrastructure.ResultCode resultCode;
-                MainWindow.Current.DataAccessor.RemoveUser(AssociatedEmployee.Id, out resultCode);
+                MainWindow.Current.DataAccessor.RemoveEmployee(AssociatedEmployee.Id, out resultCode);
 
                 // Add resultCode handler!
 

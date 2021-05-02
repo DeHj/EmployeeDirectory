@@ -105,13 +105,13 @@ namespace WebApi.Controllers
             ResultCode resultCode;
             int employeeId;
 
-            dbAccessor.AddUser(employee.Login, "", employee.FirstName, out employeeId, out resultCode);
+            dbAccessor.AddEmployee(employee.Login, "", employee.FirstName, out employeeId, out resultCode);
             if (resultCode == ResultCode.AlreadyExist)
                 return StatusCode(409);
 
             if (employee.SecondName != null || employee.MiddleName != null || employee.BirthDay != null)
             {
-                dbAccessor.ChangeUser(employeeId, "", null, employee.SecondName, employee.MiddleName, employee.BirthDay, out resultCode);
+                dbAccessor.ChangeEmployee(employeeId, "", null, employee.SecondName, employee.MiddleName, employee.BirthDay, out resultCode);
             }
 
             if (resultCode == ResultCode.InternalError)

@@ -40,7 +40,7 @@ namespace ClientApp.Pages
             // Add user input data check 
 
             EmployeeDirectory.Infrastructure.ResultCode resultCode;
-            MainWindow.Current.DataAccessor.ChangeUser(AssociatedEmployee.Id, "", 
+            MainWindow.Current.DataAccessor.ChangeEmployee(AssociatedEmployee.Id, "", 
                 firstName.Text == "" ? null : firstName.Text, 
                 secondName.Text == "" ? null : secondName.Text,
                 middleName.Text == "" ? null : middleName.Text,
