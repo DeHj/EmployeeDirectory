@@ -1,6 +1,6 @@
 use EmployeesDirectory
 
-
+/*
 DROP PROCEDURE dbo.get_all_employees;
 GO
 CREATE PROCEDURE get_all_employees
@@ -44,4 +44,15 @@ AS
 BEGIN
 	SELECT phone_number, id_employee from Phones
 	WHERE id_employee = @id_employee
+END;
+*/
+
+
+GO
+CREATE PROCEDURE get_employee_by_id
+	@id_employee int
+AS
+BEGIN
+	SELECT login, first_name, second_name, middle_name, birthday, id from Employees
+	WHERE id = @id_employee
 END;
