@@ -27,7 +27,7 @@
         <Button x:Name="nextPage" HorizontalAlignment="Right" Width="20">&gt;</Button>
     </DockPanel>
     
-    <StackPanel x:Name="control_employees">
+    <ListBox x:Name="control_employees">
         
-    </StackPanel>
+    </ListBox>
 </DockPanel>

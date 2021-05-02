@@ -304,6 +304,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на No result.
+        /// </summary>
+        public static string noResult {
+            get {
+                return ResourceManager.GetString("noResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Search employee by name.
         /// </summary>
         public static string searchByName {

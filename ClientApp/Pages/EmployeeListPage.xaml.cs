@@ -56,12 +56,12 @@ namespace ClientApp.Pages
         public void AddEmployeeField(EmployeeDirectory.Models.Employee employee)
         {
             Elements.EmployeeField employeeField = new Elements.EmployeeField(employee);
-            control_employees.Children.Add(employeeField);
+            control_employees.Items.Add(employeeField);
         }
 
         public void DrawEmployeesList(IEnumerable<EmployeeDirectory.Models.Employee> employees)
         {
-            control_employees.Children.Clear();
+            control_employees.Items.Clear();
 
             if (employees.Any())
             {
@@ -72,7 +72,7 @@ namespace ClientApp.Pages
             }
             else
             {
-                control_employees.Children.Add(new TextBlock() { Text = "No result" });
+                control_employees.Items.Add(new TextBlock() { Text = Properties.Resources.noResult });
             }
         }
     }

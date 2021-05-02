@@ -198,6 +198,9 @@
   <data name="newPhoneTab" xml:space="preserve">
     <value>new phone</value>
   </data>
+  <data name="noResult" xml:space="preserve">
+    <value>No result</value>
+  </data>
   <data name="searchByName" xml:space="preserve">
     <value>Search employee by name</value>
   </data>
