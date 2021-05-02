@@ -145,26 +145,22 @@ namespace WebApi.Controllers
         }
 
 
-        /*
+
         [HttpPut]
         [Route("remove-employee/{idEmployee}")]
         public ActionResult RemoveEmployee(int idEmployee)
         {
             ResultCode resultCode;
 
-            //dbAccessor.Remove(phone.IdEmployee, phone.PhoneValue, out resultCode);
+            dbAccessor.RemoveEmployee(idEmployee, out resultCode);
 
             if (resultCode == ResultCode.NotExist)
                 return StatusCode(406);
-
-            if (resultCode == ResultCode.AlreadyExist)
-                return StatusCode(409);
 
             if (resultCode == ResultCode.InternalError)
                 return StatusCode(500);
 
             return new OkResult();
         }
-        */
     }
 }
