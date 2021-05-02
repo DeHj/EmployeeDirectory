@@ -29,7 +29,7 @@ namespace ClientApp.Pages
 
         private void find_Click(object sender, RoutedEventArgs e)
         {
-            // Add user input check 
+            // Add user input check!
 
             string fn = firstName.Text == "" ? null : firstName.Text;
             string sn = secondName.Text == "" ? null : secondName.Text;
@@ -37,6 +37,8 @@ namespace ClientApp.Pages
 
             EmployeeDirectory.Infrastructure.ResultCode resultCode;
             var employees = MainWindow.Current.DataAccessor.GetEmployeesByName(fn, sn, mn, 0, 10, out resultCode);
+
+            // Add resultCode handler!
 
             DrawEmployeesList(employees);
         }
@@ -46,7 +48,7 @@ namespace ClientApp.Pages
             EmployeeDirectory.Infrastructure.ResultCode resultCode;
             var employees = MainWindow.Current.DataAccessor.GetAllEmployees(0, 10, out resultCode);
 
-            // Add resultCode handler
+            // Add resultCode handler!
 
             DrawEmployeesList(employees);
         }
@@ -74,6 +76,18 @@ namespace ClientApp.Pages
             {
                 control_employees.Items.Add(new TextBlock() { Text = Properties.Resources.noResult });
             }
+        }
+
+        public void Update()
+        {
+            if (firstName.Text != "" ||
+                secondName.Text != "" ||
+                middleName.Text != "")
+            {
+                find_Click(this, new RoutedEventArgs());
+            }
+            else
+                allEmployees_Click(this, new RoutedEventArgs());
         }
     }
 }

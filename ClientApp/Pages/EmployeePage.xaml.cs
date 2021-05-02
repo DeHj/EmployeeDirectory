@@ -100,6 +100,8 @@ namespace ClientApp.Pages
 
         public void RedrawPhones()
         {
+            phonesList.Items.Clear();
+
             foreach (var phone in Phones)
             {
                 Elements.PhoneField phoneField = new Elements.PhoneField(phone);
@@ -123,9 +125,10 @@ namespace ClientApp.Pages
 
         public void Update()
         {
-            /*
             EmployeeDirectory.Infrastructure.ResultCode resultCode;
             EmployeeDirectory.Models.Employee employee = MainWindow.Current.DataAccessor.GetEmployeeById(AssociatedEmployee.Id, out resultCode);
+
+            // Add resultCode handler!
 
             nameText.Text = $"{employee.FirstName} {employee.SecondName ?? ""} {employee.MiddleName ?? ""}".Replace("  ", " ");
             loginText.Text = employee.Login;
@@ -133,7 +136,7 @@ namespace ClientApp.Pages
 
             Phones = UpdatePhones();
             RedrawPhones();
-            */
+            
         }
     }
 }
