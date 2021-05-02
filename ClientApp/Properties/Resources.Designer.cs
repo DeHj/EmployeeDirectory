@@ -61,6 +61,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на OK.
+        /// </summary>
+        public static string accept_Button {
+            get {
+                return ResourceManager.GetString("accept_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Add new employee.
         /// </summary>
         public static string addNewEmployee {
@@ -84,6 +93,15 @@ namespace ClientApp.Properties {
         public static string addPhoneNumber_TextBlock {
             get {
                 return ResourceManager.GetString("addPhoneNumber_TextBlock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Cancel.
+        /// </summary>
+        public static string cancel_Button {
+            get {
+                return ResourceManager.GetString("cancel_Button", resourceCulture);
             }
         }
         
@@ -133,6 +151,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Confirm.
+        /// </summary>
+        public static string confirmDialogTitle {
+            get {
+                return ResourceManager.GetString("confirmDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Delete.
         /// </summary>
         public static string delete_Button {
@@ -147,6 +174,15 @@ namespace ClientApp.Properties {
         public static string deleteEmployee_Button {
             get {
                 return ResourceManager.GetString("deleteEmployee_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Are you sure you want to delete this phone number?.
+        /// </summary>
+        public static string deletePhoneConfirmMessage {
+            get {
+                return ResourceManager.GetString("deletePhoneConfirmMessage", resourceCulture);
             }
         }
         

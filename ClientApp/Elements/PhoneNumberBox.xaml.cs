@@ -20,12 +20,23 @@ namespace ClientApp.Elements
     /// </summary>
     public partial class PhoneNumberBox : Grid
     {
-        public string Number { get; private set; } = "";
+        private string number;
+        public string Number
+        {
+            get { return number; }
+            set
+            {
+                number = value;
+                phoneNumber.Text = ConvertPhoneNumber(value.ToString());
+                txtUserEntry.Text = "7(888)888-88-88";
+            }
+        }
        
         public PhoneNumberBox()
         {
             InitializeComponent();
 
+            Number = "";
             phoneNumber.Text = ConvertPhoneNumber(Number.ToString());
             txtUserEntry.MaxLength = phoneNumber.Text.Length;
         }
@@ -37,9 +48,6 @@ namespace ClientApp.Elements
 
             if (e.Key == Key.Back)
                 Number = Number.Substring(0, Math.Max(0, Number.Length - 1));
-
-            phoneNumber.Text = ConvertPhoneNumber(Number.ToString());
-            txtUserEntry.Text = "7(888)888-88-88";
         }
 
         private string ConvertPhoneNumber(string number)

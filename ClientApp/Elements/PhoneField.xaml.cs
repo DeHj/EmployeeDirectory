@@ -42,7 +42,25 @@ namespace ClientApp.Elements
 
         private void deletePhone_Click(object sender, RoutedEventArgs e)
         {
+            Windows.ConfirmDialog dialog = new Windows.ConfirmDialog(Properties.Resources.deletePhoneConfirmMessage);
+            if (dialog.ShowDialog() == true)
+            {
+                EmployeeDirectory.Infrastructure.ResultCode resultCode;
+                MainWindow.Current.DataAccessor.RemovePhone(AssociatedPhone.PhoneValue, out resultCode);
 
+                // Add resultCode handler!
+
+                Tab tab = MainWindow.Current.FindTab((Tab t) =>
+                {
+                    Pages.EmployeePage page = t.AssociatedPage as Pages.EmployeePage;
+                    if (page == null)
+                        return false;
+                    return page.AssociatedEmployee.Id == AssociatedPhone.IdEmployee;
+                });
+
+                if (tab != null)
+                    MainWindow.Current.ActiveTab = tab;
+            }
         }
     }
 }
