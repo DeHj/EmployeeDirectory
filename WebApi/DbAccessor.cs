@@ -127,40 +127,35 @@ namespace EmployeeDirectory.Infrastructure
 
         public Employee GetEmployeeById(int idEmployee, out ResultCode resultCode)
         {
-            Employee resultEmployee = null;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand("get_employee_by_id", connection);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+                resultCode = ResultCode.OK;
+                var employees = GetCollectionByProcedure(
+                "get_employee_by_id",
+                new SqlParameter[] {
+                    new SqlParameter("@id_employee", idEmployee),
+                },
+                readEmployee
+                );
 
-                List<SqlParameter> sqlParams = new List<SqlParameter>(2);
-
-                sqlParams.Add(new SqlParameter("@id", idEmployee));
-                sqlParams.Add(new SqlParameter
+                if (employees.Any() == false)
                 {
-                    ParameterName = "@result",
-                    Direction = System.Data.ParameterDirection.Output,
-                    SqlDbType = System.Data.SqlDbType.Int
-                });
-                command.Parameters.AddRange(sqlParams.ToArray());
-
-                var sdr = command.ExecuteReader();
-
-                int result = (int)command.Parameters["@result"].Value;
-                if (result == 0)
+                    resultCode = ResultCode.NotExist;
+                    return null;
+                }
+                else if (employees.Count() == 1)
                 {
                     resultCode = ResultCode.OK;
-                    resultEmployee = readEmployee(sdr);
+                    return employees.First();
                 }
-                else if (result == 1)
-                    resultCode = ResultCode.NotExist;
                 else
-                    resultCode = ResultCode.InternalError;
+                    throw new Exception("");
             }
-
-            return resultEmployee;
+            catch
+            {
+                resultCode = ResultCode.InternalError;
+                return null;
+            }
         }
 
         public IEnumerable<Phone> GetPhonesById(
