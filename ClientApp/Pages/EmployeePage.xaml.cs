@@ -18,7 +18,7 @@ namespace ClientApp.Pages
     /// <summary>
     /// Interaction logic for EmployeePage.xaml
     /// </summary>
-    public partial class EmployeePage : DockPanel
+    public partial class EmployeePage : DockPanel, IPage
     {
         public EmployeeDirectory.Models.Employee AssociatedEmployee { get; }
         public IEnumerable<EmployeeDirectory.Models.Phone> Phones {
@@ -119,6 +119,21 @@ namespace ClientApp.Pages
                 phonesListText.Visibility = Visibility.Collapsed;
                 phonesList.Visibility = Visibility.Collapsed;
             }
+        }
+
+        public void Update()
+        {
+            /*
+            EmployeeDirectory.Infrastructure.ResultCode resultCode;
+            EmployeeDirectory.Models.Employee employee = MainWindow.Current.DataAccessor.GetEmployeeById(AssociatedEmployee.Id, out resultCode);
+
+            nameText.Text = $"{employee.FirstName} {employee.SecondName ?? ""} {employee.MiddleName ?? ""}".Replace("  ", " ");
+            loginText.Text = employee.Login;
+            if (employee.BirthDay != null) birthdayText.Text = employee.BirthDay?.GetDateTimeFormats('D').First();
+
+            Phones = UpdatePhones();
+            RedrawPhones();
+            */
         }
     }
 }

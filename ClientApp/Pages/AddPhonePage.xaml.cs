@@ -18,7 +18,7 @@ namespace ClientApp.Pages
     /// <summary>
     /// Interaction logic for AddPhonePage.xaml
     /// </summary>
-    public partial class AddPhonePage : StackPanel
+    public partial class AddPhonePage : StackPanel, IPage
     {
         int employeeId;
         string changingPhone;

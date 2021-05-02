@@ -23,10 +23,10 @@ namespace ClientApp.Elements
     {
         public bool Closable { get; }
         public string TabName { get; set; }
-        public UIElement AssociatedPage { get; set; }
+        public Pages.IPage AssociatedPage { get; set; }
 
 
-        public Tab(string tabName, bool closable, UIElement page)
+        public Tab(string tabName, bool closable, Pages.IPage page)
         {
             InitializeComponent();
 

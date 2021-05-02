@@ -34,9 +34,8 @@ namespace ClientApp
                     activeTab.Background = Application.Current.Resources["nonActiveTab"] as SolidColorBrush;
 
                 activeTab = value;
-                pageContainer.Child = value.AssociatedPage;
-                //pageContainer.UpdateLayout();
-                //this.UpdateLayout();
+                pageContainer.Child = value.AssociatedPage as UIElement;
+                value.AssociatedPage.Update();
                 activeTab.Background = Application.Current.Resources["activeTab"] as SolidColorBrush;
             } 
         }

@@ -18,7 +18,7 @@ namespace ClientApp.Pages
     /// <summary>
     /// Interaction logic for ChangeEmployeePage.xaml
     /// </summary>
-    public partial class ChangeEmployeePage : DockPanel
+    public partial class ChangeEmployeePage : DockPanel, IPage
     {
         public EmployeeDirectory.Models.Employee AssociatedEmployee { get; }
 
