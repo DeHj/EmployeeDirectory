@@ -13,7 +13,7 @@
     <e:HintTextBox x:Name="middleName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintMiddleNameOptional}" Optional="True"/>
     <DatePicker x:Name="birthday" DockPanel.Dock="Top"/>
     <Button x:Name="changeEmployee"
-            DockPanel.Dock="Bottom" 
+            DockPanel.Dock="Top" 
             Click="changeEmployee_Click" 
             Content="{x:Static res:Resources.changeEmployee_Button}"
             HorizontalAlignment="Left"/>

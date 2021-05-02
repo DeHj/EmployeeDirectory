@@ -14,7 +14,7 @@
     <e:HintTextBox x:Name="middleName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintMiddleNameOptional}" Optional="True"/>
     <DatePicker x:Name="birthday" DockPanel.Dock="Top"/>
     <Button x:Name="addEmployee"
-            DockPanel.Dock="Bottom" 
+            DockPanel.Dock="Top" 
             Click="addEmployee_Click" 
             Content="{x:Static res:Resources.addNewEmployee}"
             HorizontalAlignment="Left"/>
