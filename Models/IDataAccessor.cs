@@ -40,6 +40,16 @@ namespace EmployeeDirectory.Infrastructure
             );
 
         /// <summary>
+        /// Get employee with specified id
+        /// </summary>
+        /// <param name="idEmployee">Id of the employee</param>
+        /// <param name="resultCode">Result code of request</param>
+        Employee GetEmployeeById(
+            int idEmployee,
+            out ResultCode resultCode
+            );
+
+        /// <summary>
         /// Get collection of phone numbers of the employee
         /// </summary>
         /// <param name="idEmployee">Id of the employee</param>

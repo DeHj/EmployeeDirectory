@@ -13,12 +13,6 @@ namespace EmployeeDirectory.Infrastructure
     {
         private string connectionString { get; }
 
-        /*
-        private IList<Employee> employees = new List<Employee>();
-        private IList<Phone> phones = new List<Phone>();
-        public IList<string> ints = new List<string>() { "1", "2", "3" };
-        */
-
         public DbAccessor (string connectionString)
         {
             this.connectionString = connectionString;
@@ -131,7 +125,43 @@ namespace EmployeeDirectory.Infrastructure
             }
         }
 
+        public Employee GetEmployeeById(int idEmployee, out ResultCode resultCode)
+        {
+            Employee resultEmployee = null;
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("get_employee_by_id", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                List<SqlParameter> sqlParams = new List<SqlParameter>(2);
+
+                sqlParams.Add(new SqlParameter("@id", idEmployee));
+                sqlParams.Add(new SqlParameter
+                {
+                    ParameterName = "@result",
+                    Direction = System.Data.ParameterDirection.Output,
+                    SqlDbType = System.Data.SqlDbType.Int
+                });
+                command.Parameters.AddRange(sqlParams.ToArray());
+
+                var sdr = command.ExecuteReader();
+
+                int result = (int)command.Parameters["@result"].Value;
+                if (result == 0)
+                {
+                    resultCode = ResultCode.OK;
+                    resultEmployee = readEmployee(sdr);
+                }
+                else if (result == 1)
+                    resultCode = ResultCode.NotExist;
+                else
+                    resultCode = ResultCode.InternalError;
+            }
+
+            return resultEmployee;
+        }
 
         public IEnumerable<Phone> GetPhonesById(
             int idEmployee,

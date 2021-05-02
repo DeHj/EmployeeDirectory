@@ -156,6 +156,21 @@ namespace ClientApp.Infrastructure
                 );
         }
 
+        public Employee GetEmployeeById(int idEmployee, out ResultCode resultCode)
+        {
+            var employees = Employees.Where((Employee e) => e.Id == idEmployee);
+            if (employees.Any())
+            {
+                resultCode = ResultCode.OK;
+                return employees.First();
+            }
+            else
+            {
+                resultCode = ResultCode.NotExist;
+                return null;
+            }
+        }
+
         public IEnumerable<Phone> GetPhonesById(int idEmployee, out ResultCode resultCode)
         {
             resultCode = ResultCode.OK;
