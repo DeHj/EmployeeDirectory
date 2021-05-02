@@ -49,6 +49,13 @@ namespace WebApi.Controllers
             string firstName, string secondName, string middleName,
             int from, int count)
         {
+            if (firstName == "_")
+                firstName = null;
+            if (secondName == "_")
+                secondName = null;
+            if (middleName == "_")
+                middleName = null;
+
             ResultCode resultCode;
             IEnumerable<Employee> result = dbAccessor.GetEmployeesByName(firstName, secondName, middleName, from, count, out resultCode);
 
