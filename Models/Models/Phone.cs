@@ -13,5 +13,14 @@ namespace EmployeeDirectory.Models
     {
         public int IdEmployee { get; set; }
         public string PhoneValue { get; set; }
+
+
+        private const string validSymbols = "1234567890";
+        /// <summary>
+        /// Checks the validity for PhoneValue symbols
+        /// </summary>
+        /// <param name="ch">Symbol for check</param>
+        /// <returns></returns>
+        public bool ValidityCheck(char ch) => validSymbols.Contains(ch);
     }
 }

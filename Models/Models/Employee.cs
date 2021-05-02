@@ -13,5 +13,14 @@ namespace EmployeeDirectory.Models
         public string SecondName { get; set; }
         public string MiddleName { get; set; }
         public DateTime? BirthDay { get; set; }
+
+
+        private const string invalidSymbols = "._~:/?#[]@!$#&'()*+,;=%";
+        /// <summary>
+        /// Checks the validity for Names symbols
+        /// </summary>
+        /// <param name="ch">Symbol for check</param>
+        /// <returns></returns>
+        public bool ValidatyCheck(char ch) => invalidSymbols.Contains(ch) == false;
     }
 }
