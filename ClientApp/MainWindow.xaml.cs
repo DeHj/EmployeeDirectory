@@ -22,7 +22,7 @@ namespace ClientApp
     {
         public static MainWindow Current { get; private set; }
 
-        public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; } = new Infrastructure.ServerAccessor();
+        public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; } = new Infrastructure.StubAccessor();
 
         //public Dictionary<string, UIElement> Pages { get; } = new Dictionary<string, UIElement>();
 
