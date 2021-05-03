@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
 
 namespace ClientApp.Pages
 {
@@ -23,7 +24,7 @@ namespace ClientApp.Pages
         private EventArgs lastChange;
 
         ScrollViewer scrollViewer;
-        int pageSize = 10;
+        int pageSize { get; } = 10;
 
 
         public EmployeeListPage()
@@ -33,6 +34,10 @@ namespace ClientApp.Pages
             firstName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
             secondName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
             middleName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
+
+            int localPS;
+            if (int.TryParse(ConfigurationManager.AppSettings.Get("PageSize"), out localPS))
+                pageSize = localPS;
         }
 
         private void find_Click(object sender, RoutedEventArgs e)

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
 
 namespace ClientApp
 {
@@ -24,7 +25,8 @@ namespace ClientApp
 
 
 
-        public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; } = new Infrastructure.ServerAccessor("http://localhost:7563/");
+        public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; } 
+            = new Infrastructure.ServerAccessor(ConfigurationManager.AppSettings.Get("ApplicationUrl") + "/");
         /// <summary>
         /// Used to define if employee-related changes have been made to the system
         /// </summary>
