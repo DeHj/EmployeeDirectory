@@ -12,6 +12,7 @@ namespace EmployeeDirectory.Infrastructure
         InvalidLoginOrPassword,
         NotExist,
         AlreadyExist,
-        InternalError
+        InternalError,
+        Timeout
     }
 }
