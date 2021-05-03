@@ -11,6 +11,7 @@ using EmployeeDirectory.Infrastructure;
 using EmployeeDirectory.Models;
 using System.Net.Http.Formatting;
 using System.Net.Http.Json;
+using Microsoft.Extensions.Configuration;
 
 namespace WebApi.Controllers
 {
@@ -19,11 +20,18 @@ namespace WebApi.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly ILogger<EmployeeController> _logger;
-        private IDataAccessor dbAccessor = new DbAccessor("Server = WIN-NA5S2RO1BDR; Database=EmployeesDirectory; Trusted_Connection=True;");
+        private IDataAccessor dbAccessor;
 
         public EmployeeController(ILogger<EmployeeController> logger)
         {
             _logger = logger;
+
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("Properties/configs.json")
+                .Build();
+
+            dbAccessor = new DbAccessor(configuration.GetConnectionString("DefaultConnection"));
         }
 
 

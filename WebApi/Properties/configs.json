@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=WIN-NA5S2RO1BDR; Database=EmployeesDirectory; Trusted_Connection=True;"
+  }
+}
