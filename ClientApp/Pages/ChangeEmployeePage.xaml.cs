@@ -62,7 +62,7 @@ namespace ClientApp.Pages
 
                 if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
                 {
-                    new Windows.MessageWindow(Properties.Resources.successfulEmployeeChangingMessage).ShowDialog();
+                    // new Windows.MessageWindow(Properties.Resources.successfulEmployeeChangingMessage).ShowDialog();
                     MainWindow.Current.LastEmployeeChange = new EventArgs();
 
                     // Search the corresponding tab:
