@@ -24,7 +24,7 @@ namespace ClientApp
 
 
 
-        public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; } = new Infrastructure.StubAccessor();
+        public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; } = new Infrastructure.ServerAccessor("http://localhost:7563/");
         /// <summary>
         /// Used to define if employee-related changes have been made to the system
         /// </summary>
