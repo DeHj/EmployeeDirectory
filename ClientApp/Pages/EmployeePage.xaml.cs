@@ -26,6 +26,9 @@ namespace ClientApp.Pages
             private set;
         }
 
+        private EventArgs lastPhoneChange;
+        private EventArgs lastEmployeeChange;
+
         public EmployeePage(EmployeeDirectory.Models.Employee employee)
         {
             InitializeComponent();
@@ -86,6 +89,9 @@ namespace ClientApp.Pages
 
                 // Add resultCode handler!
 
+                // If all is OK:
+                MainWindow.Current.LastEmployeeChange = new EventArgs();
+
                 MainWindow.Current.CloseTab(this);
             }
         }
@@ -113,7 +119,6 @@ namespace ClientApp.Pages
                 phonesListText.Text = Properties.Resources.employeePhonesList;
                 phonesListText.Visibility = Visibility.Visible;
                 phonesList.Visibility = Visibility.Visible;
-
             }
             else
             {
@@ -125,18 +130,29 @@ namespace ClientApp.Pages
 
         public void Update()
         {
-            EmployeeDirectory.Infrastructure.ResultCode resultCode;
-            EmployeeDirectory.Models.Employee employee = MainWindow.Current.DataAccessor.GetEmployeeById(AssociatedEmployee.Id, out resultCode);
+            if (lastEmployeeChange != MainWindow.Current.LastEmployeeChange)
+            {
+                EmployeeDirectory.Infrastructure.ResultCode resultCode;
+                EmployeeDirectory.Models.Employee employee = MainWindow.Current.DataAccessor.GetEmployeeById(AssociatedEmployee.Id, out resultCode);
 
-            // Add resultCode handler!
+                // Add resultCode handler!
 
-            nameText.Text = $"{employee.FirstName} {employee.SecondName ?? ""} {employee.MiddleName ?? ""}".Replace("  ", " ");
-            loginText.Text = employee.Login;
-            if (employee.BirthDay != null) birthdayText.Text = employee.BirthDay?.GetDateTimeFormats('D').First();
+                // If all is OK:
 
-            Phones = UpdatePhones();
-            RedrawPhones();
-            
+                lastEmployeeChange = MainWindow.Current.LastEmployeeChange;
+
+                nameText.Text = $"{employee.FirstName} {employee.SecondName ?? ""} {employee.MiddleName ?? ""}".Replace("  ", " ");
+                loginText.Text = employee.Login;
+                if (employee.BirthDay != null) birthdayText.Text = employee.BirthDay?.GetDateTimeFormats('D').First();
+            }
+
+            if (lastPhoneChange != MainWindow.Current.LastPhoneChange)
+            {
+                Phones = UpdatePhones();
+                RedrawPhones();
+
+                lastPhoneChange = MainWindow.Current.LastPhoneChange;
+            }
         }
     }
 }

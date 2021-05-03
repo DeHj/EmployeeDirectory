@@ -33,37 +33,86 @@ namespace ClientApp.Pages
             middleName.Text = employee.MiddleName ?? "";
             if (employee.BirthDay != null)
                 birthday.DisplayDate = (DateTime)employee.BirthDay;
+
+            firstName.txtUserEntry.TextChanged += addEmployeePage_TextChanged;
+            secondName.txtUserEntry.TextChanged += addEmployeePage_TextChanged;
+            middleName.txtUserEntry.TextChanged += addEmployeePage_TextChanged;
         }
 
         private void changeEmployee_Click(object sender, RoutedEventArgs e)
         {
-            // Add user input data check 
-
-            EmployeeDirectory.Infrastructure.ResultCode resultCode;
-            MainWindow.Current.DataAccessor.ChangeEmployee(AssociatedEmployee.Id, "", 
-                firstName.Text == "" ? null : firstName.Text, 
-                secondName.Text == "" ? null : secondName.Text,
-                middleName.Text == "" ? null : middleName.Text,
-                birthday.SelectedDate,
-                out resultCode);
-
-            // Add resultCode handler!
-
-            // If all is OK:
-
-            // Search the corresponding tab:
-            Predicate<Elements.Tab> predicate = (Elements.Tab tab) =>
+            var employee = new EmployeeDirectory.Models.Employee
             {
-                EmployeePage page = tab.AssociatedPage as EmployeePage;
-                if (page == null)
-                    return false;
-                if (page.AssociatedEmployee == AssociatedEmployee)
-                    return true;
-                return false;
+                Login = "login",
+                FirstName = firstName.Text,
+                SecondName = secondName.Text,
+                MiddleName = middleName.Text,
+                BirthDay = birthday.SelectedDate
             };
 
-            Elements.Tab tab = MainWindow.Current.FindTab(predicate);
-            MainWindow.Current.ActiveTab = tab ?? MainWindow.Current.MainTab;
+            if (employee.IsValid())
+            {
+                EmployeeDirectory.Infrastructure.ResultCode resultCode;
+                MainWindow.Current.DataAccessor.ChangeEmployee(AssociatedEmployee.Id, "",
+                    firstName.Text == "" ? null : firstName.Text,
+                    secondName.Text == "" ? null : secondName.Text,
+                    middleName.Text == "" ? null : middleName.Text,
+                    birthday.SelectedDate,
+                    out resultCode);
+
+                // Add resultCode handler!
+
+                // If all is OK:
+                MainWindow.Current.LastEmployeeChange = new EventArgs();
+
+                // Search the corresponding tab:
+                bool predicate(Elements.Tab tab)
+                {
+                    EmployeePage page = tab.AssociatedPage as EmployeePage;
+                    if (page == null)
+                        return false;
+                    if (page.AssociatedEmployee == AssociatedEmployee)
+                        return true;
+                    return false;
+                }
+
+                Elements.Tab tab = MainWindow.Current.FindTab(predicate);
+                MainWindow.Current.ActiveTab = tab ?? MainWindow.Current.MainTab;
+            }
+            else
+            {
+                if (EmployeeDirectory.Models.Employee.StringIsValid(firstName.Text) == false ||
+                EmployeeDirectory.Models.Employee.StringIsValid(secondName.Text) == false ||
+                EmployeeDirectory.Models.Employee.StringIsValid(middleName.Text) == false)
+                {
+                    warningMessage_TextBlock.Text = $"{Properties.Resources.warningMessageEmployeeInvalidSymbols} " +
+                        $"{EmployeeDirectory.Models.Employee.InvalidSymbols}";
+                }
+                else
+                    warningMessage_TextBlock.Text = $"{Properties.Resources.warningMessageEmployeeInvalidModel}";
+                warningMessage_TextBlock.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void addEmployeePage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Update();
+
+            if (EmployeeDirectory.Models.Employee.StringIsValid(firstName.Text) == false ||
+                EmployeeDirectory.Models.Employee.StringIsValid(secondName.Text) == false ||
+                EmployeeDirectory.Models.Employee.StringIsValid(middleName.Text) == false)
+            {
+                warningMessage_TextBlock.Text = $"{Properties.Resources.warningMessageEmployeeInvalidSymbols} " +
+                    $"{EmployeeDirectory.Models.Employee.InvalidSymbols}";
+                warningMessage_TextBlock.Visibility = Visibility.Visible;
+            }
+        }
+
+
+
+        public void Update()
+        {
+            warningMessage_TextBlock.Visibility = Visibility.Hidden;
         }
     }
 }

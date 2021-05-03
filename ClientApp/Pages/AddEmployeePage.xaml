@@ -8,6 +8,11 @@
            xmlns:local="clr-namespace:ClientApp.Pages"
            mc:Ignorable="d"
            LastChildFill="True">
+    <TextBlock x:Name="warningMessage_TextBlock" 
+               DockPanel.Dock="Top" 
+               Style="{StaticResource warningMessage}"
+               Text="warning message"/>
+
     <e:HintTextBox x:Name="login" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintLogin}" Optional="False"/>
     <e:HintTextBox x:Name="firstName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintFirstName}" Optional="False"/>
     <e:HintTextBox x:Name="secondName" DockPanel.Dock="Top" Hint="{x:Static res:Resources.hintSecondNameOptional}" Optional="True"/>

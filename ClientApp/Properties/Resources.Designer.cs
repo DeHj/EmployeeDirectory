@@ -347,5 +347,32 @@ namespace ClientApp.Properties {
                 return ResourceManager.GetString("showAllEmployees", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Invalid input data - login or firstname can&apos;t be empty.
+        /// </summary>
+        public static string warningMessageEmployeeInvalidModel {
+            get {
+                return ResourceManager.GetString("warningMessageEmployeeInvalidModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Name or login can&apos;t contain the following symbols:.
+        /// </summary>
+        public static string warningMessageEmployeeInvalidSymbols {
+            get {
+                return ResourceManager.GetString("warningMessageEmployeeInvalidSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Enter 11 didits to this field.
+        /// </summary>
+        public static string warningMessagePhoneField {
+            get {
+                return ResourceManager.GetString("warningMessagePhoneField", resourceCulture);
+            }
+        }
     }
 }

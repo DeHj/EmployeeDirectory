@@ -213,4 +213,13 @@
   <data name="showAllEmployees" xml:space="preserve">
     <value>Show all employees</value>
   </data>
+  <data name="warningMessageEmployeeInvalidModel" xml:space="preserve">
+    <value>Invalid input data - login or firstname can't be empty</value>
+  </data>
+  <data name="warningMessageEmployeeInvalidSymbols" xml:space="preserve">
+    <value>Name or login can't contain the following symbols:</value>
+  </data>
+  <data name="warningMessagePhoneField" xml:space="preserve">
+    <value>Enter 11 didits to this field</value>
+  </data>
 </root>

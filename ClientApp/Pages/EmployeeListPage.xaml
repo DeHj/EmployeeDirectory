@@ -10,6 +10,12 @@
     <Border DockPanel.Dock="Top" BorderThickness="1">
         <StackPanel>
             <TextBlock Text="{x:Static res:Resources.searchByName}"/>
+
+            <TextBlock x:Name="warningMessage_TextBlock" 
+               DockPanel.Dock="Top" 
+               Style="{StaticResource warningMessage}"
+               Text="warning message"/>
+
             <e:HintTextBox x:Name="firstName" Hint="{x:Static res:Resources.hintFirstNameOptional}" Optional="True"/>
             <e:HintTextBox x:Name="secondName" Hint="{x:Static res:Resources.hintSecondNameOptional}" Optional="True"/>
             <e:HintTextBox x:Name="middleName" Hint="{x:Static res:Resources.hintMiddleNameOptional}" Optional="True"/>

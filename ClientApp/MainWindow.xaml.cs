@@ -28,11 +28,11 @@ namespace ClientApp
         /// <summary>
         /// Used to define if employee-related changes have been made to the system
         /// </summary>
-        public IList<EventArgs> EmployeeChanges { get; set; } = new List<EventArgs>();
+        public EventArgs LastEmployeeChange { get; set; } = new EventArgs();
         /// <summary>
         /// Used to define if phone-related changes have been made to the system
         /// </summary>
-        public IList<EventArgs> PhoneChanges { get; set; } = new List<EventArgs>();
+        public EventArgs LastPhoneChange { get; set; } = new EventArgs();
 
 
         //public Dictionary<string, UIElement> Pages { get; } = new Dictionary<string, UIElement>();

@@ -6,8 +6,15 @@
             xmlns:res="clr-namespace:ClientApp.Properties"
             xmlns:e="clr-namespace:ClientApp.Elements"
             xmlns:local="clr-namespace:ClientApp.Pages"
-            mc:Ignorable="d">
-    <TextBlock x:Name="message_TextBox" DockPanel.Dock="Top" Text="{x:Static res:Resources.addPhoneNumber_TextBlock}"/>
+            mc:Ignorable="d"
+            KeyDown="addPhonePage_KeyDown">
+    <TextBlock x:Name="message_TextBox" 
+               DockPanel.Dock="Top" 
+               Text="{x:Static res:Resources.addPhoneNumber_TextBlock}"/>
+    <TextBlock x:Name="warningMessage_TextBlock" 
+               DockPanel.Dock="Top" 
+               Style="{StaticResource warningMessage}"
+               Text="warning message"/>
     <e:PhoneNumberBox x:Name="phoneNumberBox"/>
     <Button x:Name="addChangePhone"
             Content="{x:Static res:Resources.addPhoneNumber_Button}" 

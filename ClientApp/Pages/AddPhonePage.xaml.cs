@@ -44,6 +44,7 @@ namespace ClientApp.Pages
             InitializeComponent();
 
             employeeId = changingPhone.IdEmployee;
+
             this.changingPhone = changingPhone.PhoneNumber;
             phoneNumberBox.Number = changingPhone.PhoneNumber;
 
@@ -51,9 +52,16 @@ namespace ClientApp.Pages
             message_TextBox.Text = $"{Properties.Resources.changePhoneNumber_TextBlock} {login}";
         }
 
+
         private void addPhone_Click(object sender, RoutedEventArgs e)
         {
-            if (phoneNumberBox.Number.Length == 11)
+            var phone = new EmployeeDirectory.Models.Phone
+            {
+                IdEmployee = employeeId,
+                PhoneNumber = phoneNumberBox.Number
+            };
+
+            if (phone.IsValid())
             {
                 EmployeeDirectory.Infrastructure.ResultCode resultCode;
 
@@ -61,15 +69,22 @@ namespace ClientApp.Pages
                 {
                     MainWindow.Current.DataAccessor.AddPhone(employeeId, phoneNumberBox.Number, out resultCode);
                     // Add resultCode handler!
+
+                    // If all is OK:
+                    MainWindow.Current.LastPhoneChange = new EventArgs();
                 }
-                else
+                else if(phoneNumberBox.Number != changingPhone)
                 {
                     MainWindow.Current.DataAccessor.RemovePhone(changingPhone, out resultCode);
                     // Add resultCode handler!
                     MainWindow.Current.DataAccessor.AddPhone(employeeId, phoneNumberBox.Number, out resultCode);
-                    // Add resultCode handler! 
+                    // Add resultCode handler!
+
+                    // If all is OK:
+                    MainWindow.Current.LastPhoneChange = new EventArgs();
                 }
 
+                // Search existing tab:
                 Elements.Tab tab = MainWindow.Current.FindTab((Elements.Tab tab) =>
                 {
                     EmployeePage page = tab.AssociatedPage as EmployeePage;
@@ -85,8 +100,20 @@ namespace ClientApp.Pages
             }
             else
             {
-                // Add incorrect input notice!
+                warningMessage_TextBlock.Text = Properties.Resources.warningMessagePhoneField;
+                warningMessage_TextBlock.Visibility = Visibility.Visible;
             }
+        }
+
+        private void addPhonePage_KeyDown(object sender, KeyEventArgs e)
+        {
+            Update();
+        }
+
+
+        public void Update()
+        {
+            warningMessage_TextBlock.Visibility = Visibility.Hidden;
         }
     }
 }

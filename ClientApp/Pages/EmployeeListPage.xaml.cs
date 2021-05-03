@@ -20,27 +20,45 @@ namespace ClientApp.Pages
     /// </summary>
     public partial class EmployeeListPage : DockPanel, IPage
     {
+        private EventArgs lastChange;
+
         public EmployeeListPage()
         {
             InitializeComponent();
 
             allEmployees_Click(this, new RoutedEventArgs());
+
+            firstName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
+            secondName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
+            middleName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
         }
 
         private void find_Click(object sender, RoutedEventArgs e)
         {
-            // Add user input check!
+            if (EmployeeDirectory.Models.Employee.StringIsValid(firstName.Text) == false ||
+                EmployeeDirectory.Models.Employee.StringIsValid(secondName.Text) == false ||
+                EmployeeDirectory.Models.Employee.StringIsValid(middleName.Text) == false)
+            {
+                warningMessage_TextBlock.Text = $"{Properties.Resources.warningMessageEmployeeInvalidSymbols} " +
+                   $"{EmployeeDirectory.Models.Employee.InvalidSymbols}";
+                warningMessage_TextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                string fn = firstName.Text == "" ? null : firstName.Text;
+                string sn = secondName.Text == "" ? null : secondName.Text;
+                string mn = middleName.Text == "" ? null : middleName.Text;
 
-            string fn = firstName.Text == "" ? null : firstName.Text;
-            string sn = secondName.Text == "" ? null : secondName.Text;
-            string mn = middleName.Text == "" ? null : middleName.Text;
+                EmployeeDirectory.Infrastructure.ResultCode resultCode;
+                var employees = MainWindow.Current.DataAccessor.GetEmployeesByName(fn, sn, mn, 0, 10, out resultCode);
 
-            EmployeeDirectory.Infrastructure.ResultCode resultCode;
-            var employees = MainWindow.Current.DataAccessor.GetEmployeesByName(fn, sn, mn, 0, 10, out resultCode);
+                // Add resultCode handler!
 
-            // Add resultCode handler!
+                // If all is OK:
+                lastChange = MainWindow.Current.LastEmployeeChange;
 
-            DrawEmployeesList(employees);
+                DrawEmployeesList(employees);
+            }
         }
 
         private void allEmployees_Click(object sender, RoutedEventArgs e)
@@ -50,7 +68,24 @@ namespace ClientApp.Pages
 
             // Add resultCode handler!
 
+            // If all is OK:
+            lastChange = MainWindow.Current.LastEmployeeChange;
+
             DrawEmployeesList(employees);
+        }
+
+        private void employeeListPage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Update();
+
+            if (EmployeeDirectory.Models.Employee.StringIsValid(firstName.Text) == false ||
+                EmployeeDirectory.Models.Employee.StringIsValid(secondName.Text) == false ||
+                EmployeeDirectory.Models.Employee.StringIsValid(middleName.Text) == false)
+            {
+                warningMessage_TextBlock.Text = $"{Properties.Resources.warningMessageEmployeeInvalidSymbols} " +
+                    $"{EmployeeDirectory.Models.Employee.InvalidSymbols}";
+                warningMessage_TextBlock.Visibility = Visibility.Visible;
+            }
         }
 
 
@@ -80,14 +115,19 @@ namespace ClientApp.Pages
 
         public void Update()
         {
-            if (firstName.Text != "" ||
+            warningMessage_TextBlock.Visibility = Visibility.Hidden;
+
+            if (lastChange != MainWindow.Current.LastEmployeeChange)
+            {
+                if (firstName.Text != "" ||
                 secondName.Text != "" ||
                 middleName.Text != "")
-            {
-                find_Click(this, new RoutedEventArgs());
+                {
+                    find_Click(this, new RoutedEventArgs());
+                }
+                else
+                    allEmployees_Click(this, new RoutedEventArgs());
             }
-            else
-                allEmployees_Click(this, new RoutedEventArgs());
         }
     }
 }
