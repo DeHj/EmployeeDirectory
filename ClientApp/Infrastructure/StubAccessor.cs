@@ -121,8 +121,16 @@ namespace ClientApp.Infrastructure
 
         public void ChangeEmployee(int userId, string newHashsum, string firstName, string secondName, string middleName, DateTime? birthday, out ResultCode resultCode)
         {
-            Employee employee = Employees.Where((Employee e) => e.Id == userId).First();
+            var employees = Employees.Where((Employee e) => e.Id == userId);
             
+            if (employees.Any() == false)
+            {
+                resultCode = ResultCode.NotExist;
+                return;
+            }
+
+            Employee employee = employees.First();
+
             employee.FirstName = firstName ?? employee.FirstName;
             employee.SecondName = secondName ?? employee.SecondName;
             employee.MiddleName = middleName ?? employee.MiddleName;
@@ -145,8 +153,7 @@ namespace ClientApp.Infrastructure
             if (middleName == null) middleName = "";
 
             resultCode = ResultCode.OK;
-            return Employees.Where((Employee e)
-                =>
+            return Employees.Where((Employee e) =>
             {
                 string fn = e.FirstName ?? "";
                 string sn = e.SecondName ?? "";
