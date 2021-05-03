@@ -26,8 +26,6 @@ namespace ClientApp.Pages
         {
             InitializeComponent();
 
-            allEmployees_Click(this, new RoutedEventArgs());
-
             firstName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
             secondName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
             middleName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
