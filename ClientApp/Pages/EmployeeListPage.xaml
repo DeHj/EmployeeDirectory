@@ -28,12 +28,7 @@
         </StackPanel>
     </Border>
 
-    <DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
-        <Button x:Name="prevPage" HorizontalAlignment="Left" Width="20">&lt;</Button>
-        <Button x:Name="nextPage" HorizontalAlignment="Right" Width="20">&gt;</Button>
-    </DockPanel>
-    
-    <ListBox x:Name="control_employees">
-        
-    </ListBox>
+    <ListBox x:Name="control_employees"
+             ScrollViewer.ScrollChanged="control_employees_ScrollChanged"/>
+
 </DockPanel>

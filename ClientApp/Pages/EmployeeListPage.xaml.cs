@@ -22,6 +22,10 @@ namespace ClientApp.Pages
     {
         private EventArgs lastChange;
 
+        ScrollViewer scrollViewer;
+        int pageSize = 10;
+
+
         public EmployeeListPage()
         {
             InitializeComponent();
@@ -48,12 +52,12 @@ namespace ClientApp.Pages
                 string mn = middleName.Text == "" ? null : middleName.Text;
 
                 EmployeeDirectory.Infrastructure.ResultCode resultCode;
-                var employees = MainWindow.Current.DataAccessor.GetEmployeesByName(fn, sn, mn, 0, 10, out resultCode);
+                var employees = MainWindow.Current.DataAccessor.GetEmployeesByName(fn, sn, mn, 0, pageSize, out resultCode);
 
                 if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
                 {
                     lastChange = MainWindow.Current.LastEmployeeChange;
-                    DrawEmployeesList(employees);
+                    RedrawEmployeesList(employees);
                 }
                 else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
                     new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
@@ -66,12 +70,12 @@ namespace ClientApp.Pages
         private void allEmployees_Click(object sender, RoutedEventArgs e)
         {
             EmployeeDirectory.Infrastructure.ResultCode resultCode;
-            var employees = MainWindow.Current.DataAccessor.GetAllEmployees(0, 10, out resultCode);
+            var employees = MainWindow.Current.DataAccessor.GetAllEmployees(0, pageSize, out resultCode);
 
             if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
             {
                 lastChange = MainWindow.Current.LastEmployeeChange;
-                DrawEmployeesList(employees);
+                RedrawEmployeesList(employees);
             }
             else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
                 new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
@@ -102,22 +106,30 @@ namespace ClientApp.Pages
             control_employees.Items.Add(employeeField);
         }
 
-        public void DrawEmployeesList(IEnumerable<EmployeeDirectory.Models.Employee> employees)
+        public void RedrawEmployeesList(IEnumerable<EmployeeDirectory.Models.Employee> employees)
         {
             control_employees.Items.Clear();
 
             if (employees.Any())
+            {
+                AddEmployeesToScreen(employees);
+            }
+            else
+                control_employees.Items.Add(new TextBlock() { Text = Properties.Resources.noResult });
+        }
+
+        public void AddEmployeesToScreen(IEnumerable<EmployeeDirectory.Models.Employee> employees)
+        {
+            if (employees != null)
             {
                 foreach (var employee in employees)
                 {
                     AddEmployeeField(employee);
                 }
             }
-            else
-            {
-                control_employees.Items.Add(new TextBlock() { Text = Properties.Resources.noResult });
-            }
         }
+
+
 
         public void Update()
         {
@@ -133,6 +145,65 @@ namespace ClientApp.Pages
                 }
                 else
                     allEmployees_Click(this, new RoutedEventArgs());
+            }
+        }
+
+
+
+
+
+        static ScrollViewer findScrollViewer(DependencyObject parent)
+        {
+            var childCount = VisualTreeHelper.GetChildrenCount(parent);
+            for (var i = 0; i < childCount; i++)
+            {
+                var elt = VisualTreeHelper.GetChild(parent, i);
+                if (elt is ScrollViewer) return (ScrollViewer)elt;
+                var result = findScrollViewer(elt);
+                if (result != null) return result;
+            }
+            return null;
+        }
+        
+        private void control_employees_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (scrollViewer == null)
+            {
+                scrollViewer = findScrollViewer(control_employees);
+                
+                scrollViewer.ScrollChanged += control_employees_Scroll;
+            }
+        }
+
+        private void control_employees_Scroll(object sender, ScrollChangedEventArgs e)
+        {
+
+
+            double posBefore = scrollViewer.VerticalOffset;
+
+            MainWindow.Current.Title = $"{ scrollViewer.VerticalOffset } { scrollViewer.ScrollableHeight } " +
+                $"{control_employees.Items.Count} {scrollViewer.ViewportHeight}";
+
+            //return;
+
+            // Подгрузка
+            if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+            {
+                EmployeeDirectory.Infrastructure.ResultCode resultCode;
+                var employees = MainWindow.Current.DataAccessor.GetAllEmployees(control_employees.Items.Count, pageSize, out resultCode);
+
+                if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
+                {
+                    lastChange = MainWindow.Current.LastEmployeeChange;
+                    AddEmployeesToScreen(employees);
+
+                    scrollViewer.ScrollToVerticalOffset(posBefore);
+                }
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
+                    new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
+
+                else
+                    throw new Exception("Unexpected resultCode value");
             }
         }
     }
