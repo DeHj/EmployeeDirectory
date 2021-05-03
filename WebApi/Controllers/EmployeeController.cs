@@ -103,7 +103,7 @@ namespace WebApi.Controllers
 
         [HttpPut]
         [Route("add-employee")]
-        public ActionResult<int> AddUser(Employee employee)
+        public ActionResult<int> AddEmployee(Employee employee)
         {
             // Check employee validaty
 

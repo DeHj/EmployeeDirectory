@@ -3,206 +3,147 @@ using System.Collections.Generic;
 using EmployeeDirectory.Infrastructure;
 using EmployeeDirectory.Models;
 using System.Linq;
+using System.Net.Http;
+using System.Net;
 
 namespace ClientApp.Infrastructure
 {
     class ServerAccessor : IDataAccessor
     {
-        IList<Phone> Phones = new List<Phone>()
+        HttpClient client = new HttpClient();
+        string urlPrefix;
+
+
+        public ServerAccessor(string urlPrefix)
         {
-            new Phone
-            {
-                IdEmployee = 0,
-                PhoneValue = "89123340840"
-            },
-            new Phone
-            {
-                IdEmployee = 0,
-                PhoneValue = "89120000000"
-            },
-            new Phone
-            {
-                IdEmployee = 1,
-                PhoneValue = "89122327720"
-            }
-        };
-
-        IList<Employee> Employees = new List<Employee>()
-        {
-            new Employee
-            {
-                Id = 0,
-                Login = "dehabs",
-                FirstName = "Denis"
-            },
-            new Employee
-            {
-                Id = 1,
-                Login = "mymom",
-                BirthDay = new DateTime(1965, 12, 9),
-                FirstName = "Natasha"
-            },
-            new Employee
-            {
-                Id = 1,
-                Login = "mymom",
-                BirthDay = new DateTime(1965, 12, 9),
-                FirstName = "Natasha"
-            },
-            new Employee
-            {
-                Id = 1,
-                Login = "mymom",
-                BirthDay = new DateTime(1965, 12, 9),
-                FirstName = "Natasha"
-            },
-            new Employee
-            {
-                Id = 1,
-                Login = "mymom",
-                BirthDay = new DateTime(1965, 12, 9),
-                FirstName = "Natasha"
-            },
-            new Employee
-            {
-                Id = 1,
-                Login = "mymom",
-                BirthDay = new DateTime(1965, 12, 9),
-                FirstName = "Natasha"
-            },
-            new Employee
-            {
-                Id = 1,
-                Login = "mymom",
-                BirthDay = new DateTime(1965, 12, 9),
-                FirstName = "Natasha"
-            },
-            new Employee
-            {
-                Id = 1,
-                Login = "mymom",
-                BirthDay = new DateTime(1965, 12, 9),
-                FirstName = "Natasha"
-            },
-            new Employee
-            {
-                Id = 1,
-                Login = "mymom",
-                BirthDay = new DateTime(1965, 12, 9),
-                FirstName = "Natasha"
-            },
-            new Employee
-            {
-                Id = 1,
-                Login = "mymom",
-                BirthDay = new DateTime(1965, 12, 9),
-                FirstName = "Natasha"
-            }
-        };
-
-
-
-        public void AddPhone(int userId, string phoneNumber, out ResultCode resultCode)
-        {
-            Phones.Add(new Phone { IdEmployee = userId, PhoneValue = phoneNumber });
-
-            resultCode = ResultCode.OK;
+            this.urlPrefix = urlPrefix;
         }
 
-        public void AddUser(string login, string hashsum, string firstName, out int userId, out ResultCode resultCode)
+
+
+        public void AddEmployee(string login, string hashsum, string firstName, out int idEmployee, out ResultCode resultCode)
         {
-            userId = new Random().Next();
+            Employee employee = new Employee
+            {
+                Login = login,
+                FirstName = firstName,
+            };
 
-            Employees.Add(new Employee { FirstName = firstName, Id = userId, Login = login });
+            string url = urlPrefix + "add-employee";
+            var requestResult = HttpHelper.RequestPostAsync<int>(client, url, employee).Result;
 
-            resultCode = ResultCode.OK;
+            idEmployee = requestResult.Result;
+            resultCode = HttpStatusToResultCode(requestResult.StatusCode);
         }
 
-        public void ChangeUser(int userId, string newHashsum, string firstName, string secondName, string middleName, DateTime? birthday, out ResultCode resultCode)
+        public void AddPhone(int idEmployee, string phoneNumber, out ResultCode resultCode)
         {
-            Employee employee = Employees.Where((Employee e) => e.Id == userId).First();
-            
-            employee.FirstName = firstName ?? employee.FirstName;
-            employee.SecondName = secondName ?? employee.SecondName;
-            employee.MiddleName = middleName ?? employee.MiddleName;
-            employee.BirthDay = birthday ?? employee.BirthDay;
+            Phone employee = new Phone
+            {
+                IdEmployee = idEmployee,
+                PhoneNumber = phoneNumber,
+            };
 
-            resultCode = ResultCode.OK;
-            return;
+            string url = urlPrefix + "add-phone";
+            var requestResult = HttpHelper.RequestPostAsync(client, url, employee).Result;
+
+            resultCode = HttpStatusToResultCode(requestResult.StatusCode);
+        }
+
+        public void ChangeEmployee(int idEmployee, string newHashsum, string firstName, string secondName, string middleName, DateTime? birthday, out ResultCode resultCode)
+        {
+            Employee employee = new Employee
+            {
+                Login = "login",
+                FirstName = firstName,
+                SecondName = secondName,
+                MiddleName = middleName,
+                BirthDay = birthday,
+            };
+
+            string url = urlPrefix + "change-employee";
+            var requestResult = HttpHelper.RequestPostAsync(client, url, employee).Result;
+
+            resultCode = HttpStatusToResultCode(requestResult.StatusCode);
         }
 
         public IEnumerable<Employee> GetAllEmployees(int from, int count, out ResultCode resultCode)
         {
-            resultCode = ResultCode.OK;
-            return Employees;
-        }
+            string url = urlPrefix + $"employees/get-all-employees/{from}-{count}";
+            var requestResult = HttpHelper.RequestGetAsync<IEnumerable<Employee>>(client, url).Result;
 
-        public IEnumerable<Employee> GetEmployeesByName(string firstName, string secondName, string middleName, int from, int count, out ResultCode resultCode)
-        {
-            if (firstName == null) firstName = "";
-            if (secondName == null) secondName = "";
-            if (middleName == null) middleName = "";
+            resultCode = HttpStatusToResultCode(requestResult.StatusCode);
 
-            resultCode = ResultCode.OK;
-            return Employees.Where((Employee e)
-                =>
-            {
-                string fn = e.FirstName ?? "";
-                string sn = e.SecondName ?? "";
-                string mn = e.MiddleName ?? "";
-
-                return fn.Contains(firstName) && sn.Contains(secondName) && mn.Contains(middleName);
-            }
-                );
+            return requestResult.Result;
         }
 
         public Employee GetEmployeeById(int idEmployee, out ResultCode resultCode)
         {
-            var employees = Employees.Where((Employee e) => e.Id == idEmployee);
-            if (employees.Any())
-            {
-                resultCode = ResultCode.OK;
-                return employees.First();
-            }
-            else
-            {
-                resultCode = ResultCode.NotExist;
-                return null;
-            }
+            string url = urlPrefix + $"get-employee-by-id/{idEmployee}";
+            var requestResult = HttpHelper.RequestGetAsync<Employee>(client, url).Result;
+
+            resultCode = HttpStatusToResultCode(requestResult.StatusCode);
+
+            return requestResult.Result;
+        }
+
+        public IEnumerable<Employee> GetEmployeesByName(string firstName, string secondName, string middleName, int from, int count, out ResultCode resultCode)
+        {
+            firstName ??= "_";
+            secondName ??= "_";
+            middleName ??= "_";
+
+            string url = urlPrefix + $"get-employees-by-name/{from}-{count}-{firstName}-{secondName}-{middleName}";
+            var requestResult = HttpHelper.RequestGetAsync<IEnumerable<Employee>>(client, url).Result;
+
+            resultCode = HttpStatusToResultCode(requestResult.StatusCode);
+
+            return requestResult.Result;
         }
 
         public IEnumerable<Phone> GetPhonesById(int idEmployee, out ResultCode resultCode)
         {
-            resultCode = ResultCode.OK;
-            return Phones.Where((Phone p) => p.IdEmployee == idEmployee);
+            string url = urlPrefix + $"get-phones/{idEmployee}";
+            var requestResult = HttpHelper.RequestGetAsync<IEnumerable<Phone>>(client, url).Result;
+
+            resultCode = HttpStatusToResultCode(requestResult.StatusCode);
+
+            return requestResult.Result;
+        }
+
+        public void RemoveEmployee(int idEmployee, out ResultCode resultCode)
+        {
+            string url = urlPrefix + $"remove-employee/{idEmployee}";
+            var requestResult = HttpHelper.RequestPostAsync(client, url).Result;
+
+            resultCode = HttpStatusToResultCode(requestResult.StatusCode);
         }
 
         public void RemovePhone(string phoneNumber, out ResultCode resultCode)
         {
-            var phones = Phones.Where((Phone p) => { return p.PhoneValue == phoneNumber; });
-            if (phones.Any() == false)
-            {
-                resultCode = ResultCode.NotExist;
-                return;
-            }
+            string url = urlPrefix + $"remove-employee/{phoneNumber}";
+            var requestResult = HttpHelper.RequestPostAsync(client, url).Result;
 
-            Phones.Remove(phones.First());
-            resultCode = ResultCode.OK;
+            resultCode = HttpStatusToResultCode(requestResult.StatusCode);
         }
 
-        public void RemoveUser(int userId, out ResultCode resultCode)
-        {
-            var employees = Employees.Where((Employee e) => e.Id == userId);
 
-            if (employees.Any())
-            {
-                Employees.Remove(employees.First());
-                resultCode = ResultCode.OK;
-            }
-            else
-            {
-                resultCode = ResultCode.NotExist;
-            }
+
+        private ResultCode HttpStatusToResultCode(HttpStatusCode statusCode)
+        {
+            if (statusCode == HttpStatusCode.OK)
+                return ResultCode.OK;
+
+            if (statusCode == HttpStatusCode.NotAcceptable)
+                return ResultCode.NotExist;
+
+            if (statusCode == HttpStatusCode.Conflict)
+                return ResultCode.AlreadyExist;
+
+            if (statusCode == HttpStatusCode.Unauthorized)
+                return ResultCode.InvalidLoginOrPassword;
+
+            return ResultCode.InternalError;
         }
     }
 }

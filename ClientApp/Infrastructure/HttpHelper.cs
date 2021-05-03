@@ -154,14 +154,14 @@ namespace ClientApp.Infrastructure
         public static async Task<WebServiceResponse<T>> RequestPostAsync<T>(
             HttpClient client,
             string url,
-            params object[] payloadObjects) where T : class
+            params object[] payloadObjects)
         {
             // Во избежание дублирования кода воспользуемся похожим методом
             var rawResponse = await RequestPostAsync(client, url, payloadObjects);
             var response = rawResponse.HttpResponse;
             
             // Если ответ не пуст, то выполняется десериализация содержимого из JSON в C# объект
-            T result = null;
+            T result = default(T);
             if (response.Content.Headers.ContentLength != 0)
             {
                 var responseString = await response.Content.ReadAsStringAsync();
