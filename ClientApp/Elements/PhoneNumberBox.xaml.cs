@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace ClientApp.Elements
 {
     /// <summary>
-    /// Interaction logic for element.xaml
+    /// Interaction logic for PhoneNumberBox.xaml
     /// </summary>
     public partial class PhoneNumberBox : Grid
     {

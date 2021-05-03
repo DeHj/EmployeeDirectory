@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace ClientApp.Pages
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for AddEmployeePage.xaml
     /// </summary>
     public partial class AddEmployeePage : DockPanel, IPage
     {

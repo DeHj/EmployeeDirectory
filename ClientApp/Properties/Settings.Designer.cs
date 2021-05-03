@@ -25,7 +25,7 @@ namespace ClientApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:7563/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:host/")]
         public string ApplicationUrl {
             get {
                 return ((string)(this["ApplicationUrl"]));

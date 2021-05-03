@@ -11,7 +11,7 @@ namespace ClientApp.Infrastructure
     class ServerAccessor : IDataAccessor
     {
         HttpClient client = new HttpClient();
-        string urlPrefix;
+        string urlPrefix;getall
 
 
         public ServerAccessor(string urlPrefix)
@@ -69,7 +69,7 @@ namespace ClientApp.Infrastructure
 
         public IEnumerable<Employee> GetAllEmployees(int from, int count, out ResultCode resultCode)
         {
-            string url = urlPrefix + $"employees/employees/get-all-employees/{from}-{count}";
+            string url = urlPrefix + $"employees/get-all-employees/{from}-{count}";
             var requestResult = HttpHelper.RequestGetAsync<Employee[]>(client, url).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ApplicationUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost:7563/</Value>
+      <Value Profile="(Default)">http://localhost:host/</Value>
     </Setting>
     <Setting Name="PageSize" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>

@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace ClientApp.Elements
 {
     /// <summary>
-    /// Interaction logic for PromptTextBox.xaml
+    /// Interaction logic for HintTextBox.xaml
     /// </summary>
     public partial class HintTextBox : Grid
     {
