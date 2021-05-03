@@ -30,7 +30,7 @@ namespace ClientApp.Infrastructure
             };
 
             string url = urlPrefix + "employees/add-employee";
-            var requestResult = HttpHelper.RequestPostAsync<int>(client, url, employee).Result;
+            var requestResult = HttpHelper.RequestPutAsync<int>(client, url, employee).Result;
 
             idEmployee = requestResult.Result;
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
@@ -45,7 +45,7 @@ namespace ClientApp.Infrastructure
             };
 
             string url = urlPrefix + "employees/add-phone";
-            var requestResult = HttpHelper.RequestPostAsync(client, url, employee).Result;
+            var requestResult = HttpHelper.RequestPutAsync(client, url, employee).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
         }
@@ -62,7 +62,7 @@ namespace ClientApp.Infrastructure
             };
 
             string url = urlPrefix + "employees/change-employee";
-            var requestResult = HttpHelper.RequestPostAsync(client, url, employee).Result;
+            var requestResult = HttpHelper.RequestPutAsync(client, url, employee).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
         }
@@ -114,7 +114,7 @@ namespace ClientApp.Infrastructure
         public void RemoveEmployee(int idEmployee, out ResultCode resultCode)
         {
             string url = urlPrefix + $"employees/remove-employee/{idEmployee}";
-            var requestResult = HttpHelper.RequestPostAsync(client, url).Result;
+            var requestResult = HttpHelper.RequestPutAsync(client, url).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
         }
@@ -122,7 +122,7 @@ namespace ClientApp.Infrastructure
         public void RemovePhone(string phoneNumber, out ResultCode resultCode)
         {
             string url = urlPrefix + $"employees/remove-phone/{phoneNumber}";
-            var requestResult = HttpHelper.RequestPostAsync(client, url).Result;
+            var requestResult = HttpHelper.RequestPutAsync(client, url).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
         }
