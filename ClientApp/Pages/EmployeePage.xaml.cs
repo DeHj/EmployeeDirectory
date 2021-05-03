@@ -87,21 +87,42 @@ namespace ClientApp.Pages
                 EmployeeDirectory.Infrastructure.ResultCode resultCode;
                 MainWindow.Current.DataAccessor.RemoveEmployee(AssociatedEmployee.Id, out resultCode);
 
-                // Add resultCode handler!
+                if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
+                {
+                    new Windows.MessageWindow(Properties.Resources.successfulEmployeeRemovingMessage).ShowDialog();
+                    MainWindow.Current.LastEmployeeChange = new EventArgs();
+                    MainWindow.Current.CloseTab(this);
+                }
 
-                // If all is OK:
-                MainWindow.Current.LastEmployeeChange = new EventArgs();
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.NotExist)
+                    new Windows.MessageWindow(Properties.Resources.employeeNotExist).ShowDialog();
 
-                MainWindow.Current.CloseTab(this);
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
+                    new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
+
+                else
+                    throw new Exception("Unexpected resultCode value");
             }
         }
 
         public IEnumerable<EmployeeDirectory.Models.Phone> UpdatePhones()
         {
             EmployeeDirectory.Infrastructure.ResultCode resultCode;
-            return MainWindow.Current.DataAccessor.GetPhonesById(AssociatedEmployee.Id, out resultCode);
+            var phones = MainWindow.Current.DataAccessor.GetPhonesById(AssociatedEmployee.Id, out resultCode);
 
-            // Add resultCode handler!
+            if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
+                return phones;
+
+            else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.NotExist)
+                new Windows.MessageWindow(Properties.Resources.employeeNotExist).ShowDialog();
+
+            else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
+                new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
+
+            else
+                throw new Exception("Unexpected resultCode value");
+
+            return new List<EmployeeDirectory.Models.Phone>();
         }
 
         public void RedrawPhones()
@@ -135,15 +156,23 @@ namespace ClientApp.Pages
                 EmployeeDirectory.Infrastructure.ResultCode resultCode;
                 EmployeeDirectory.Models.Employee employee = MainWindow.Current.DataAccessor.GetEmployeeById(AssociatedEmployee.Id, out resultCode);
 
-                // Add resultCode handler!
+                if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
+                {
+                    lastEmployeeChange = MainWindow.Current.LastEmployeeChange;
 
-                // If all is OK:
+                    nameText.Text = $"{employee.FirstName} {employee.SecondName ?? ""} {employee.MiddleName ?? ""}".Replace("  ", " ");
+                    loginText.Text = employee.Login;
+                    if (employee.BirthDay != null) birthdayText.Text = employee.BirthDay?.GetDateTimeFormats('D').First();
+                }
 
-                lastEmployeeChange = MainWindow.Current.LastEmployeeChange;
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.NotExist)
+                    new Windows.MessageWindow(Properties.Resources.phoneErrorEmployeeNotExist).ShowDialog();
 
-                nameText.Text = $"{employee.FirstName} {employee.SecondName ?? ""} {employee.MiddleName ?? ""}".Replace("  ", " ");
-                loginText.Text = employee.Login;
-                if (employee.BirthDay != null) birthdayText.Text = employee.BirthDay?.GetDateTimeFormats('D').First();
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
+                    new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
+
+                else
+                    throw new Exception("Unexpected resultCode value");
             }
 
             if (lastPhoneChange != MainWindow.Current.LastPhoneChange)

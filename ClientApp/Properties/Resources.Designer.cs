@@ -223,6 +223,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Could not find this employee.
+        /// </summary>
+        public static string employeeNotExist {
+            get {
+                return ResourceManager.GetString("employeeNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Employee phones number list:.
         /// </summary>
         public static string employeePhonesList {
@@ -331,6 +340,33 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Could not find the employee to whom the number is being added.
+        /// </summary>
+        public static string phoneErrorEmployeeNotExist {
+            get {
+                return ResourceManager.GetString("phoneErrorEmployeeNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Could not find this phone number or employee to whom the number is being added.
+        /// </summary>
+        public static string phoneErrorEmployeeOrPhoneNotExist {
+            get {
+                return ResourceManager.GetString("phoneErrorEmployeeOrPhoneNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на This phone number already exists in the system.
+        /// </summary>
+        public static string phoneErrorPhoneAlreadyExist {
+            get {
+                return ResourceManager.GetString("phoneErrorPhoneAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Search employee by name.
         /// </summary>
         public static string searchByName {
@@ -340,11 +376,74 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Server error occurred while request.
+        /// </summary>
+        public static string serverErrorMessage {
+            get {
+                return ResourceManager.GetString("serverErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Show all employees.
         /// </summary>
         public static string showAllEmployees {
             get {
                 return ResourceManager.GetString("showAllEmployees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Employee was added successfully.
+        /// </summary>
+        public static string successfulEmployeeAddingMessage {
+            get {
+                return ResourceManager.GetString("successfulEmployeeAddingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Employee was changed successfully.
+        /// </summary>
+        public static string successfulEmployeeChangingMessage {
+            get {
+                return ResourceManager.GetString("successfulEmployeeChangingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Employee was removed successfully.
+        /// </summary>
+        public static string successfulEmployeeRemovingMessage {
+            get {
+                return ResourceManager.GetString("successfulEmployeeRemovingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Phone was added successfully.
+        /// </summary>
+        public static string successfulPhoneAddingMessage {
+            get {
+                return ResourceManager.GetString("successfulPhoneAddingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Phone was changed successfully.
+        /// </summary>
+        public static string successfulPhoneChangingMessage {
+            get {
+                return ResourceManager.GetString("successfulPhoneChangingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Phone was removed successfully.
+        /// </summary>
+        public static string successfulPhoneRemovingMessage {
+            get {
+                return ResourceManager.GetString("successfulPhoneRemovingMessage", resourceCulture);
             }
         }
         

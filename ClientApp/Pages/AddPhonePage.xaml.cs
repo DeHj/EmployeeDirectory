@@ -53,6 +53,24 @@ namespace ClientApp.Pages
         }
 
 
+
+        private void CheckResultCode(EmployeeDirectory.Infrastructure.ResultCode resultCode)
+        {
+            if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.NotExist)
+                new Windows.MessageWindow(Properties.Resources.phoneErrorEmployeeOrPhoneNotExist).ShowDialog();
+
+            else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.AlreadyExist)
+                new Windows.MessageWindow(Properties.Resources.phoneErrorPhoneAlreadyExist).ShowDialog();
+
+            else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
+                new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
+
+            else
+                throw new Exception("Unexpected resultCode value");
+        }
+
+
+
         private void addPhone_Click(object sender, RoutedEventArgs e)
         {
             var phone = new EmployeeDirectory.Models.Phone
@@ -68,35 +86,53 @@ namespace ClientApp.Pages
                 if (changingPhone == null)
                 {
                     MainWindow.Current.DataAccessor.AddPhone(employeeId, phoneNumberBox.Number, out resultCode);
-                    // Add resultCode handler!
 
-                    // If all is OK:
-                    MainWindow.Current.LastPhoneChange = new EventArgs();
+                    if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
+                    {
+                        new Windows.MessageWindow(Properties.Resources.successfulPhoneAddingMessage).ShowDialog();
+                        MainWindow.Current.LastPhoneChange = new EventArgs();
+                    }
+                    else
+                        CheckResultCode(resultCode);
                 }
-                else if(phoneNumberBox.Number != changingPhone)
+                else if (phoneNumberBox.Number != changingPhone)
                 {
                     MainWindow.Current.DataAccessor.RemovePhone(changingPhone, out resultCode);
-                    // Add resultCode handler!
-                    MainWindow.Current.DataAccessor.AddPhone(employeeId, phoneNumberBox.Number, out resultCode);
-                    // Add resultCode handler!
 
-                    // If all is OK:
-                    MainWindow.Current.LastPhoneChange = new EventArgs();
+                    if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
+                    {
+                        MainWindow.Current.DataAccessor.AddPhone(employeeId, phoneNumberBox.Number, out resultCode);
+
+                        if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
+                        {
+                            new Windows.MessageWindow(Properties.Resources.successfulPhoneAddingMessage).ShowDialog();
+                            MainWindow.Current.LastPhoneChange = new EventArgs();
+                        }
+                        else
+                            CheckResultCode(resultCode);
+                    }
+                    else
+                        CheckResultCode(resultCode);
                 }
+                else
+                    return;
 
-                // Search existing tab:
-                Elements.Tab tab = MainWindow.Current.FindTab((Elements.Tab tab) =>
+                if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
                 {
-                    EmployeePage page = tab.AssociatedPage as EmployeePage;
-                    if (page == null)
+                    // Search existing tab:
+                    Elements.Tab tab = MainWindow.Current.FindTab((Elements.Tab tab) =>
+                    {
+                        EmployeePage page = tab.AssociatedPage as EmployeePage;
+                        if (page == null)
+                            return false;
+                        if (page.AssociatedEmployee.Id == employeeId)
+                            return true;
                         return false;
-                    if (page.AssociatedEmployee.Id == employeeId)
-                        return true;
-                    return false;
-                });
+                    });
 
-                MainWindow.Current.CloseTab(this);
-                MainWindow.Current.ActiveTab = tab ?? MainWindow.Current.MainTab;
+                    MainWindow.Current.CloseTab(this);
+                    MainWindow.Current.ActiveTab = tab ?? MainWindow.Current.MainTab;
+                }
             }
             else
             {

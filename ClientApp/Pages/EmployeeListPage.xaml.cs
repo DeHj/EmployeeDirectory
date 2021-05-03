@@ -25,6 +25,7 @@ namespace ClientApp.Pages
         public EmployeeListPage()
         {
             InitializeComponent();
+            InitializeComponent();
 
             firstName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
             secondName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
@@ -50,12 +51,16 @@ namespace ClientApp.Pages
                 EmployeeDirectory.Infrastructure.ResultCode resultCode;
                 var employees = MainWindow.Current.DataAccessor.GetEmployeesByName(fn, sn, mn, 0, 10, out resultCode);
 
-                // Add resultCode handler!
+                if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
+                {
+                    lastChange = MainWindow.Current.LastEmployeeChange;
+                    DrawEmployeesList(employees);
+                }
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
+                    new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
 
-                // If all is OK:
-                lastChange = MainWindow.Current.LastEmployeeChange;
-
-                DrawEmployeesList(employees);
+                else
+                    throw new Exception("Unexpected resultCode value");
             }
         }
 
@@ -64,12 +69,16 @@ namespace ClientApp.Pages
             EmployeeDirectory.Infrastructure.ResultCode resultCode;
             var employees = MainWindow.Current.DataAccessor.GetAllEmployees(0, 10, out resultCode);
 
-            // Add resultCode handler!
+            if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
+            {
+                lastChange = MainWindow.Current.LastEmployeeChange;
+                DrawEmployeesList(employees);
+            }
+            else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
+                new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
 
-            // If all is OK:
-            lastChange = MainWindow.Current.LastEmployeeChange;
-
-            DrawEmployeesList(employees);
+            else
+                throw new Exception("Unexpected resultCode value");
         }
 
         private void employeeListPage_TextChanged(object sender, TextChangedEventArgs e)

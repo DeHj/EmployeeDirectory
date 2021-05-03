@@ -52,18 +52,32 @@ namespace ClientApp.Elements
                 EmployeeDirectory.Infrastructure.ResultCode resultCode;
                 MainWindow.Current.DataAccessor.RemovePhone(AssociatedPhone.PhoneNumber, out resultCode);
 
-                // Add resultCode handler!
-
-                Tab tab = MainWindow.Current.FindTab((Tab t) =>
+                if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
                 {
-                    Pages.EmployeePage page = t.AssociatedPage as Pages.EmployeePage;
-                    if (page == null)
-                        return false;
-                    return page.AssociatedEmployee.Id == AssociatedPhone.IdEmployee;
-                });
+                    new Windows.MessageWindow(Properties.Resources.successfulPhoneRemovingMessage).ShowDialog();
+                    MainWindow.Current.LastPhoneChange = new EventArgs();
 
-                if (tab != null)
-                    MainWindow.Current.ActiveTab = tab;
+                    // Search the existing tab:
+                    Tab tab = MainWindow.Current.FindTab((Tab t) =>
+                    {
+                        Pages.EmployeePage page = t.AssociatedPage as Pages.EmployeePage;
+                        if (page == null)
+                            return false;
+                        return page.AssociatedEmployee.Id == AssociatedPhone.IdEmployee;
+                    });
+
+                    if (tab != null)
+                        MainWindow.Current.ActiveTab = tab;
+                }
+
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.NotExist)
+                    new Windows.MessageWindow(Properties.Resources.phoneErrorEmployeeOrPhoneNotExist).ShowDialog();
+
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
+                    new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
+
+                else
+                    throw new Exception("Unexpected resultCode value");
             }
         }
     }

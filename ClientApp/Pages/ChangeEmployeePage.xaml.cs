@@ -54,30 +54,39 @@ namespace ClientApp.Pages
             {
                 EmployeeDirectory.Infrastructure.ResultCode resultCode;
                 MainWindow.Current.DataAccessor.ChangeEmployee(AssociatedEmployee.Id, "",
-                    firstName.Text == "" ? null : firstName.Text,
+                    firstName.Text,
                     secondName.Text == "" ? null : secondName.Text,
                     middleName.Text == "" ? null : middleName.Text,
                     birthday.SelectedDate,
                     out resultCode);
 
-                // Add resultCode handler!
-
-                // If all is OK:
-                MainWindow.Current.LastEmployeeChange = new EventArgs();
-
-                // Search the corresponding tab:
-                bool predicate(Elements.Tab tab)
+                if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
                 {
-                    EmployeePage page = tab.AssociatedPage as EmployeePage;
-                    if (page == null)
+                    new Windows.MessageWindow(Properties.Resources.successfulEmployeeChangingMessage).ShowDialog();
+                    MainWindow.Current.LastEmployeeChange = new EventArgs();
+
+                    // Search the corresponding tab:
+                    bool predicate(Elements.Tab tab)
+                    {
+                        EmployeePage page = tab.AssociatedPage as EmployeePage;
+                        if (page == null)
+                            return false;
+                        if (page.AssociatedEmployee == AssociatedEmployee)
+                            return true;
                         return false;
-                    if (page.AssociatedEmployee == AssociatedEmployee)
-                        return true;
-                    return false;
+                    }
+
+                    Elements.Tab tab = MainWindow.Current.FindTab(predicate);
+                    MainWindow.Current.ActiveTab = tab ?? MainWindow.Current.MainTab;
                 }
 
-                Elements.Tab tab = MainWindow.Current.FindTab(predicate);
-                MainWindow.Current.ActiveTab = tab ?? MainWindow.Current.MainTab;
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.NotExist)
+                    new Windows.MessageWindow(Properties.Resources.employeeNotExist).ShowDialog();
+
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
+                    new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
+
+                throw new Exception("Unexpected resultCode value");
             }
             else
             {
@@ -90,6 +99,7 @@ namespace ClientApp.Pages
                 }
                 else
                     warningMessage_TextBlock.Text = $"{Properties.Resources.warningMessageEmployeeInvalidModel}";
+
                 warningMessage_TextBlock.Visibility = Visibility.Visible;
             }
         }

@@ -171,6 +171,9 @@
   <data name="delete_Button" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="employeeNotExist" xml:space="preserve">
+    <value>Could not find this employee</value>
+  </data>
   <data name="employeePhonesList" xml:space="preserve">
     <value>Employee phones number list:</value>
   </data>
@@ -207,11 +210,41 @@
   <data name="noResult" xml:space="preserve">
     <value>No result</value>
   </data>
+  <data name="phoneErrorEmployeeNotExist" xml:space="preserve">
+    <value>Could not find the employee to whom the number is being added</value>
+  </data>
+  <data name="phoneErrorEmployeeOrPhoneNotExist" xml:space="preserve">
+    <value>Could not find this phone number or employee to whom the number is being added</value>
+  </data>
+  <data name="phoneErrorPhoneAlreadyExist" xml:space="preserve">
+    <value>This phone number already exists in the system</value>
+  </data>
   <data name="searchByName" xml:space="preserve">
     <value>Search employee by name</value>
   </data>
+  <data name="serverErrorMessage" xml:space="preserve">
+    <value>Server error occurred while request</value>
+  </data>
   <data name="showAllEmployees" xml:space="preserve">
     <value>Show all employees</value>
+  </data>
+  <data name="successfulEmployeeAddingMessage" xml:space="preserve">
+    <value>Employee was added successfully</value>
+  </data>
+  <data name="successfulEmployeeChangingMessage" xml:space="preserve">
+    <value>Employee was changed successfully</value>
+  </data>
+  <data name="successfulEmployeeRemovingMessage" xml:space="preserve">
+    <value>Employee was removed successfully</value>
+  </data>
+  <data name="successfulPhoneAddingMessage" xml:space="preserve">
+    <value>Phone was added successfully</value>
+  </data>
+  <data name="successfulPhoneChangingMessage" xml:space="preserve">
+    <value>Phone was changed successfully</value>
+  </data>
+  <data name="successfulPhoneRemovingMessage" xml:space="preserve">
+    <value>Phone was removed successfully</value>
   </data>
   <data name="warningMessageEmployeeInvalidModel" xml:space="preserve">
     <value>Invalid input data - login or firstname can't be empty</value>

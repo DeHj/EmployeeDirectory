@@ -39,17 +39,25 @@ namespace ClientApp.Pages
                 int employeeId;
                 MainWindow.Current.DataAccessor.AddEmployee(login.Text, "", firstName.Text, out employeeId, out resultCode);
 
-                // Add resultCode handler!
+                if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
+                {
+                    MainWindow.Current.LastEmployeeChange = new EventArgs();
+                    employee.Id = employeeId;
+                    EmployeePage newPage = new EmployeePage(employee);
+                    string tabName = employee.Login;
+                    Elements.Tab newTab = new Elements.Tab(tabName, true, newPage);
 
-                // If all is OK:
-                MainWindow.Current.LastEmployeeChange = new EventArgs();
-                employee.Id = employeeId;
-                EmployeePage newPage = new EmployeePage(employee);
-                string tabName = employee.Login;
-                Elements.Tab newTab = new Elements.Tab(tabName, true, newPage);
+                    new Windows.MessageWindow(Properties.Resources.successfulEmployeeAddingMessage).ShowDialog();
 
-                MainWindow.Current.CloseTab(this);
-                MainWindow.Current.AddTab(newPage, newTab);
+                    MainWindow.Current.CloseTab(this);
+                    MainWindow.Current.AddTab(newPage, newTab);
+                }
+
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
+                    new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
+
+                else
+                    throw new Exception("Unexpected resultCode value");
             }
             else
             {
