@@ -25,7 +25,6 @@ namespace ClientApp.Pages
         public EmployeeListPage()
         {
             InitializeComponent();
-            InitializeComponent();
 
             firstName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
             secondName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
