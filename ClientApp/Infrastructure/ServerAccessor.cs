@@ -11,7 +11,7 @@ namespace ClientApp.Infrastructure
     class ServerAccessor : IDataAccessor
     {
         HttpClient client = new HttpClient();
-        string urlPrefix;getall
+        string urlPrefix;
 
 
         public ServerAccessor(string urlPrefix)
