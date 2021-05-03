@@ -22,7 +22,11 @@ namespace ClientApp
     {
         public static MainWindow Current { get; private set; }
 
+
+
         public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; } = new Infrastructure.StubAccessor();
+        public IList<EventArgs> Changes { get; set; } = new List<EventArgs>();
+
 
         //public Dictionary<string, UIElement> Pages { get; } = new Dictionary<string, UIElement>();
 
