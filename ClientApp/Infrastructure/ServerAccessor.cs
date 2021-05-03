@@ -29,7 +29,7 @@ namespace ClientApp.Infrastructure
                 FirstName = firstName,
             };
 
-            string url = urlPrefix + "add-employee";
+            string url = urlPrefix + "employees/add-employee";
             var requestResult = HttpHelper.RequestPostAsync<int>(client, url, employee).Result;
 
             idEmployee = requestResult.Result;
@@ -44,7 +44,7 @@ namespace ClientApp.Infrastructure
                 PhoneNumber = phoneNumber,
             };
 
-            string url = urlPrefix + "add-phone";
+            string url = urlPrefix + "employees/add-phone";
             var requestResult = HttpHelper.RequestPostAsync(client, url, employee).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
@@ -61,7 +61,7 @@ namespace ClientApp.Infrastructure
                 BirthDay = birthday,
             };
 
-            string url = urlPrefix + "change-employee";
+            string url = urlPrefix + "employees/change-employee";
             var requestResult = HttpHelper.RequestPostAsync(client, url, employee).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
@@ -69,17 +69,17 @@ namespace ClientApp.Infrastructure
 
         public IEnumerable<Employee> GetAllEmployees(int from, int count, out ResultCode resultCode)
         {
-            string url = urlPrefix + $"employees/get-all-employees/{from}-{count}";
-            var requestResult = HttpHelper.RequestGetAsync<IEnumerable<Employee>>(client, url).Result;
+            string url = urlPrefix + $"employees/employees/get-all-employees/{from}-{count}";
+            var requestResult = HttpHelper.RequestGetAsync<Employee[]>(client, url).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
 
-            return requestResult.Result;
+            return requestResult.Result.ToList();
         }
 
         public Employee GetEmployeeById(int idEmployee, out ResultCode resultCode)
         {
-            string url = urlPrefix + $"get-employee-by-id/{idEmployee}";
+            string url = urlPrefix + $"employees/get-employee-by-id/{idEmployee}";
             var requestResult = HttpHelper.RequestGetAsync<Employee>(client, url).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
@@ -93,7 +93,7 @@ namespace ClientApp.Infrastructure
             secondName ??= "_";
             middleName ??= "_";
 
-            string url = urlPrefix + $"get-employees-by-name/{from}-{count}-{firstName}-{secondName}-{middleName}";
+            string url = urlPrefix + $"employees/get-employees-by-name/{from}-{count}-{firstName}-{secondName}-{middleName}";
             var requestResult = HttpHelper.RequestGetAsync<IEnumerable<Employee>>(client, url).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
@@ -103,7 +103,7 @@ namespace ClientApp.Infrastructure
 
         public IEnumerable<Phone> GetPhonesById(int idEmployee, out ResultCode resultCode)
         {
-            string url = urlPrefix + $"get-phones/{idEmployee}";
+            string url = urlPrefix + $"employees/get-phones/{idEmployee}";
             var requestResult = HttpHelper.RequestGetAsync<IEnumerable<Phone>>(client, url).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
@@ -113,7 +113,7 @@ namespace ClientApp.Infrastructure
 
         public void RemoveEmployee(int idEmployee, out ResultCode resultCode)
         {
-            string url = urlPrefix + $"remove-employee/{idEmployee}";
+            string url = urlPrefix + $"employees/remove-employee/{idEmployee}";
             var requestResult = HttpHelper.RequestPostAsync(client, url).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
@@ -121,7 +121,7 @@ namespace ClientApp.Infrastructure
 
         public void RemovePhone(string phoneNumber, out ResultCode resultCode)
         {
-            string url = urlPrefix + $"remove-employee/{phoneNumber}";
+            string url = urlPrefix + $"employees/remove-phone/{phoneNumber}";
             var requestResult = HttpHelper.RequestPostAsync(client, url).Result;
 
             resultCode = HttpStatusToResultCode(requestResult.StatusCode);
