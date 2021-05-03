@@ -86,7 +86,8 @@ namespace ClientApp.Pages
                 else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
                     new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
 
-                throw new Exception("Unexpected resultCode value");
+                else
+                    throw new Exception("Unexpected resultCode value");
             }
             else
             {
