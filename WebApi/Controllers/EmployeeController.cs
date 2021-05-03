@@ -59,9 +59,7 @@ namespace WebApi.Controllers
             ResultCode resultCode;
             IEnumerable<Employee> result = dbAccessor.GetEmployeesByName(firstName, secondName, middleName, from, count, out resultCode);
 
-            if (result.Count() == 0)
-                return new EmptyResult();
-            else if (resultCode == ResultCode.InternalError)
+            if (resultCode == ResultCode.InternalError)
                 return StatusCode(500);
 
             return new ActionResult<IEnumerable<Employee>>(result);
@@ -77,7 +75,7 @@ namespace WebApi.Controllers
             Employee result = dbAccessor.GetEmployeeById(idEmployee, out resultCode);
 
             if (resultCode == ResultCode.NotExist)
-                return new EmptyResult();
+                return StatusCode(406);
             else if (resultCode == ResultCode.InternalError)
                 return StatusCode(500);
 
