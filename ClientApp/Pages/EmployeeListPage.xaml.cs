@@ -17,14 +17,14 @@ using System.Configuration;
 namespace ClientApp.Pages
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for EmployeeListPage.xaml
     /// </summary>
     public partial class EmployeeListPage : DockPanel, IPage
     {
         private EventArgs lastChange;
 
         ScrollViewer scrollViewer;
-        int pageSize { get; } = 10;
+        int pageSize { get; set; }
 
 
         public EmployeeListPage()
@@ -35,9 +35,7 @@ namespace ClientApp.Pages
             secondName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
             middleName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
 
-            int localPS;
-            if (int.TryParse(ConfigurationManager.AppSettings.Get("PageSize"), out localPS))
-                pageSize = localPS;
+            pageSize = Properties.Settings.Default.PageSize;
         }
 
         private void find_Click(object sender, RoutedEventArgs e)

@@ -25,8 +25,12 @@ namespace ClientApp
 
 
 
-        public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; } 
-            = new Infrastructure.ServerAccessor(ConfigurationManager.AppSettings.Get("ApplicationUrl") + "/");
+        public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; }
+            = new Infrastructure.ServerAccessor(Properties.Settings.Default.ApplicationUrl);
+            // = new Infrastructure.StubAccessor(100);
+            // = new Infrastructure.ServerAccessor("http://localhost:7563/");
+            // = new Infrastructure.ServerAccessor(ConfigurationManager.AppSettings.Get("ApplicationUrl") + "/");
+
         /// <summary>
         /// Used to define if employee-related changes have been made to the system
         /// </summary>
