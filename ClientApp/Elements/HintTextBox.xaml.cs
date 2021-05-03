@@ -35,9 +35,10 @@ namespace ClientApp.Elements
             InitializeComponent();
         }
 
-        private void txtUserEntry_KeyUp(object sender, KeyEventArgs e)
+        private void txtUserEntry_TextChanged(object sender, TextChangedEventArgs e)
         {
             promptBlock.Visibility = (txtUserEntry.Text.Length == 0) ? Visibility.Visible : Visibility.Hidden;
+
         }
     }
 }
