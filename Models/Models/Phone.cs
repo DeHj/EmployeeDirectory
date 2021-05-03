@@ -16,11 +16,23 @@ namespace EmployeeDirectory.Models
 
 
         private const string validSymbols = "1234567890";
+
         /// <summary>
-        /// Checks the validity for PhoneNumber symbols
+        /// Check model on the validity
         /// </summary>
-        /// <param name="ch">Symbol for check</param>
-        /// <returns></returns>
-        public bool ValidityCheck(char ch) => validSymbols.Contains(ch);
+        public bool IsValid()
+        {
+            static bool isValid(string s)
+            {
+                foreach (var ch in s)
+                {
+                    if (validSymbols.Contains(ch) == false)
+                        return false;
+                }
+                return true;
+            }
+
+            return (PhoneNumber != null && PhoneNumber.Length == 11 && isValid(PhoneNumber));
+        }
     }
 }

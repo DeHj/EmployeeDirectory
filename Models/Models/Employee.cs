@@ -15,12 +15,35 @@ namespace EmployeeDirectory.Models
         public DateTime? BirthDay { get; set; }
 
 
-        private const string invalidSymbols = "._~:/?#[]@!$#&'()*+,;=%";
+        private const string invalidSymbols = ".-~:/?#[]@!$#&'()*+,;=%";
+
         /// <summary>
-        /// Checks the validity for Names symbols
+        /// Check model on the validity
         /// </summary>
-        /// <param name="ch">Symbol for check</param>
-        /// <returns></returns>
-        public bool ValidatyCheck(char ch) => invalidSymbols.Contains(ch) == false;
+        public bool IsValid()
+        {
+            static bool isValid(string s)
+            {
+                foreach (var ch in s)
+                {
+                    if (invalidSymbols.Contains(ch))
+                        return false;
+                }
+                return true;
+            }
+
+
+            if (FirstName.Length == 0 || isValid(Login) == false)
+                return false;
+            if (FirstName.Length == 0 || isValid(FirstName) == false)
+                return false;
+
+            if (SecondName != null && isValid(SecondName) == false)
+                return false;
+            if (MiddleName != null && isValid(MiddleName) == false)
+                return false;
+
+            return true;
+        }
     }
 }
