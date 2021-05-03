@@ -105,7 +105,7 @@ namespace ClientApp.Pages
 
                         if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
                         {
-                            new Windows.MessageWindow(Properties.Resources.successfulPhoneAddingMessage).ShowDialog();
+                            new Windows.MessageWindow(Properties.Resources.successfulPhoneChangingMessage).ShowDialog();
                             MainWindow.Current.LastPhoneChange = new EventArgs();
                         }
                         else
