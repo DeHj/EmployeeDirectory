@@ -180,6 +180,12 @@
   <data name="emptyEmployeePhonesList" xml:space="preserve">
     <value>This employee have no phones number</value>
   </data>
+  <data name="enterWebApiUrl" xml:space="preserve">
+    <value>Enter connection URL</value>
+  </data>
+  <data name="entryWindowTitle" xml:space="preserve">
+    <value>Enter connection URL</value>
+  </data>
   <data name="findEmployee" xml:space="preserve">
     <value>Find an employee</value>
   </data>
@@ -245,6 +251,12 @@
   </data>
   <data name="successfulPhoneRemovingMessage" xml:space="preserve">
     <value>Phone was removed successfully</value>
+  </data>
+  <data name="timeoutMessage" xml:space="preserve">
+    <value>The waiting time has been exceeded. Try another URL</value>
+  </data>
+  <data name="tryConnect_Button" xml:space="preserve">
+    <value>Connect</value>
   </data>
   <data name="warningMessageEmployeeInvalidModel" xml:space="preserve">
     <value>Invalid input data - login or firstname can't be empty</value>

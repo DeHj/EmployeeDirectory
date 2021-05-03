@@ -250,6 +250,24 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Enter connection URL.
+        /// </summary>
+        public static string enterWebApiUrl {
+            get {
+                return ResourceManager.GetString("enterWebApiUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Enter connection URL.
+        /// </summary>
+        public static string entryWindowTitle {
+            get {
+                return ResourceManager.GetString("entryWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Find an employee.
         /// </summary>
         public static string findEmployee {
@@ -444,6 +462,24 @@ namespace ClientApp.Properties {
         public static string successfulPhoneRemovingMessage {
             get {
                 return ResourceManager.GetString("successfulPhoneRemovingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The waiting time has been exceeded. Try another URL.
+        /// </summary>
+        public static string timeoutMessage {
+            get {
+                return ResourceManager.GetString("timeoutMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Connect.
+        /// </summary>
+        public static string tryConnect_Button {
+            get {
+                return ResourceManager.GetString("tryConnect_Button", resourceCulture);
             }
         }
         

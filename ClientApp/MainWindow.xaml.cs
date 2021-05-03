@@ -26,7 +26,7 @@ namespace ClientApp
 
 
         public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; }
-            = new Infrastructure.ServerAccessor(Properties.Settings.Default.ApplicationUrl);
+            // = new Infrastructure.ServerAccessor(Properties.Settings.Default.ApplicationUrl);
             // = new Infrastructure.StubAccessor(100);
             // = new Infrastructure.ServerAccessor("http://localhost:7563/");
             // = new Infrastructure.ServerAccessor(ConfigurationManager.AppSettings.Get("ApplicationUrl") + "/");
@@ -66,6 +66,14 @@ namespace ClientApp
             InitializeComponent();
 
             Current = this;
+
+            Windows.EntryWindow entryWindow = new Windows.EntryWindow();
+            entryWindow.ShowDialog();
+
+            if (entryWindow.DialogResult == false)
+            {
+                Environment.Exit(-1);
+            }
 
             // Create not closable tab
             MainPage = new Pages.EmployeeListPage();

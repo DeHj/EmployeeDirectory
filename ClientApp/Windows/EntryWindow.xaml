@@ -1,0 +1,38 @@
+﻿<Window x:Class="ClientApp.Windows.EntryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:e="clr-namespace:ClientApp.Elements"
+        xmlns:res="clr-namespace:ClientApp.Properties"
+        xmlns:local="clr-namespace:ClientApp.Windows"
+        mc:Ignorable="d"
+        Title="{x:Static res:Resources.entryWindowTitle}" 
+        SizeToContent="WidthAndHeight" 
+        MinWidth="200"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Margin="10 10 10 0"
+                   Text="{x:Static res:Resources.enterWebApiUrl}"/>
+
+        <TextBox Name="applicationUrl" 
+                 Grid.Row="1"
+                 Margin="10 10 10 10"
+                 Text="http://localhost:host/"/>
+
+        <Button Grid.Row="2"
+                IsDefault="True" 
+                MinWidth="60"
+                Margin="0 0 0 10"
+                HorizontalAlignment="Center"
+                Content="{x:Static res:Resources.tryConnect_Button}"
+                Click="tryConnect_Click"/>
+    </Grid>
+</Window>
