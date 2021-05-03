@@ -53,7 +53,7 @@ namespace ClientApp.Infrastructure
             string url)
         {
             // Выполнение запроса с помощью HttpClient
-            var response = await client.GetAsync(url);
+            var response = client.GetAsync(url).Result;
             
             // Возвращение результата
             return new WebServiceResponse
@@ -74,7 +74,7 @@ namespace ClientApp.Infrastructure
             string url) where T : class
         {
             // Выполнение запроса с помощью HttpClient
-            var response = await client.GetAsync(url);
+            var response = client.GetAsync(url).Result;
            
             // Если ответ не пуст, то выполняется десериализация содержимого из JSON в C# объект
             T result = null;
@@ -93,19 +93,19 @@ namespace ClientApp.Infrastructure
         }
        
         /// <summary>
-        /// Выполнить POST запрос.
+        /// Выполнить PUt запрос.
         /// </summary>
         /// <param name="client">Объект HttpClient</param>
         /// <param name="url">Адрес, по которому выполняется запрос</param>
         /// <param name="payloadObjects">Объекты, которые необходимо поместить в запрос</param>
         /// <returns></returns>
-        public static async Task<WebServiceResponse> RequestPostAsync(
+        public static async Task<WebServiceResponse> RequestPutAsync(
             HttpClient client,
             string url,
             params object[] payloadObjects)
         {
             // Необходимо правильно определить нагрузку запроса - это одиночный объект {...},
-            // список объектов [{...}, {...}], либо объектов вообще нет и тело POST запроса должно быть пустым
+            // список объектов [{...}, {...}], либо объектов вообще нет и тело PUT запроса должно быть пустым
             object payload;
             switch (payloadObjects.Length)
             {
@@ -133,8 +133,8 @@ namespace ClientApp.Infrastructure
             content.Headers.ContentEncoding.Add("UTF-8");
             content.Headers.ContentLength = payloadBytes.Length;
             
-            // Выполняем POST запрос
-            var response = await client.PostAsync(url, content);
+            // Выполняем PUT запрос
+            var response = client.PutAsync(url, content).Result;
             
             // Возвращаем результат
             return new WebServiceResponse
@@ -144,20 +144,20 @@ namespace ClientApp.Infrastructure
         }
 
         /// <summary>
-        /// Выполнить POST запрос и получить типизированный результат
+        /// Выполнить PUT запрос и получить типизированный результат
         /// </summary>
         /// <param name="client">Объект HttpClient</param>
         /// <param name="url">Адрес, по которому выполняется запрос</param>
         /// <param name="payloadObjects">Объекты, которые необходимо поместить в запрос</param>
         /// <typeparam name="T">Тип объекта в ответе</typeparam>
         /// <returns></returns>
-        public static async Task<WebServiceResponse<T>> RequestPostAsync<T>(
+        public static async Task<WebServiceResponse<T>> RequestPutAsync<T>(
             HttpClient client,
             string url,
             params object[] payloadObjects)
         {
             // Во избежание дублирования кода воспользуемся похожим методом
-            var rawResponse = await RequestPostAsync(client, url, payloadObjects);
+            var rawResponse = await RequestPutAsync(client, url, payloadObjects);
             var response = rawResponse.HttpResponse;
             
             // Если ответ не пуст, то выполняется десериализация содержимого из JSON в C# объект
