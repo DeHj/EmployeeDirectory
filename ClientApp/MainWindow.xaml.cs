@@ -25,7 +25,14 @@ namespace ClientApp
 
 
         public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; } = new Infrastructure.StubAccessor();
-        public IList<EventArgs> Changes { get; set; } = new List<EventArgs>();
+        /// <summary>
+        /// Used to define if employee-related changes have been made to the system
+        /// </summary>
+        public IList<EventArgs> EmployeeChanges { get; set; } = new List<EventArgs>();
+        /// <summary>
+        /// Used to define if phone-related changes have been made to the system
+        /// </summary>
+        public IList<EventArgs> PhoneChanges { get; set; } = new List<EventArgs>();
 
 
         //public Dictionary<string, UIElement> Pages { get; } = new Dictionary<string, UIElement>();
