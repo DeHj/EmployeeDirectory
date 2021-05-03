@@ -43,8 +43,8 @@ namespace ClientApp.Windows
                 Properties.Settings.Default.Save();
             }
 
-            else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.Timeout)
-                new MessageWindow(Properties.Resources.timeoutMessage).ShowDialog();
+            else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.ConnectionError)
+                new MessageWindow(Properties.Resources.connectionErrorMessage).ShowDialog();
 
             else
                 new MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();

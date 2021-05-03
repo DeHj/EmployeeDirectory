@@ -41,7 +41,7 @@ namespace ClientApp.Infrastructure
                 Login = "mymom",
                 BirthDay = new DateTime(1965, 12, 9),
                 FirstName = "Natasha"
-            },
+            },/*
             new Employee
             {
                 Id = 1,
@@ -97,8 +97,24 @@ namespace ClientApp.Infrastructure
                 Login = "mymom",
                 BirthDay = new DateTime(1965, 12, 9),
                 FirstName = "Natasha"
-            }
+            }*/
         };
+
+        public StubAccessor(int count)
+        {
+            Random R = new Random();
+            for(int i = 0; i < count; i++)
+            {
+                Employee employee = new Employee
+                {
+                    Id = R.Next(),
+                    Login = $"login{R.Next()}",
+                    FirstName = $"name{ R.Next() }"
+                };
+
+                Employees.Add(employee);
+            }
+        }
 
 
 
@@ -143,7 +159,16 @@ namespace ClientApp.Infrastructure
         public IEnumerable<Employee> GetAllEmployees(int from, int count, out ResultCode resultCode)
         {
             resultCode = ResultCode.OK;
-            return Employees;
+
+            if (from + count >= Employees.Count)
+                count = Employees.Count - from;
+
+            if (from >= Employees.Count)
+            {
+                return new List<Employee>();
+            }
+
+            return Employees.ToList().GetRange(from, count);
         }
 
         public IEnumerable<Employee> GetEmployeesByName(string firstName, string secondName, string middleName, int from, int count, out ResultCode resultCode)

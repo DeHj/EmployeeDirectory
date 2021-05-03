@@ -13,6 +13,6 @@ namespace EmployeeDirectory.Infrastructure
         NotExist,
         AlreadyExist,
         InternalError,
-        Timeout
+        ConnectionError
     }
 }

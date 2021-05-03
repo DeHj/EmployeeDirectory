@@ -178,6 +178,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Failed to connect to this URL. Try another URL.
+        /// </summary>
+        public static string connectionErrorMessage {
+            get {
+                return ResourceManager.GetString("connectionErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Delete.
         /// </summary>
         public static string delete_Button {
@@ -462,15 +471,6 @@ namespace ClientApp.Properties {
         public static string successfulPhoneRemovingMessage {
             get {
                 return ResourceManager.GetString("successfulPhoneRemovingMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на The waiting time has been exceeded. Try another URL.
-        /// </summary>
-        public static string timeoutMessage {
-            get {
-                return ResourceManager.GetString("timeoutMessage", resourceCulture);
             }
         }
         

@@ -70,11 +70,19 @@ namespace ClientApp.Infrastructure
         public IEnumerable<Employee> GetAllEmployees(int from, int count, out ResultCode resultCode)
         {
             string url = urlPrefix + $"employees/get-all-employees/{from}-{count}";
-            var requestResult = HttpHelper.RequestGetAsync<Employee[]>(client, url).Result;
 
-            resultCode = HttpStatusToResultCode(requestResult.StatusCode);
-
-            return requestResult.Result.ToList();
+            WebServiceResponse<Employee[]> requestResult;
+            try
+            {
+                requestResult = HttpHelper.RequestGetAsync<Employee[]>(client, url).Result;
+                resultCode = HttpStatusToResultCode(requestResult.StatusCode);
+                return requestResult.Result.ToList();
+            }
+            catch
+            {
+                resultCode = ResultCode.ConnectionError;
+                return null;
+            }
         }
 
         public Employee GetEmployeeById(int idEmployee, out ResultCode resultCode)

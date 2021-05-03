@@ -156,6 +156,9 @@
   <data name="confirmDialogTitle" xml:space="preserve">
     <value>Confirm</value>
   </data>
+  <data name="connectionErrorMessage" xml:space="preserve">
+    <value>Failed to connect to this URL. Try another URL</value>
+  </data>
   <data name="deleteEmployeeConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to delete profile of this employee?</value>
   </data>
@@ -251,9 +254,6 @@
   </data>
   <data name="successfulPhoneRemovingMessage" xml:space="preserve">
     <value>Phone was removed successfully</value>
-  </data>
-  <data name="timeoutMessage" xml:space="preserve">
-    <value>The waiting time has been exceeded. Try another URL</value>
   </data>
   <data name="tryConnect_Button" xml:space="preserve">
     <value>Connect</value>
