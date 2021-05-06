@@ -207,6 +207,9 @@
   <data name="hintSecondNameOptional" xml:space="preserve">
     <value>Enter the second name (optional)</value>
   </data>
+  <data name="loadMore_Button" xml:space="preserve">
+    <value>Load more employees</value>
+  </data>
   <data name="mainPage" xml:space="preserve">
     <value>Main page</value>
   </data>

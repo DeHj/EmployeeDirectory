@@ -331,6 +331,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Load more employees.
+        /// </summary>
+        public static string loadMore_Button {
+            get {
+                return ResourceManager.GetString("loadMore_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Main page.
         /// </summary>
         public static string mainPage {

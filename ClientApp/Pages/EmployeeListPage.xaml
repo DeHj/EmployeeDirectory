@@ -28,7 +28,14 @@
         </StackPanel>
     </Border>
 
-    <ListBox x:Name="control_employees"
-             ScrollViewer.ScrollChanged="control_employees_ScrollChanged"/>
+    <ScrollViewer x:Name="scrollViewer">
+        <StackPanel x:Name="control_employees">
+            
+        </StackPanel>
+    </ScrollViewer>
+    
+
+    <!--ListBox x:Name="control_employees"
+             ScrollViewer.ScrollChanged="control_employees_ScrollChanged"/-->
 
 </DockPanel>

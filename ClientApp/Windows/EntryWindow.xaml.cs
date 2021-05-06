@@ -41,6 +41,8 @@ namespace ClientApp.Windows
             {
                 Properties.Settings.Default.ApplicationUrl = url;
                 Properties.Settings.Default.Save();
+
+                this.DialogResult = true;
             }
 
             else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.ConnectionError)
