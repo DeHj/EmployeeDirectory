@@ -35,7 +35,7 @@ namespace ClientApp.Elements
         }
 
         
-        private void nameText_MouseUp(object sender, MouseButtonEventArgs e)
+        private void NameText_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Predicate<Tab> predicate = (Tab tab) =>
             {

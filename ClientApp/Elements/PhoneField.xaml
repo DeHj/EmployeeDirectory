@@ -28,13 +28,13 @@
                 Grid.Column="0"
                 HorizontalAlignment="Left"
                 Content="{x:Static res:Resources.change_Button}"
-                Click="changePhone_Click"/>
+                Click="ChangePhone_Click"/>
 
         <Button VerticalAlignment="Bottom"
                 Grid.Row="1"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 Content="{x:Static res:Resources.delete_Button}"
-                Click="deletePhone_Click"/>
+                Click="DeletePhone_Click"/>
     </Grid>
 </Border>

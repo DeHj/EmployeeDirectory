@@ -28,14 +28,13 @@ namespace ClientApp.Windows
             applicationUrl.Text = Properties.Settings.Default.ApplicationUrl;
         }
 
-        private void tryConnect_Click(object sender, RoutedEventArgs e)
+        private void TryConnect_Click(object sender, RoutedEventArgs e)
         {
             string url = applicationUrl.Text;
 
             MainWindow.Current.DataAccessor = new Infrastructure.ServerAccessor(url);
 
-            EmployeeDirectory.Infrastructure.ResultCode resultCode;
-            MainWindow.Current.DataAccessor.GetAllEmployees(0, 1, out resultCode);
+            MainWindow.Current.DataAccessor.GetAllEmployees(0, 1, out EmployeeDirectory.Infrastructure.ResultCode resultCode);
 
             if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
             {

@@ -14,7 +14,7 @@
         <StackPanel x:Name="toolbox" DockPanel.Dock="Top" Orientation="Horizontal">
             <Button x:Name="addEmployee_button" 
                     Content="{x:Static res:Resources.addNewEmployee}" 
-                    Click="addEmployee"
+                    Click="AddEmployee"
                     Padding="4 4"/>
         </StackPanel>
         <StackPanel x:Name="tabs" 

@@ -44,7 +44,7 @@ namespace ClientApp.Elements
             Background = Application.Current.Resources["nonActiveTab"] as SolidColorBrush;
         }
 
-        private void tab_MouseEnter(object sender, MouseEventArgs e)
+        private void Tab_MouseEnter(object sender, MouseEventArgs e)
         {
             if (Closable)
                 closeTab.Visibility = Visibility.Visible;
@@ -52,7 +52,7 @@ namespace ClientApp.Elements
             Background = Application.Current.Resources["activeTab"] as SolidColorBrush;
         }
 
-        private void tab_MouseLeave(object sender, MouseEventArgs e)
+        private void Tab_MouseLeave(object sender, MouseEventArgs e)
         {
             if (Closable)
                 closeTab.Visibility = Visibility.Hidden;
@@ -61,13 +61,13 @@ namespace ClientApp.Elements
                 Background = Application.Current.Resources["nonActiveTab"] as SolidColorBrush;
         }
 
-        private void closeTab_Click(object sender, RoutedEventArgs e)
+        private void CloseTab_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.Current.CloseTab(this);
             return;
         }
 
-        private void openTab_Click(object sender, RoutedEventArgs e)
+        private void OpenTab_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.Current.ActiveTab = this;
         }

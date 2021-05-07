@@ -19,7 +19,7 @@
                  Background="Transparent"
                  CaretBrush="Transparent"
                  BorderBrush="{StaticResource brushWatermarkBorder}"
-                 KeyUp="txtUserEntry_KeyDown"
+                 KeyUp="TxtUserEntry_KeyDown"
                  Text="8(888)888-88-88"
                  HorizontalAlignment="Left"
                  FontFamily="Courier New"/>

@@ -10,8 +10,8 @@ namespace ClientApp.Infrastructure
 {
     class ServerAccessor : IDataAccessor
     {
-        HttpClient client = new HttpClient();
-        string urlPrefix;
+        readonly HttpClient client = new HttpClient();
+        readonly string urlPrefix;
 
 
         public ServerAccessor(string urlPrefix)
@@ -138,7 +138,7 @@ namespace ClientApp.Infrastructure
 
 
 
-        private ResultCode HttpStatusToResultCode(HttpStatusCode statusCode)
+        private static ResultCode HttpStatusToResultCode(HttpStatusCode statusCode)
         {
             if (statusCode == HttpStatusCode.OK)
                 return ResultCode.OK;

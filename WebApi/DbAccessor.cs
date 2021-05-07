@@ -11,19 +11,19 @@ namespace EmployeeDirectory.Infrastructure
 
     public class DbAccessor : IDataAccessor
     {
-        private string connectionString { get; }
+        private readonly string connectionString;
 
         public DbAccessor (string connectionString)
         {
             this.connectionString = connectionString;
         }
 
-        private T DBNullCastToClass<T>(object dbObject) where T : class
+        private static T DBNullCastToClass<T>(object dbObject) where T : class
             => dbObject is DBNull ? null : (T)dbObject;
-        private T? DBNullCastToStruct<T>(object dbObject) where T : struct
+        private static T? DBNullCastToStruct<T>(object dbObject) where T : struct
             => dbObject is DBNull ? null : (T)dbObject;
 
-        private Employee readEmployee(in SqlDataReader sqlDataReader)
+        private Employee ReadEmployee(in SqlDataReader sqlDataReader)
         {
             return new Employee
             {
@@ -35,7 +35,7 @@ namespace EmployeeDirectory.Infrastructure
                 Id = (int)sqlDataReader.GetValue(5)
             };
         }
-        private Phone readPhone(in SqlDataReader sqlDataReader)
+        private Phone ReadPhone(in SqlDataReader sqlDataReader)
         {
             return new Phone
             {
@@ -86,7 +86,7 @@ namespace EmployeeDirectory.Infrastructure
                     new SqlParameter("@from", from),
                     new SqlParameter("@page_size", count)
                 },
-                readEmployee
+                ReadEmployee
                 );
             }
             catch
@@ -115,7 +115,7 @@ namespace EmployeeDirectory.Infrastructure
                     new SqlParameter("@from", from),
                     new SqlParameter("@page_size", count)
                 },
-                readEmployee
+                ReadEmployee
                 );
             }
             catch
@@ -135,7 +135,7 @@ namespace EmployeeDirectory.Infrastructure
                 new SqlParameter[] {
                     new SqlParameter("@id_employee", idEmployee),
                 },
-                readEmployee
+                ReadEmployee
                 );
 
                 if (employees.Any() == false)
@@ -170,7 +170,7 @@ namespace EmployeeDirectory.Infrastructure
                 new SqlParameter[] {
                     new SqlParameter("id_employee", idEmployee)
                 },
-                readPhone
+                ReadPhone
                 );
             }
             catch
@@ -194,23 +194,24 @@ namespace EmployeeDirectory.Infrastructure
                 SqlCommand command = new SqlCommand("add_user", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                List<SqlParameter> sqlParams = new List<SqlParameter>(5);
-
-                sqlParams.Add(new SqlParameter("@login", login));
-                sqlParams.Add(new SqlParameter("@first_name", firstName));
-                sqlParams.Add(new SqlParameter("@hashsum", hashsum));
-                sqlParams.Add(new SqlParameter
+                var sqlParams = new List<SqlParameter>(5)
                 {
-                    ParameterName = "@employee_id",
-                    Direction = System.Data.ParameterDirection.Output,
-                    SqlDbType = System.Data.SqlDbType.Int
-                });
-                sqlParams.Add(new SqlParameter
-                {
-                    ParameterName = "@result",
-                    Direction = System.Data.ParameterDirection.Output,
-                    SqlDbType = System.Data.SqlDbType.Int
-                });
+                    new SqlParameter("@login", login),
+                    new SqlParameter("@first_name", firstName),
+                    new SqlParameter("@hashsum", hashsum),
+                    new SqlParameter
+                    {
+                        ParameterName = "@employee_id",
+                        Direction = System.Data.ParameterDirection.Output,
+                        SqlDbType = System.Data.SqlDbType.Int
+                    },
+                    new SqlParameter
+                    {
+                        ParameterName = "@result",
+                        Direction = System.Data.ParameterDirection.Output,
+                        SqlDbType = System.Data.SqlDbType.Int
+                    }
+                };
                 command.Parameters.AddRange(sqlParams.ToArray());
 
                 command.ExecuteNonQuery();
@@ -242,16 +243,17 @@ namespace EmployeeDirectory.Infrastructure
                 SqlCommand command = new SqlCommand("add_phone", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                List<SqlParameter> sqlParams = new List<SqlParameter>(3);
-
-                sqlParams.Add(new SqlParameter("@employee_id", userId));
-                sqlParams.Add(new SqlParameter("@phone_number", phoneNumber));
-                sqlParams.Add(new SqlParameter
+                var sqlParams = new List<SqlParameter>(3)
                 {
-                    ParameterName = "@result",
-                    Direction = System.Data.ParameterDirection.Output,
-                    SqlDbType = System.Data.SqlDbType.Int
-                });
+                    new SqlParameter("@employee_id", userId),
+                    new SqlParameter("@phone_number", phoneNumber),
+                    new SqlParameter
+                    {
+                        ParameterName = "@result",
+                        Direction = System.Data.ParameterDirection.Output,
+                        SqlDbType = System.Data.SqlDbType.Int
+                    }
+                };
                 command.Parameters.AddRange(sqlParams.ToArray());
 
                 command.ExecuteNonQuery();
@@ -280,15 +282,16 @@ namespace EmployeeDirectory.Infrastructure
                 SqlCommand command = new SqlCommand("delete_user", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                List<SqlParameter> sqlParams = new List<SqlParameter>(2);
-
-                sqlParams.Add(new SqlParameter("@employee_id", userId));
-                sqlParams.Add(new SqlParameter
+                var sqlParams = new List<SqlParameter>(2)
                 {
-                    ParameterName = "@result",
-                    Direction = System.Data.ParameterDirection.Output,
-                    SqlDbType = System.Data.SqlDbType.Int
-                });
+                    new SqlParameter("@employee_id", userId),
+                    new SqlParameter
+                    {
+                        ParameterName = "@result",
+                        Direction = System.Data.ParameterDirection.Output,
+                        SqlDbType = System.Data.SqlDbType.Int
+                    }
+                };
                 command.Parameters.AddRange(sqlParams.ToArray());
 
                 command.ExecuteNonQuery();
@@ -315,25 +318,21 @@ namespace EmployeeDirectory.Infrastructure
                 SqlCommand command = new SqlCommand("change_user", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                List<SqlParameter> sqlParams = new List<SqlParameter>(7);
-
-                sqlParams.Add(new SqlParameter("@employee_id", userId));
-                //if (newHashsum != null)
-                    sqlParams.Add(new SqlParameter("@new_hashsum", newHashsum));
-                //if (firstName != null)
-                    sqlParams.Add(new SqlParameter("@first_name", firstName));
-                //if (secondName != null)
-                    sqlParams.Add(new SqlParameter("@second_name", secondName));
-                //if (middleName != null)
-                    sqlParams.Add(new SqlParameter("@middle_name", middleName));
-                //if (birthday != null)
-                    sqlParams.Add(new SqlParameter("@birthday", birthday));
-                sqlParams.Add(new SqlParameter
+                var sqlParams = new List<SqlParameter>(7)
                 {
-                    ParameterName = "@result",
-                    Direction = System.Data.ParameterDirection.Output,
-                    SqlDbType = System.Data.SqlDbType.Int
-                });
+                    new SqlParameter("@employee_id", userId),
+                    new SqlParameter("@new_hashsum", newHashsum),
+                    new SqlParameter("@first_name", firstName),
+                    new SqlParameter("@second_name", secondName),
+                    new SqlParameter("@middle_name", middleName),
+                    new SqlParameter("@birthday", birthday),
+                    new SqlParameter
+                    {
+                        ParameterName = "@result",
+                        Direction = System.Data.ParameterDirection.Output,
+                        SqlDbType = System.Data.SqlDbType.Int
+                    }
+                };
                 command.Parameters.AddRange(sqlParams.ToArray());
 
                 command.ExecuteNonQuery();
@@ -360,15 +359,16 @@ namespace EmployeeDirectory.Infrastructure
                 SqlCommand command = new SqlCommand("delete_phone", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                List<SqlParameter> sqlParams = new List<SqlParameter>(2);
-
-                sqlParams.Add(new SqlParameter("@phone_number", phoneNumber));
-                sqlParams.Add(new SqlParameter
+                var sqlParams = new List<SqlParameter>(2)
                 {
-                    ParameterName = "@result",
-                    Direction = System.Data.ParameterDirection.Output,
-                    SqlDbType = System.Data.SqlDbType.Int
-                });
+                    new SqlParameter("@phone_number", phoneNumber),
+                    new SqlParameter
+                    {
+                        ParameterName = "@result",
+                        Direction = System.Data.ParameterDirection.Output,
+                        SqlDbType = System.Data.SqlDbType.Int
+                    }
+                };
                 command.Parameters.AddRange(sqlParams.ToArray());
 
                 command.ExecuteNonQuery();

@@ -19,7 +19,7 @@
     <DatePicker x:Name="birthday" DockPanel.Dock="Top"/>
     <Button x:Name="changeEmployee"
             DockPanel.Dock="Top" 
-            Click="changeEmployee_Click" 
+            Click="ChangeEmployee_Click" 
             Content="{x:Static res:Resources.changeEmployee_Button}"
             HorizontalAlignment="Left"/>
 

@@ -20,7 +20,7 @@ namespace WebApi.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly ILogger<EmployeeController> _logger;
-        private IDataAccessor dbAccessor;
+        private readonly IDataAccessor dbAccessor;
 
         public EmployeeController(ILogger<EmployeeController> logger)
         {
@@ -40,8 +40,7 @@ namespace WebApi.Controllers
         [Route("get-all-employees/{from}-{count}")]
         public ActionResult<IEnumerable<Employee>> GetAllEmployees(int from, int count)
         {
-            ResultCode resultCode;
-            IEnumerable<Employee> result = dbAccessor.GetAllEmployees(from, count, out resultCode);
+            IEnumerable<Employee> result = dbAccessor.GetAllEmployees(from, count, out ResultCode resultCode);
 
             if (resultCode == ResultCode.InternalError)
                 return StatusCode(500);
@@ -64,8 +63,7 @@ namespace WebApi.Controllers
             if (middleName == "_")
                 middleName = null;
 
-            ResultCode resultCode;
-            IEnumerable<Employee> result = dbAccessor.GetEmployeesByName(firstName, secondName, middleName, from, count, out resultCode);
+            IEnumerable<Employee> result = dbAccessor.GetEmployeesByName(firstName, secondName, middleName, from, count, out ResultCode resultCode);
 
             if (resultCode == ResultCode.InternalError)
                 return StatusCode(500);
@@ -79,8 +77,7 @@ namespace WebApi.Controllers
         [Route("get-employee-by-id/{idEmployee}")]
         public ActionResult<Employee> GetEmployeeById(int idEmployee)
         {
-            ResultCode resultCode;
-            Employee result = dbAccessor.GetEmployeeById(idEmployee, out resultCode);
+            Employee result = dbAccessor.GetEmployeeById(idEmployee, out ResultCode resultCode);
 
             if (resultCode == ResultCode.NotExist)
                 return StatusCode(406);
@@ -96,8 +93,7 @@ namespace WebApi.Controllers
         [Route("get-phones/{employeeId}")]
         public ActionResult<IEnumerable<Phone>> GetPhonesById(int employeeId)
         {
-            ResultCode resultCode;
-            IEnumerable<Phone> result = dbAccessor.GetPhonesById(employeeId, out resultCode);
+            IEnumerable<Phone> result = dbAccessor.GetPhonesById(employeeId, out ResultCode resultCode);
 
             if (resultCode == ResultCode.NotExist)
                 return StatusCode(406);
@@ -115,10 +111,7 @@ namespace WebApi.Controllers
         {
             // Check employee validaty
 
-            ResultCode resultCode;
-            int employeeId;
-
-            dbAccessor.AddEmployee(employee.Login, "", employee.FirstName, out employeeId, out resultCode);
+            dbAccessor.AddEmployee(employee.Login, "", employee.FirstName, out int employeeId, out ResultCode resultCode);
             if (resultCode == ResultCode.AlreadyExist)
                 return StatusCode(409);
 
@@ -141,9 +134,7 @@ namespace WebApi.Controllers
         {
             // Check phone validaty
 
-            ResultCode resultCode;
-
-            dbAccessor.AddPhone(phone.IdEmployee, phone.PhoneNumber, out resultCode);
+            dbAccessor.AddPhone(phone.IdEmployee, phone.PhoneNumber, out ResultCode resultCode);
 
             if (resultCode == ResultCode.NotExist)
                 return StatusCode(406);
@@ -163,9 +154,7 @@ namespace WebApi.Controllers
         [Route("remove-employee/{idEmployee}")]
         public ActionResult RemoveEmployee(int idEmployee)
         {
-            ResultCode resultCode;
-
-            dbAccessor.RemoveEmployee(idEmployee, out resultCode);
+            dbAccessor.RemoveEmployee(idEmployee, out ResultCode resultCode);
 
             if (resultCode == ResultCode.NotExist)
                 return StatusCode(406);
@@ -182,9 +171,7 @@ namespace WebApi.Controllers
         [Route("remove-phone/{phoneNumber}")]
         public ActionResult RemovePhone(string phoneNumber)
         {
-            ResultCode resultCode;
-
-            dbAccessor.RemovePhone(phoneNumber, out resultCode);
+            dbAccessor.RemovePhone(phoneNumber, out ResultCode resultCode);
 
             if (resultCode == ResultCode.NotExist)
                 return StatusCode(406);
@@ -201,9 +188,7 @@ namespace WebApi.Controllers
         [Route("change-employee")]
         public ActionResult RemovePhone(Employee employee)
         {
-            ResultCode resultCode;
-
-            dbAccessor.ChangeEmployee(employee.Id, "", employee.FirstName, employee.SecondName, employee.MiddleName, employee.BirthDay, out resultCode);
+            dbAccessor.ChangeEmployee(employee.Id, "", employee.FirstName, employee.SecondName, employee.MiddleName, employee.BirthDay, out ResultCode resultCode);
 
             if (resultCode == ResultCode.NotExist)
                 return StatusCode(406);

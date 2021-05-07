@@ -41,7 +41,7 @@ namespace ClientApp.Elements
             txtUserEntry.MaxLength = phoneNumber.Text.Length;
         }
 
-        private void txtUserEntry_KeyDown(object sender, KeyEventArgs e)
+        private void TxtUserEntry_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key >= Key.D0 && e.Key <= Key.D9 && Number.Length < 11)
                 Number += (e.Key - Key.D0).ToString();
@@ -50,7 +50,7 @@ namespace ClientApp.Elements
                 Number = Number.Substring(0, Math.Max(0, Number.Length - 1));
         }
 
-        private string ConvertPhoneNumber(string number)
+        private static string ConvertPhoneNumber(string number)
         {
             char[] ch = new char[11];
             for (int i = 0; i < 11; i++)

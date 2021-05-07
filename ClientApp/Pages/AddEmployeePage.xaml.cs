@@ -16,13 +16,13 @@ namespace ClientApp.Pages
         {
             InitializeComponent();
 
-            login.txtUserEntry.TextChanged += addEmployeePage_TextChanged;
-            firstName.txtUserEntry.TextChanged += addEmployeePage_TextChanged;
-            secondName.txtUserEntry.TextChanged += addEmployeePage_TextChanged;
-            middleName.txtUserEntry.TextChanged += addEmployeePage_TextChanged;
+            login.txtUserEntry.TextChanged += AddEmployeePage_TextChanged;
+            firstName.txtUserEntry.TextChanged += AddEmployeePage_TextChanged;
+            secondName.txtUserEntry.TextChanged += AddEmployeePage_TextChanged;
+            middleName.txtUserEntry.TextChanged += AddEmployeePage_TextChanged;
         }
 
-        private void addEmployee_Click(object sender, RoutedEventArgs e)
+        private void AddEmployee_Click(object sender, RoutedEventArgs e)
         {
             var employee = new EmployeeDirectory.Models.Employee
             {
@@ -35,9 +35,7 @@ namespace ClientApp.Pages
 
             if (employee.IsValid())
             {
-                EmployeeDirectory.Infrastructure.ResultCode resultCode;
-                int employeeId;
-                MainWindow.Current.DataAccessor.AddEmployee(login.Text, "", firstName.Text, out employeeId, out resultCode);
+                MainWindow.Current.DataAccessor.AddEmployee(login.Text, "", firstName.Text, out int employeeId, out EmployeeDirectory.Infrastructure.ResultCode resultCode);
 
                 if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
                 {
@@ -57,7 +55,7 @@ namespace ClientApp.Pages
                     MainWindow.Current.LastEmployeeChange = new EventArgs();
                     EmployeePage newPage = new EmployeePage(employee);
                     string tabName = employee.Login;
-                    Elements.Tab newTab = new Elements.Tab(tabName, true, newPage);
+                    var newTab = new Elements.Tab(tabName, true, newPage);
 
                     new Windows.MessageWindow(Properties.Resources.successfulEmployeeAddingMessage).ShowDialog();
 
@@ -91,7 +89,7 @@ namespace ClientApp.Pages
             
         }
 
-        private void addEmployeePage_TextChanged(object sender, TextChangedEventArgs e)
+        private void AddEmployeePage_TextChanged(object sender, TextChangedEventArgs e)
         {
             Update();
             

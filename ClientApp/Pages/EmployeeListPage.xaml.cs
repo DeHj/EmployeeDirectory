@@ -36,21 +36,21 @@ namespace ClientApp.Pages
 
         SearchParams searchParams;
 
-        int pageSize { get; set; }
+        int PageSize { get; set; }
 
 
         public EmployeeListPage()
         {
             InitializeComponent();
 
-            firstName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
-            secondName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
-            middleName.txtUserEntry.TextChanged += employeeListPage_TextChanged;
+            firstName.txtUserEntry.TextChanged += EmployeeListPage_TextChanged;
+            secondName.txtUserEntry.TextChanged += EmployeeListPage_TextChanged;
+            middleName.txtUserEntry.TextChanged += EmployeeListPage_TextChanged;
 
-            pageSize = Properties.Settings.Default.PageSize;
+            PageSize = Properties.Settings.Default.PageSize;
 
             loadMoreButton = new Button();
-            loadMoreButton.Click += loadMore_Click;
+            loadMoreButton.Click += LoadMore_Click;
             loadMoreButton.Content = Properties.Resources.loadMore_Button;
 
             control_employees.Children.Add(loadMoreButton);
@@ -59,7 +59,7 @@ namespace ClientApp.Pages
 
         #region event handlers
 
-        private void find_Click(object sender, RoutedEventArgs e)
+        private void Find_Click(object sender, RoutedEventArgs e)
         {
             if (EmployeeDirectory.Models.Employee.StringIsValid(firstName.Text) == false ||
                 EmployeeDirectory.Models.Employee.StringIsValid(secondName.Text) == false ||
@@ -75,45 +75,43 @@ namespace ClientApp.Pages
                 string sn = secondName.Text == "" ? null : secondName.Text;
                 string mn = middleName.Text == "" ? null : middleName.Text;
 
-                EmployeeDirectory.Infrastructure.ResultCode resultCode;
-                var employees = MainWindow.Current.DataAccessor.GetEmployeesByName(fn, sn, mn, 0, pageSize, out resultCode);
+                var employees = MainWindow.Current.DataAccessor.GetEmployeesByName(fn, sn, mn, 0, PageSize, out EmployeeDirectory.Infrastructure.ResultCode resultCode);
 
-                handleServerGetRequest(employees, resultCode, true);
+                HandleServerGetRequest(employees, resultCode, true);
 
                 if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
                     searchParams = new SearchParams { FirstName = fn, SecondName = sn, MiddleName = mn };
             }
         }
 
-        private void allEmployees_Click(object sender, RoutedEventArgs e)
+        private void AllEmployees_Click(object sender, RoutedEventArgs e)
         {
-            EmployeeDirectory.Infrastructure.ResultCode resultCode;
-            var employees = MainWindow.Current.DataAccessor.GetAllEmployees(0, pageSize, out resultCode);
+            var employees = MainWindow.Current.DataAccessor.GetAllEmployees(0, PageSize, out EmployeeDirectory.Infrastructure.ResultCode resultCode);
 
-            handleServerGetRequest(employees, resultCode, true);
+            HandleServerGetRequest(employees, resultCode, true);
 
             if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
                 searchParams = null;
         }
 
-        private void loadMore_Click(object sender, RoutedEventArgs e)
+        private void LoadMore_Click(object sender, RoutedEventArgs e)
         {
             EmployeeDirectory.Infrastructure.ResultCode resultCode;
             IEnumerable<EmployeeDirectory.Models.Employee> employees;
             
             if (searchParams == null)
-                employees = MainWindow.Current.DataAccessor.GetAllEmployees(control_employees.Children.Count - 1, pageSize, out resultCode);
+                employees = MainWindow.Current.DataAccessor.GetAllEmployees(control_employees.Children.Count - 1, PageSize, out resultCode);
             else
                 employees = MainWindow.Current.DataAccessor.GetEmployeesByName(
                     searchParams.FirstName,
                     searchParams.SecondName,
                     searchParams.MiddleName,
-                    control_employees.Children.Count - 1, pageSize, out resultCode);
+                    control_employees.Children.Count - 1, PageSize, out resultCode);
 
-            handleServerGetRequest(employees, resultCode, false);
+            HandleServerGetRequest(employees, resultCode, false);
         }
 
-        private void employeeListPage_TextChanged(object sender, TextChangedEventArgs e)
+        private void EmployeeListPage_TextChanged(object sender, TextChangedEventArgs e)
         {
             Update();
 
@@ -132,17 +130,17 @@ namespace ClientApp.Pages
 
 
 
-        private void handleServerGetRequest(IEnumerable<EmployeeDirectory.Models.Employee> employees, EmployeeDirectory.Infrastructure.ResultCode resultCode, bool toClear)
+        private void HandleServerGetRequest(IEnumerable<EmployeeDirectory.Models.Employee> employees, EmployeeDirectory.Infrastructure.ResultCode resultCode, bool toClear)
         {
             if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
             {
                 lastChange = MainWindow.Current.LastEmployeeChange;
-                max = employees.Count() < pageSize;
+                max = employees.Count() < PageSize;
 
                 if (toClear)
-                    redrawEmployeesList(employees);
+                    RedrawEmployeesList(employees);
                 else
-                    addEmployeesToScreen(employees);
+                    AddEmployeesToScreen(employees);
             }
             else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
                 new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
@@ -154,20 +152,20 @@ namespace ClientApp.Pages
 
 
 
-        private void addEmployeeField(EmployeeDirectory.Models.Employee employee)
+        private void AddEmployeeField(EmployeeDirectory.Models.Employee employee)
         {
-            Elements.EmployeeField employeeField = new Elements.EmployeeField(employee);
+            var employeeField = new Elements.EmployeeField(employee);
             control_employees.Children.Add(employeeField);
         }
 
-        private void redrawEmployeesList(IEnumerable<EmployeeDirectory.Models.Employee> employees)
+        private void RedrawEmployeesList(IEnumerable<EmployeeDirectory.Models.Employee> employees)
         {
             if (employees.Any())
             {
                 control_employees.Children.Clear();
                 control_employees.Children.Add(loadMoreButton);
 
-                addEmployeesToScreen(employees);
+                AddEmployeesToScreen(employees);
             }
             else
             {
@@ -179,7 +177,7 @@ namespace ClientApp.Pages
             }
         }
 
-        private void addEmployeesToScreen(IEnumerable<EmployeeDirectory.Models.Employee> employees)
+        private void AddEmployeesToScreen(IEnumerable<EmployeeDirectory.Models.Employee> employees)
         {
             if (control_employees.Children[control_employees.Children.Count - 1] is Button)
                 control_employees.Children.RemoveAt(control_employees.Children.Count - 1);
@@ -188,7 +186,7 @@ namespace ClientApp.Pages
             {
                 foreach (var employee in employees) 
                 {
-                    addEmployeeField(employee);
+                    AddEmployeeField(employee);
                 }
             }
 
@@ -211,10 +209,10 @@ namespace ClientApp.Pages
                 secondName.Text != "" ||
                 middleName.Text != "")
                 {
-                    find_Click(this, new RoutedEventArgs());
+                    Find_Click(this, new RoutedEventArgs());
                 }
                 else
-                    allEmployees_Click(this, new RoutedEventArgs());
+                    AllEmployees_Click(this, new RoutedEventArgs());
             }
         }
     }

@@ -16,6 +16,6 @@
         <TextBox Name="txtUserEntry" 
                  Background="Transparent" 
                  BorderBrush="{StaticResource brushWatermarkBorder}" 
-                 TextChanged="txtUserEntry_TextChanged"/>
+                 TextChanged="TxtUserEntry_TextChanged"/>
     </Grid>
 </Grid>

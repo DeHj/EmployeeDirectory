@@ -33,6 +33,6 @@
                 Margin="0 0 0 10"
                 HorizontalAlignment="Center"
                 Content="{x:Static res:Resources.tryConnect_Button}"
-                Click="tryConnect_Click"/>
+                Click="TryConnect_Click"/>
     </Grid>
 </Window>

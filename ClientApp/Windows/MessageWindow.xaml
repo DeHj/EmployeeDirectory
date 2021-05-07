@@ -20,7 +20,7 @@
 
         <Button IsDefault="True"
                 Grid.Row="1"
-                Click="accept_Click" 
+                Click="Accept_Click" 
                 MinWidth="60"
                 HorizontalAlignment="Center"
                 Content="{x:Static res:Resources.accept_Button}"/>

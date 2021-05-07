@@ -26,10 +26,6 @@ namespace ClientApp
 
 
         public EmployeeDirectory.Infrastructure.IDataAccessor DataAccessor { get; set; }
-            // = new Infrastructure.ServerAccessor(Properties.Settings.Default.ApplicationUrl);
-            // = new Infrastructure.StubAccessor(100);
-            // = new Infrastructure.ServerAccessor("http://localhost:7563/");
-            // = new Infrastructure.ServerAccessor(ConfigurationManager.AppSettings.Get("ApplicationUrl") + "/");
 
         /// <summary>
         /// Used to define if employee-related changes have been made to the system
@@ -41,7 +37,6 @@ namespace ClientApp
         public EventArgs LastPhoneChange { get; set; } = new EventArgs();
 
 
-        //public Dictionary<string, UIElement> Pages { get; } = new Dictionary<string, UIElement>();
 
         private Elements.Tab activeTab;
         public Elements.Tab ActiveTab { 
@@ -81,9 +76,9 @@ namespace ClientApp
             AddTab(MainPage, MainTab);
         }
 
-        private void addEmployee(object sender, RoutedEventArgs e)
+        private void AddEmployee(object sender, RoutedEventArgs e)
         {
-            Pages.AddEmployeePage addEmpPage = new Pages.AddEmployeePage();
+            var addEmpPage = new Pages.AddEmployeePage();
             string tabText = GiveFreeTabName(Properties.Resources.addNewEmployee);
 
             AddTab(addEmpPage, new Elements.Tab(tabText, true, addEmpPage));

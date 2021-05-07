@@ -35,7 +35,9 @@ namespace ClientApp.Elements
             InitializeComponent();
         }
 
-        private void txtUserEntry_TextChanged(object sender, TextChangedEventArgs e)
+
+
+        private void TxtUserEntry_TextChanged(object sender, TextChangedEventArgs e)
         {
             promptBlock.Visibility = (txtUserEntry.Text.Length == 0) ? Visibility.Visible : Visibility.Hidden;
 

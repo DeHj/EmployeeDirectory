@@ -161,7 +161,7 @@ namespace ClientApp.Infrastructure
             var response = rawResponse.HttpResponse;
             
             // Если ответ не пуст, то выполняется десериализация содержимого из JSON в C# объект
-            T result = default(T);
+            T result = default;
             if (response.Content.Headers.ContentLength != 0 && response.StatusCode == HttpStatusCode.OK)
             {
                 var responseString = await response.Content.ReadAsStringAsync();

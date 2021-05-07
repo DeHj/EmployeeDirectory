@@ -34,12 +34,12 @@ namespace ClientApp.Pages
             if (employee.BirthDay != null)
                 birthday.DisplayDate = (DateTime)employee.BirthDay;
 
-            firstName.txtUserEntry.TextChanged += addEmployeePage_TextChanged;
-            secondName.txtUserEntry.TextChanged += addEmployeePage_TextChanged;
-            middleName.txtUserEntry.TextChanged += addEmployeePage_TextChanged;
+            firstName.txtUserEntry.TextChanged += AddEmployeePage_TextChanged;
+            secondName.txtUserEntry.TextChanged += AddEmployeePage_TextChanged;
+            middleName.txtUserEntry.TextChanged += AddEmployeePage_TextChanged;
         }
 
-        private void changeEmployee_Click(object sender, RoutedEventArgs e)
+        private void ChangeEmployee_Click(object sender, RoutedEventArgs e)
         {
             var employee = new EmployeeDirectory.Models.Employee
             {
@@ -53,17 +53,15 @@ namespace ClientApp.Pages
 
             if (employee.IsValid())
             {
-                EmployeeDirectory.Infrastructure.ResultCode resultCode;
                 MainWindow.Current.DataAccessor.ChangeEmployee(AssociatedEmployee.Id, "",
                     firstName.Text == "" ? null : firstName.Text,
                     secondName.Text == "" ? null : secondName.Text,
                     middleName.Text == "" ? null : middleName.Text,
                     birthday.SelectedDate,
-                    out resultCode);
+                    out EmployeeDirectory.Infrastructure.ResultCode resultCode);
 
                 if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
                 {
-                    // new Windows.MessageWindow(Properties.Resources.successfulEmployeeChangingMessage).ShowDialog();
                     MainWindow.Current.LastEmployeeChange = new EventArgs();
 
                     // Search the corresponding tab:
@@ -106,7 +104,7 @@ namespace ClientApp.Pages
             }
         }
 
-        private void addEmployeePage_TextChanged(object sender, TextChangedEventArgs e)
+        private void AddEmployeePage_TextChanged(object sender, TextChangedEventArgs e)
         {
             Update();
 

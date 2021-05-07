@@ -5,9 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:res="clr-namespace:ClientApp.Properties"
         xmlns:local="clr-namespace:ClientApp.Elements"
-        MouseEnter="tab_MouseEnter"
-        MouseLeave="tab_MouseLeave"
-        PreviewMouseUp="openTab_Click"
+        MouseEnter="Tab_MouseEnter"
+        MouseLeave="Tab_MouseLeave"
+        PreviewMouseUp="OpenTab_Click"
         mc:Ignorable="d">
     <DockPanel>
         <TextBlock x:Name="text" 
@@ -18,7 +18,7 @@
         <Button x:Name="closeTab"
                 Width="15" 
                 Height="15"
-                PreviewMouseUp="closeTab_Click"
+                PreviewMouseUp="CloseTab_Click"
                 DockPanel.Dock="Left"
                 Background="LightBlue"
                 BorderThickness="0"

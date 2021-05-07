@@ -25,10 +25,9 @@ namespace ClientApp.Windows
             MessageTextBlock.Text = message;
         }
 
-        private void accept_Click(object sender, RoutedEventArgs e)
+        private void Accept_Click(object sender, RoutedEventArgs e)
         {
             Close();
-            //this.DialogResult = true;
         }
     }
 }

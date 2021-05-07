@@ -20,7 +20,7 @@
                    FontSize="18" 
                    Style="{StaticResource clickableTextBlock}"
                    HorizontalAlignment="Left"
-                   MouseUp="nameText_MouseUp"/>
+                   MouseUp="NameText_MouseUp"/>
 
         <TextBlock Grid.Row="1" x:Name="loginText" FontSize="14"/>
         <TextBlock Grid.Row="2" x:Name="birthdayText" FontSize="14">

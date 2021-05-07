@@ -54,7 +54,7 @@ namespace ClientApp.Pages
 
 
 
-        private void CheckResultCode(EmployeeDirectory.Infrastructure.ResultCode resultCode)
+        private static void CheckResultCode(EmployeeDirectory.Infrastructure.ResultCode resultCode)
         {
             if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.NotExist)
                 new Windows.MessageWindow(Properties.Resources.phoneErrorEmployeeOrPhoneNotExist).ShowDialog();
@@ -71,7 +71,7 @@ namespace ClientApp.Pages
 
 
 
-        private void addPhone_Click(object sender, RoutedEventArgs e)
+        private void AddPhone_Click(object sender, RoutedEventArgs e)
         {
             var phone = new EmployeeDirectory.Models.Phone
             {
@@ -141,7 +141,7 @@ namespace ClientApp.Pages
             }
         }
 
-        private void addPhonePage_KeyDown(object sender, KeyEventArgs e)
+        private void AddPhonePage_KeyDown(object sender, KeyEventArgs e)
         {
             Update();
         }
