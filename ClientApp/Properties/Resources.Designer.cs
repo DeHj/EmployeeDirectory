@@ -358,6 +358,24 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Employee Directory.
+        /// </summary>
+        public static string mainWindowTitle {
+            get {
+                return ResourceManager.GetString("mainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Message.
+        /// </summary>
+        public static string messageDialogTitle {
+            get {
+                return ResourceManager.GetString("messageDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на New employee.
         /// </summary>
         public static string newEmployeeTab {

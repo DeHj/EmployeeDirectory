@@ -6,7 +6,7 @@
         xmlns:res="clr-namespace:ClientApp.Properties"
         xmlns:local="clr-namespace:ClientApp.Windows"
         mc:Ignorable="d"
-        Title="{x:Static res:Resources.confirmDialogTitle}" 
+        Title="{x:Static res:Resources.messageDialogTitle}" 
         SizeToContent="WidthAndHeight" 
         WindowStartupLocation="CenterScreen">
     <Grid Margin="10">

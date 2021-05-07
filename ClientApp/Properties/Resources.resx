@@ -216,6 +216,12 @@
   <data name="mainPage" xml:space="preserve">
     <value>Main page</value>
   </data>
+  <data name="mainWindowTitle" xml:space="preserve">
+    <value>Employee Directory</value>
+  </data>
+  <data name="messageDialogTitle" xml:space="preserve">
+    <value>Message</value>
+  </data>
   <data name="newEmployeeTab" xml:space="preserve">
     <value>New employee</value>
   </data>
