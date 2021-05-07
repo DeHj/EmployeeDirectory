@@ -42,7 +42,7 @@ namespace ClientApp.Elements
                 Pages.EmployeePage page = (tab as Tab).AssociatedPage as Pages.EmployeePage;
                 if (page == null)
                     return false;
-                if (page.AssociatedEmployee == AssociatedEmployee)
+                if (page.AssociatedEmployee.Id == AssociatedEmployee.Id)
                     return true;
                 return false;
             };
