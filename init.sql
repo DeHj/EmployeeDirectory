@@ -116,7 +116,7 @@ END
 -- result = 1 - employee with id = @employee_id not exist
 GO
 CREATE PROCEDURE delete_employee
-	@employee_id NVARCHAR(max),
+	@employee_id INT,
 	@result INT OUTPUT
 AS
 BEGIN

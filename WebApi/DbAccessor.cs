@@ -272,19 +272,17 @@ namespace EmployeeDirectory.Infrastructure
 
 
 
-        public void RemoveEmployee(int userId, out ResultCode resultCode)
+        public void RemoveEmployee(int idEmployee, out ResultCode resultCode)
         {
-            resultCode = ResultCode.OK;
-
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("delete_user", connection);
+                SqlCommand command = new SqlCommand("delete_employee", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
                 var sqlParams = new List<SqlParameter>(2)
                 {
-                    new SqlParameter("@employee_id", userId),
+                    new SqlParameter("@employee_id", idEmployee),
                     new SqlParameter
                     {
                         ParameterName = "@result",
