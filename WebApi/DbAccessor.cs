@@ -259,9 +259,9 @@ namespace EmployeeDirectory.Infrastructure
                 int result = (int)command.Parameters["@result"].Value;
                 if (result == 0)
                     resultCode = ResultCode.OK;
-                else if (result == 1)
+                else if (result == 2627)
                     resultCode = ResultCode.AlreadyExist;
-                else if (result == 2)
+                else if (result == 547)
                     resultCode = ResultCode.NotExist;
                 else
                     resultCode = ResultCode.InternalError;
