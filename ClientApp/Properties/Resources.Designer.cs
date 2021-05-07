@@ -277,6 +277,15 @@ namespace ClientApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Employee with a such login already exist!.
+        /// </summary>
+        public static string errorEmployeeAlreadyExist {
+            get {
+                return ResourceManager.GetString("errorEmployeeAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Find an employee.
         /// </summary>
         public static string findEmployee {

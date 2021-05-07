@@ -189,6 +189,9 @@
   <data name="entryWindowTitle" xml:space="preserve">
     <value>Enter connection URL</value>
   </data>
+  <data name="errorEmployeeAlreadyExist" xml:space="preserve">
+    <value>Employee with a such login already exist!</value>
+  </data>
   <data name="findEmployee" xml:space="preserve">
     <value>Find an employee</value>
   </data>

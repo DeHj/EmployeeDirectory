@@ -53,6 +53,9 @@ namespace ClientApp.Pages
                     MainWindow.Current.AddTab(newPage, newTab);
                 }
 
+                else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.AlreadyExist)
+                    new Windows.MessageWindow(Properties.Resources.errorEmployeeAlreadyExist).ShowDialog();
+
                 else if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.InternalError)
                     new Windows.MessageWindow(Properties.Resources.serverErrorMessage).ShowDialog();
 
