@@ -54,6 +54,7 @@ namespace ClientApp.Infrastructure
         {
             Employee employee = new Employee
             {
+                Id = idEmployee,
                 Login = "login",
                 FirstName = firstName,
                 SecondName = secondName,

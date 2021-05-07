@@ -28,8 +28,8 @@ namespace ClientApp.Pages
             {
                 Login = login.Text,
                 FirstName = firstName.Text,
-                SecondName = secondName.Text,
-                MiddleName = middleName.Text,
+                SecondName = secondName.Text == "" ? null : secondName.Text,
+                MiddleName = middleName.Text == "" ? null : middleName.Text,
                 BirthDay = birthday.SelectedDate
             };
 
@@ -41,8 +41,20 @@ namespace ClientApp.Pages
 
                 if (resultCode == EmployeeDirectory.Infrastructure.ResultCode.OK)
                 {
-                    MainWindow.Current.LastEmployeeChange = new EventArgs();
                     employee.Id = employeeId;
+
+                    if (employee.SecondName != null ||
+                        employee.MiddleName != null ||
+                        employee.BirthDay != null)
+                    {
+                        MainWindow.Current.DataAccessor.ChangeEmployee(employeeId, "", null,
+                            employee.SecondName,
+                            employee.MiddleName,
+                            employee.BirthDay,
+                            out resultCode);
+                    }
+
+                    MainWindow.Current.LastEmployeeChange = new EventArgs();
                     EmployeePage newPage = new EmployeePage(employee);
                     string tabName = employee.Login;
                     Elements.Tab newTab = new Elements.Tab(tabName, true, newPage);

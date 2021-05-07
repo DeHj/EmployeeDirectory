@@ -43,6 +43,7 @@ namespace ClientApp.Pages
         {
             var employee = new EmployeeDirectory.Models.Employee
             {
+                Id = AssociatedEmployee.Id,
                 Login = "login",
                 FirstName = firstName.Text,
                 SecondName = secondName.Text,
@@ -54,7 +55,7 @@ namespace ClientApp.Pages
             {
                 EmployeeDirectory.Infrastructure.ResultCode resultCode;
                 MainWindow.Current.DataAccessor.ChangeEmployee(AssociatedEmployee.Id, "",
-                    firstName.Text,
+                    firstName.Text == "" ? null : firstName.Text,
                     secondName.Text == "" ? null : secondName.Text,
                     middleName.Text == "" ? null : middleName.Text,
                     birthday.SelectedDate,
